@@ -2,10 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:37:41
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 11:02:34
+ * @LastEditTime: 2025-09-11 15:23:44
  * @Description: 请求站点列表
  */
 import { NextResponse } from 'next/server';
+
+import { generateTimeRanges } from '@/lib/utils'
 
 export async function GET() {
   const API_KEY = process.env.UPTIMEROBOT_API_KEY;
@@ -32,7 +34,9 @@ export async function GET() {
         response_times: '1', // 1=返回响应时间点
         logs: '1', // 1=返回日志
         custom_uptime_ratios: '30', // 如 '7-30'，正常运行时间百分比
-        response_times_average: '30', // 每 30 分钟取一次响应时间
+        custom_uptime_ranges: generateTimeRanges(), // 自定义宕机持续时间(默认30天)
+        response_times_average: '60', // 每 60 分钟取一次响应时间
+        // 响应时间范围取最近24小时
         response_times_start_date: start.toString(),
         response_times_end_date: now.toString(),
       }),

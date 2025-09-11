@@ -19,8 +19,6 @@ export default function Home() {
     const result = await res.json();
     return result;
   })
-  console.log('data', data)
-  console.log('error', error)
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-6 p-4">
       {/* 站点卡片 */}

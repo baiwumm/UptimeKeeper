@@ -2,14 +2,17 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 10:58:59
+ * @LastEditTime: 2025-09-11 14:15:09
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
+import { useState } from 'react';
 
 import type { WebsiteItem, WebsiteStatus } from '@/lib/type';
 import { cn, WEBSITE_STATUS } from '@/lib/utils';
+
+import AverageResponseTimeModal from './AverageResponseTimeModal';
 
 type StatusConfig = Record<WebsiteStatus, {
   text: string; // 状态文案
@@ -32,8 +35,10 @@ export default function WebSiteCard({
   custom_uptime_ratio,
   average_response_time,
   interval,
-  type
+  type,
+  response_times = []
 }: WebSiteCardProps) {
+  const [open, setOpen] = useState(false);
   /**
  * 状态配置映射
  */
@@ -98,134 +103,139 @@ export default function WebSiteCard({
   }
 
   // 监控类型映射
-  const monitorTypeMap = ['', 'HTTPS', 'KEYWORD', 'PING', 'PORT', 'HEARTBEAR']
+  const monitorTypeMap = ['', 'HTTPS', 'KEYWORD', 'PING', 'PORT', 'HEARTBEAR'];
   return (
-    <div
-      className={cn(
-        'card-base animated-border p-6 rounded-2xl backdrop-blur-sm animate-fade',
-        'after:absolute after:inset-0 after:rounded-2xl after:border after:pointer-events-none',
-        // 动态边框颜色
-        statusConfig.hoverBorderColor
-      )}
-      onMouseEnter={(e) => {
-        e.currentTarget.classList.add('hovered');
-      }}
-    >
-      <div className="flex flex-col gap-6">
-        {/* 卡片头部：标题和状态指示器 */}
-        <div className="flex items-center justify-between">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold truncate text-gray-800 dark:text-gray-100">
-                {String.fromCharCode(65 + index)}•{friendly_name}
-              </h2>
-              <Icon
-                icon="bi:link-45deg"
-                className="w-5 h-5 p-1.5 rounded-full transition-colors duration-200 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-500 dark:hover:text-gray-400 dark:hover:bg-gray-700/50 box-content cursor-pointer"
-                onClick={() => window.open(url)}
-              />
-            </div>
-          </div>
-          <div className="shrink-0">
-            <div
-              className={cn('inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium text-xs whitespace-nowrap', STATUS_CONFIG[status]?.classes)}
-            >
-              <div className="relative flex">
-                <div className={cn('w-3 h-3 rounded-full', statusConfig.dot)} />
-                <div className={cn('absolute inset-0 w-3 h-3 rounded-full animate-ping opacity-75', statusConfig.dot)} />
+    <>
+      <div
+        className={cn(
+          'card-base animated-border p-6 rounded-2xl backdrop-blur-sm animate-fade',
+          'after:absolute after:inset-0 after:rounded-2xl after:border after:pointer-events-none',
+          // 动态边框颜色
+          statusConfig.hoverBorderColor
+        )}
+        onMouseEnter={(e) => {
+          e.currentTarget.classList.add('hovered');
+        }}
+      >
+        <div className="flex flex-col gap-6">
+          {/* 卡片头部：标题和状态指示器 */}
+          <div className="flex items-center justify-between">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold truncate text-gray-800 dark:text-gray-100">
+                  {String.fromCharCode(65 + index)}•{friendly_name}
+                </h2>
+                <Icon
+                  icon="bi:link-45deg"
+                  className="w-5 h-5 p-1.5 rounded-full transition-colors duration-200 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-500 dark:hover:text-gray-400 dark:hover:bg-gray-700/50 box-content cursor-pointer"
+                  onClick={() => window.open(url)}
+                />
               </div>
-              <span>{STATUS_CONFIG[status]?.text}</span>
+            </div>
+            <div className="shrink-0">
+              <div
+                className={cn('inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium text-xs whitespace-nowrap', STATUS_CONFIG[status]?.classes)}
+              >
+                <div className="relative flex">
+                  <div className={cn('w-3 h-3 rounded-full', statusConfig.dot)} />
+                  <div className={cn('absolute inset-0 w-3 h-3 rounded-full animate-ping opacity-75', statusConfig.dot)} />
+                </div>
+                <span>{STATUS_CONFIG[status]?.text}</span>
+              </div>
             </div>
           </div>
-        </div>
-        {/* 图片容器 - 带精致边框和悬浮动画 */}
-        <div
-          className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-5"
-        >
-          {/* 主图 */}
-          <Image
-            src={`/${extractDomainPart(url)}.png`}
-            alt="网站缩略图"
-            width={1052}
-            height={548}
-            className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 aspect-[526/274]"
-          />
-
-          {/* 图片底部装饰条 */}
+          {/* 图片容器 - 带精致边框和悬浮动画 */}
           <div
-            className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent flex items-end p-1 pl-4"
+            className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 p-5"
           >
-            <span className="text-white font-medium text-sm tracking-wider">{url}</span>
-          </div>
-
-          {/* 悬浮时显示的半透明蒙层 */}
-          <div
-            className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-          >
-            <button
-              className="px-6 py-2 bg-white/90 rounded-full text-gray-800 font-medium shadow-lg flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 cursor-pointer"
-              onClick={() => window.open(url)}
-            >
-              <Icon icon="ri:eye-line" className="w-5 h-5" />
-              去看看
-            </button>
-          </div>
-        </div>
-        {/* 响应时间和运行时间统计卡片 */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="inner-card relative">
-            <Icon
-              icon="ri:line-chart-line"
-              className={cn('absolute top-3 right-3 w-4 h-4 p-1 rounded-full transition-colors duration-200 box-content cursor-pointer', statusConfig.chartClasses)}
+            {/* 主图 */}
+            <Image
+              src={`/${extractDomainPart(url)}.png`}
+              alt="网站缩略图"
+              width={1052}
+              height={548}
+              className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 aspect-[526/274]"
             />
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">平均响应时间</div>
-            <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              {Number(average_response_time).toFixed(0)}ms
-            </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近24小时</div>
-          </div>
-          <div className="inner-card">
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">正常运行时间比率</div>
-            <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              {Number(custom_uptime_ratio).toFixed(2)}%
-            </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近30天</div>
-          </div>
-        </div>
-        {/* 状态时间线图表 */}
-        <div className="inner-card">
-          {/* 监控类型和状态指示器 */}
-          <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-4">
-            <div className="flex items-center gap-1">
-              <div className="relative flex">
-                <div className={cn('w-2 h-2 rounded-full', statusConfig.dot)} />
-                <div className={cn('absolute inset-0 w-2 h-2 rounded-full animate-ping opacity-75', statusConfig.dot)} />
-              </div>
-              <span className="text-xs">{monitorTypeMap[type] || 'HTTP'} / {Math.floor(interval / 60)}m</span>
-              <div className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
-              <span className={cn('text-xs font-medium', statusConfig.color)}>
-                {statusConfig?.text}
-              </span>
-            </div>
-          </div>
 
-          {/* 时间线散点图 */}
-          {/* <div className="h-12">
+            {/* 图片底部装饰条 */}
+            <div
+              className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent flex items-end p-1 pl-4"
+            >
+              <span className="text-white font-medium text-sm tracking-wider">{url}</span>
+            </div>
+
+            {/* 悬浮时显示的半透明蒙层 */}
+            <div
+              className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            >
+              <button
+                className="px-6 py-2 bg-white/90 rounded-full text-gray-800 font-medium shadow-lg flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 cursor-pointer"
+                onClick={() => window.open(url)}
+              >
+                <Icon icon="ri:eye-line" className="w-5 h-5" />
+                去看看
+              </button>
+            </div>
+          </div>
+          {/* 响应时间和运行时间统计卡片 */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="inner-card relative">
+              <Icon
+                icon="ri:line-chart-line"
+                onClick={() => setOpen(true)}
+                className={cn('absolute top-3 right-3 w-4 h-4 p-1 rounded-full transition-colors duration-200 box-content cursor-pointer', statusConfig.chartClasses)}
+              />
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">平均响应时间</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {Number(average_response_time).toFixed(0)}ms
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近24小时</div>
+            </div>
+            <div className="inner-card">
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">正常运行时间比率</div>
+              <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {Number(custom_uptime_ratio).toFixed(2)}%
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近30天</div>
+            </div>
+          </div>
+          {/* 状态时间线图表 */}
+          <div className="inner-card">
+            {/* 监控类型和状态指示器 */}
+            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-4">
+              <div className="flex items-center gap-1">
+                <div className="relative flex">
+                  <div className={cn('w-2 h-2 rounded-full', statusConfig.dot)} />
+                  <div className={cn('absolute inset-0 w-2 h-2 rounded-full animate-ping opacity-75', statusConfig.dot)} />
+                </div>
+                <span className="text-xs">{monitorTypeMap[type] || 'HTTP'} / {Math.floor(interval / 60)}m</span>
+                <div className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
+                <span className={cn('text-xs font-medium', statusConfig.color)}>
+                  {statusConfig?.text}
+                </span>
+              </div>
+            </div>
+
+            {/* 时间线散点图 */}
+            {/* <div className="h-12">
             <Scatter
               v-if="getChartConfig(monitor).data"
               :data="getChartConfig(monitor).data"
               :options="getChartConfig(monitor).options"
             />
-          </div>
-          <div className="flex justify-between text-xs text-gray-400 mt-2">
-            <span>30天前</span>
-            <span className="text-gray-500">
-              {{ getDowntimeStats(monitor) }}
-            </span>
-            <span>今日</span>
           </div> */}
+            <div className="flex justify-between text-xs text-gray-400 mt-2">
+              <span>30天前</span>
+              <span className="text-gray-500">
+                {/* {{ getDowntimeStats(monitor) }} */}
+              </span>
+              <span>今日</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      {/* 响应时间模态框 */}
+      <AverageResponseTimeModal isOpen={open} onClose={() => setOpen(false)} response_times={response_times} />
+    </>
   )
 }

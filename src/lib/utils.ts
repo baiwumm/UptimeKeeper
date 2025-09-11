@@ -31,3 +31,16 @@ export const MONITOR_TYPE = {
   Port: '4',
   Heartbeat: '5',
 } as const;
+
+/**
+ * @description: 生成近30天的查询字符串
+ */
+export function generateTimeRanges() {
+  return Array.from({ length: 30 }, (_, i) => {
+    const date = new Date()
+    date.setDate(date.getDate() - i)
+    const start = new Date(date).setHours(0, 0, 0, 0)
+    const end = new Date(date).setHours(23, 59, 59, 999)
+    return `${Math.floor(start / 1000)}_${Math.floor(end / 1000)}`
+  }).join('-')
+}
