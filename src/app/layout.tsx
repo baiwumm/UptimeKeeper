@@ -2,11 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-10 15:27:02
+ * @LastEditTime: 2025-09-11 09:23:36
  * @Description: 布局文件
  */
-import type { Metadata } from "next";
 import "./globals.css";
+
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "UptimeKeeper",
@@ -25,7 +26,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn.baiwumm.com/fonts/MapleMono-CN-Regular/result.css" />
       </head>
       <body>
-        {children}
+        {/* 主体内容 */}
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
