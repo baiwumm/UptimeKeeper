@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 18:02:10
+ * @LastEditTime: 2025-09-12 10:13:22
  * @Description: 入口文件
  */
 'use client';
@@ -29,6 +29,7 @@ export default function Home() {
       <StatisticalCard
         status={data?.length ? data.map((v: WebsiteItem) => v.status) : []}
         averageResponseTimes={data?.length ? data.map((v: WebsiteItem) => v.average_response_time) : []}
+        loading={loading}
       />
       <div className="flex flex-col gap-6">
         {/* 加载状态 */}

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-11 17:36:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 18:06:13
+ * @LastEditTime: 2025-09-12 10:19:08
  * @Description: 统计卡片
  */
 import { Icon } from '@iconify/react';
@@ -10,14 +10,17 @@ import { type FC } from 'react';
 
 import type { WebsiteStatus } from '@/lib/type'
 import { cn } from '@/lib/utils';
-import { WEBSITE_STATUS } from '@/lib/utils'
+import { WEBSITE_STATUS } from '@/lib/utils';
+
+import CountUp from './CountUp'
 
 type StatisticalCardProps = {
   status: WebsiteStatus[]; // 全部网站状态
   averageResponseTimes: string[]; // 平均响应时间
+  loading: boolean; // 是否加载中
 }
 
-const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageResponseTimes = [] }) => {
+const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageResponseTimes = [], loading = false }) => {
   // 网站个数
   const total = status.length;
   // 计算正常网站个数
@@ -87,7 +90,14 @@ const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageRespons
                 {v.label}
               </div>
               <div className="mt-2 text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
-                <span>{v.value}</span><span v-if="item.unit">{v.unit}</span>
+                <CountUp
+                  from={0}
+                  to={Number(v.value)}
+                  separator=","
+                  direction={loading ? "down" : "up"}
+                  duration={1}
+                />
+                <span v-if="item.unit">{v.unit}</span>
               </div>
               <div className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
                 {v.desc}

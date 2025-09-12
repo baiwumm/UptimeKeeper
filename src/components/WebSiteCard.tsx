@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 09:35:29
+ * @LastEditTime: 2025-09-12 10:20:17
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
@@ -13,6 +13,7 @@ import type { WebsiteItem, WebsiteStatus } from '@/lib/type';
 import { cn, WEBSITE_STATUS } from '@/lib/utils';
 
 import AverageResponseTimeModal from './AverageResponseTimeModal';
+import CountUp from './CountUp'
 import ErrorRecord from './ErrorRecord'
 
 type StatusConfig = Record<WebsiteStatus, {
@@ -190,14 +191,28 @@ export default function WebSiteCard({
               />
               <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">平均响应时间</div>
               <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {Number(average_response_time).toFixed(0)}ms
+                <CountUp
+                  from={0}
+                  to={Number(Number(average_response_time).toFixed(0))}
+                  separator=","
+                  direction="up"
+                  duration={1}
+                />
+                <span>ms</span>
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近24小时</div>
             </div>
             <div className="inner-card">
               <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">正常运行时间比率</div>
               <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {Number(custom_uptime_ratio).toFixed(2)}%
+                <CountUp
+                  from={0}
+                  to={Number(Number(custom_uptime_ratio).toFixed(2))}
+                  separator=","
+                  direction="up"
+                  duration={1}
+                />
+                <span>%</span>
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近30天</div>
             </div>
