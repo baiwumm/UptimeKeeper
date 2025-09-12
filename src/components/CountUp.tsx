@@ -1,3 +1,10 @@
+/*
+ * @Author: 白雾茫茫丶<baiwumm.com>
+ * @Date: 2025-09-12 10:09:14
+ * @LastEditors: 白雾茫茫丶<baiwumm.com>
+ * @LastEditTime: 2025-09-12 10:27:59
+ * @Description: 数字动画组件
+ */
 import { useInView, useMotionValue, useSpring } from 'motion/react';
 import { useEffect, useRef } from 'react';
 

@@ -2,12 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 10:13:22
+ * @LastEditTime: 2025-09-12 11:04:08
  * @Description: 入口文件
  */
 'use client';
 import { Icon } from '@iconify/react'
 import { useRequest } from 'ahooks';
+import { motion } from 'motion/react';
 
 import Header from '@/components/Header'
 import StatisticalCard from '@/components/StatisticalCard'
@@ -44,7 +45,15 @@ export default function Home() {
           // 站点卡片
           <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
             {data.map((v: WebsiteItem, i: number) => (
-              <WebSiteCard {...v} index={i} key={v.url} />
+              <motion.div
+                key={v.url}
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.05 }} // 至少 5% 进入视口才触发
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+              >
+                <WebSiteCard {...v} index={i} />
+              </motion.div>
             ))}
           </div>
         ) : (
