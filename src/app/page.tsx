@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 16:24:12
+ * @LastEditTime: 2025-09-11 18:02:10
  * @Description: 入口文件
  */
 'use client';
@@ -10,6 +10,7 @@ import { Icon } from '@iconify/react'
 import { useRequest } from 'ahooks';
 
 import Header from '@/components/Header'
+import StatisticalCard from '@/components/StatisticalCard'
 import WebSiteCard from '@/components/WebSiteCard';
 import type { WebsiteItem } from '@/lib/type';
 
@@ -22,7 +23,13 @@ export default function Home() {
   })
   return (
     <div className="flex flex-col justify-center gap-6">
+      {/* 顶部标题栏 */}
       <Header run={run} loading={loading} />
+      {/* 统计卡片 */}
+      <StatisticalCard
+        status={data?.length ? data.map((v: WebsiteItem) => v.status) : []}
+        averageResponseTimes={data?.length ? data.map((v: WebsiteItem) => v.average_response_time) : []}
+      />
       <div className="flex flex-col gap-6">
         {/* 加载状态 */}
         {loading ? (

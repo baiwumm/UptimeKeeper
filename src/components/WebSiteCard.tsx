@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 14:15:09
+ * @LastEditTime: 2025-09-12 09:35:29
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
@@ -13,6 +13,7 @@ import type { WebsiteItem, WebsiteStatus } from '@/lib/type';
 import { cn, WEBSITE_STATUS } from '@/lib/utils';
 
 import AverageResponseTimeModal from './AverageResponseTimeModal';
+import ErrorRecord from './ErrorRecord'
 
 type StatusConfig = Record<WebsiteStatus, {
   text: string; // 状态文案
@@ -28,6 +29,7 @@ type WebSiteCardProps = {
 } & WebsiteItem;
 
 export default function WebSiteCard({
+  id,
   status,
   friendly_name,
   index,
@@ -36,7 +38,8 @@ export default function WebSiteCard({
   average_response_time,
   interval,
   type,
-  response_times = []
+  response_times = [],
+  logs
 }: WebSiteCardProps) {
   const [open, setOpen] = useState(false);
   /**
@@ -117,7 +120,7 @@ export default function WebSiteCard({
           e.currentTarget.classList.add('hovered');
         }}
       >
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           {/* 卡片头部：标题和状态指示器 */}
           <div className="flex items-center justify-between">
             <div className="min-w-0">
@@ -232,6 +235,8 @@ export default function WebSiteCard({
               <span>今日</span>
             </div>
           </div>
+          {/* 故障记录列表 */}
+          <ErrorRecord id={id} logs={logs} />
         </div>
       </div>
       {/* 响应时间模态框 */}
