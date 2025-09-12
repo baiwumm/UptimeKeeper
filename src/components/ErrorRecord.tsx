@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 10:07:15
+ * @LastEditTime: 2025-09-12 14:01:34
  * @Description: 故障记录
  */
 import { Icon } from '@iconify/react';
@@ -122,7 +122,7 @@ const ErrorRecord: FC<ErrorRecordPops> = ({ id, logs = [] }) => {
         <span className="text-xs text-gray-500 dark:text-gray-400">故障记录</span>
         <Icon
           icon="bi:chevron-up"
-          className={cn('w-4 h-4 text-gray-400 transition-transform duration-200', isOpen ? '' : 'rotate-180')}
+          className={cn('w-4 h-4 text-gray-400 transition-transform duration-200', isOpen ? 'rotate-180' : '')}
         />
       </button>
 

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 10:24:33
+ * @LastEditTime: 2025-09-12 14:09:06
  * @Description: 布局文件
  */
 import "./globals.css";
@@ -29,7 +29,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://cdn.baiwumm.com/fonts/MapleMono-CN-Regular/result.css" />
       </head>
-      <body className='bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900'>
+      <body className='bg-gradient-to-br from-gray-100 to-blue-50 dark:from-gray-900 dark:to-gray-900'>
         <ThemeProvider attribute="class" enableSystem={false}>
           {/* 全局 Loading */}
           <FullLoading />

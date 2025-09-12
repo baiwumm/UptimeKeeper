@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-11 15:43:42
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 16:30:26
+ * @LastEditTime: 2025-09-12 13:58:40
  * @Description: 顶部信息
  */
 import { Icon } from '@iconify/react';
@@ -13,11 +13,11 @@ import { type FC, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 type HeaderProps = {
-  run: VoidFunction;
+  fetchData: VoidFunction;
   loading: boolean;
 }
 
-const Header: FC<HeaderProps> = ({ run, loading = false }) => {
+const Header: FC<HeaderProps> = ({ fetchData, loading = false }) => {
   // 主题切换
   const { theme, setTheme } = useTheme();
   // 倒计时时间
@@ -42,22 +42,19 @@ const Header: FC<HeaderProps> = ({ run, loading = false }) => {
   // 处理重新开始倒计时
   const handleReset = () => {
     setCountdown(300); // 重置为5分钟
-    run();
+    fetchData();
     if (!isActive && !loading) setIsActive(true); // 如果未激活，启动倒计时
   };
 
   // 使用 useEffect 管理倒计时逻辑
   useEffect(() => {
-    let interval = null;
+    let interval: NodeJS.Timeout | null = null;
 
-    if (isActive && countdown > 0) {
+    if (isActive && !loading && countdown > 0) {
       // 每1000ms（1秒）执行一次
       interval = setInterval(() => {
-        setCountdown((prevTime) => prevTime - 1);
+        setCountdown((prev) => prev - 1);
       }, 1000);
-    } else if (countdown === 0) {
-      // 倒计时结束，重新开始
-      handleReset();
     }
 
     // 清理函数：组件卸载或依赖变化时清除定时器
@@ -66,7 +63,17 @@ const Header: FC<HeaderProps> = ({ run, loading = false }) => {
         clearInterval(interval);
       }
     };
-  }, [isActive, countdown,]);
+  }, [isActive, countdown, loading]);
+
+  // 单独监听 countdown 是否归零
+  useEffect(() => {
+    if (countdown === 0) {
+      // 自动重置
+      setCountdown(300);
+      fetchData();
+      // 注意：这里不需要 setIsActive(true)，因为下次循环会自然开始
+    }
+  }, [countdown, fetchData]);
   return (
     <header className="flex justify-between items-center">
       {/* 左侧标题 */}

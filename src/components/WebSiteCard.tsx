@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 10:20:17
+ * @LastEditTime: 2025-09-12 11:49:03
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
@@ -158,6 +158,7 @@ export default function WebSiteCard({
               alt="网站缩略图"
               width={1052}
               height={548}
+              priority
               className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 aspect-[526/274]"
             />
 

@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 11:04:08
+ * @LastEditTime: 2025-09-12 14:02:00
  * @Description: 入口文件
  */
 'use client';
 import { Icon } from '@iconify/react'
-import { useRequest } from 'ahooks';
 import { motion } from 'motion/react';
+import { useEffect, useState } from 'react'
 
 import Header from '@/components/Header'
 import StatisticalCard from '@/components/StatisticalCard'
@@ -16,20 +16,29 @@ import WebSiteCard from '@/components/WebSiteCard';
 import type { WebsiteItem } from '@/lib/type';
 
 export default function Home() {
+  const [data, setData] = useState<WebsiteItem[]>([]);
+  const [loading, setLoading] = useState(true);
   // 请求站点接口
-  const { data, loading, run } = useRequest(async () => {
+  const fetchData = async () => {
+    setLoading(true);
     const res = await fetch('/api/uptimerobot');
     const result = await res.json();
-    return result;
-  })
+    setData(result);
+    setLoading(false);
+  };
+
+  // 初始化挂载
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <div className="flex flex-col justify-center gap-6">
       {/* 顶部标题栏 */}
-      <Header run={run} loading={loading} />
+      <Header fetchData={fetchData} loading={loading} />
       {/* 统计卡片 */}
       <StatisticalCard
-        status={data?.length ? data.map((v: WebsiteItem) => v.status) : []}
-        averageResponseTimes={data?.length ? data.map((v: WebsiteItem) => v.average_response_time) : []}
+        status={data?.length ? data.map((v) => v.status) : []}
+        averageResponseTimes={data?.length ? data.map((v) => v.average_response_time) : []}
         loading={loading}
       />
       <div className="flex flex-col gap-6">
