@@ -43,6 +43,14 @@ export const LOGS_TYPE = {
 } as const;
 
 /**
+ * @description: 主题模式
+ */
+export const THEME = {
+  Light: 'light',
+  Dark: 'dark',
+} as const;
+
+/**
  * @description: 生成近30天的查询字符串
  */
 export function generateTimeRanges() {

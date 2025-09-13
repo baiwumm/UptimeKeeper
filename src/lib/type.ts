@@ -1,4 +1,4 @@
-import { LOGS_TYPE, MONITOR_TYPE, WEBSITE_STATUS } from '@/lib/utils';
+import { LOGS_TYPE, MONITOR_TYPE, WEBSITE_STATUS, THEME } from '@/lib/utils';
 
 
 /**
@@ -15,6 +15,11 @@ export type MonitorType = typeof MONITOR_TYPE[keyof typeof MONITOR_TYPE];
  * @description: 日志类型
  */
 export type LogsType = typeof LOGS_TYPE[keyof typeof LOGS_TYPE];
+
+/**
+ * @description: 主题模式 
+ */
+export type Theme = typeof THEME[keyof typeof THEME];
 
 /**
  * @description: 标签
