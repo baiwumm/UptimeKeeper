@@ -90,3 +90,8 @@ export const formatTimeAgo = (s: number): string => {
   const m = Math.floor((s % 3600) / 60);
   return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
 };
+
+/**
+ * @description: 默认5分钟，转换为秒
+ */
+export const CountDownTime = parseInt(process.env.NEXT_PUBLIC_COUNTDOWN_TIME || '5', 10);

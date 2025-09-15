@@ -8,18 +8,18 @@
 import { Icon } from '@iconify/react';
 import { type FC, useEffect, useState } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn, CountDownTime } from '@/lib/utils';
 
 type CountDownButtonProps = {
   fetchData: VoidFunction;
   loading: boolean;
 }
 
-const CountDownTime = parseInt(process.env.NEXT_PUBLIC_COUNTDOWN_TIME || '5', 10) * 60; // 默认5分钟，转换为秒
+const CountDownSeconds = CountDownTime * 60; // 默认5分钟，转换为秒
 
 const CountDownButton: FC<CountDownButtonProps> = ({ fetchData, loading = false }) => {
   // 倒计时时间
-  const [countdown, setCountdown] = useState(CountDownTime);
+  const [countdown, setCountdown] = useState(CountDownSeconds);
   // 倒计时是否正在运行
   const [isActive, setIsActive] = useState(true);
 
@@ -32,7 +32,7 @@ const CountDownButton: FC<CountDownButtonProps> = ({ fetchData, loading = false 
 
   // 处理重新开始倒计时
   const handleReset = () => {
-    setCountdown(CountDownTime); // 重置为5分钟
+    setCountdown(CountDownSeconds); // 重置为5分钟
     fetchData();
     if (!isActive && !loading) setIsActive(true); // 如果未激活，启动倒计时
   };

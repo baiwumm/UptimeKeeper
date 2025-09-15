@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({ fetchData, loading = false }) => {
           height={40}
         />
         <h1 className="text-lg sm:text-2xl font-bold text-gray-800 dark:text-gray-100">
-          {process.env.NEXT_PUBLIC_SITE_NAME}
+          {process.env.NEXT_PUBLIC_SITE_TITLE}
         </h1>
       </div>
       <div className="flex items-center gap-3">
