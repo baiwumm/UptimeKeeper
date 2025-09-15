@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.1](https://github.com/baiwumm/UptimeKeeper/compare/1.0.0...1.0.1) (2025-09-15)
+
+### ✨ Features | 新功能
+
+* 获取宕机统计信息 ([8ecf1ff](https://github.com/baiwumm/UptimeKeeper/commit/8ecf1ff92f5ede906fde11c5cca4258d24b8199b))
+* 添加 BackToTop 回到顶部按钮组件 ([108bd38](https://github.com/baiwumm/UptimeKeeper/commit/108bd38987e214c2729d48b35c92fd2d99c3b957))
+* 新增 CountDownButton 倒计时按钮组件 ([e5e4694](https://github.com/baiwumm/UptimeKeeper/commit/e5e4694ed81960aa6d06bde91fee534c687f0872))
+* 新增 Footer 组件，细节优化 ([fdcab95](https://github.com/baiwumm/UptimeKeeper/commit/fdcab95cf6696bf7d14d7d6e80bf2f76db2e9ca6))
+* 新增 ThemeButton 主题切换按钮组件 ([0e9841c](https://github.com/baiwumm/UptimeKeeper/commit/0e9841ce08c4bc7ce5aaf9adee888ddab4e61934))
+
 ## 1.0.0 (2025-09-12)
 
 ### ✨ Features | 新功能
