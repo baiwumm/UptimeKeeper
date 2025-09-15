@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 14:01:34
+ * @LastEditTime: 2025-09-15 09:35:53
  * @Description: 故障记录
  */
 import { Icon } from '@iconify/react';
@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { Log } from '@/lib/type'
-import { cn, LOGS_TYPE } from '@/lib/utils';
+import { cn, formatTimeAgo, LOGS_TYPE } from '@/lib/utils';
 
 type ErrorRecordPops = {
   id: number; // 主键
@@ -74,18 +74,6 @@ const ErrorRecord: FC<ErrorRecordPops> = ({ id, logs = [] }) => {
 
     return `${pad(month)}-${pad(day)} ${pad(hours)}:${pad(minutes)}`;
   }
-
-  /**
-   * @param ms - 毫秒数
-   * @returns 格式化后的字符串，如 "1小时9分钟" 或 "45秒"
-   */
-  const formatDuration = (s: number): string => {
-    if (s < 60) return `${s}秒`;
-    const d = Math.floor(s / 86400);
-    const h = Math.floor((s % 86400) / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
-  };
 
   // 🔥 点击外部关闭逻辑
   useEffect(() => {
@@ -159,7 +147,7 @@ const ErrorRecord: FC<ErrorRecordPops> = ({ id, logs = [] }) => {
                           </span>
                         </div>
                         <div className="mt-1 text-red-600/80 dark:text-red-400/80 text-xs">
-                          持续时间: {formatDuration(duration)}
+                          持续时间: {formatTimeAgo(duration)}
                         </div>
                       </div>
                     ))}

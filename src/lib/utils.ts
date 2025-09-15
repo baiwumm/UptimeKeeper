@@ -62,3 +62,31 @@ export function generateTimeRanges() {
     return `${Math.floor(start / 1000)}_${Math.floor(end / 1000)}`
   }).join('-')
 }
+
+/**
+ * 计算时间戳距离当前的天数，不足一天也按一天算（向上取整），最大返回 30
+ * @param timestamp - 时间戳（秒 或 毫秒）
+ * @returns 天数（0 ~ 30）
+ */
+export const daysAgo = (timestamp: number): number => {
+  const ms = timestamp < 10_000_000_000 ? timestamp * 1000 : timestamp;
+  const diffMs = Date.now() - ms;
+
+  if (diffMs < 0) return 0;
+  if (diffMs === 0) return 0;
+
+  const days = Math.ceil(diffMs / 86400000); // 86400000 = 24 * 60 * 60 * 1000
+  return Math.min(days, 30);
+}
+
+/**
+   * @param ms - 毫秒数
+   * @returns 格式化后的字符串，如 "1小时9分钟" 或 "45秒"
+   */
+export const formatTimeAgo = (s: number): string => {
+  if (s < 60) return `${s}秒`;
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
+};

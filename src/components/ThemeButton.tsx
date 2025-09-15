@@ -5,9 +5,10 @@
  * @LastEditTime: 2025-09-13 21:14:06
  * @Description: 主题切换按钮
  */
-import { type FC } from "react";
 import { Icon } from "@iconify/react";
 import { useTheme } from "next-themes";
+import { type FC } from "react";
+
 import { cn, THEME } from "@/lib/utils";
 
 const ThemeButton: FC = () => {

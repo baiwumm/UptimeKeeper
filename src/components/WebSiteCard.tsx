@@ -2,15 +2,15 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 11:49:03
+ * @LastEditTime: 2025-09-15 09:36:17
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import type { WebsiteItem, WebsiteStatus } from '@/lib/type';
-import { cn, WEBSITE_STATUS } from '@/lib/utils';
+import { cn, daysAgo, formatTimeAgo, LOGS_TYPE, WEBSITE_STATUS } from '@/lib/utils';
 
 import AverageResponseTimeModal from './AverageResponseTimeModal';
 import CountUp from './CountUp'
@@ -40,7 +40,8 @@ export default function WebSiteCard({
   interval,
   type,
   response_times = [],
-  logs
+  logs,
+  create_datetime
 }: WebSiteCardProps) {
   const [open, setOpen] = useState(false);
   /**
@@ -108,6 +109,33 @@ export default function WebSiteCard({
 
   // 监控类型映射
   const monitorTypeMap = ['', 'HTTPS', 'KEYWORD', 'PING', 'PORT', 'HEARTBEAR'];
+
+  // 过滤宕机的日志
+  const downRecords = useMemo(() => {
+    const thirtyDaysAgo = Math.floor((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000);
+    return logs
+      .filter((v) => v.type === LOGS_TYPE.Down && v.datetime >= thirtyDaysAgo)
+      .sort((a, b) => b.datetime - a.datetime);
+  }, [logs]); // 只有当 logs 变化时，才重新执行这个函数
+
+  /**
+ * 获取宕机统计信息
+ */
+  const getDowntimeStats = () => {
+    const downtimeCount = downRecords.length;
+    const totalDowntime = downRecords.reduce((total, log) => total + (log.duration || 0), 0);
+    const validDays = daysAgo(create_datetime);
+
+    if (validDays <= 0) return "暂无数据";
+
+    if (downtimeCount > 0 || status === WEBSITE_STATUS.Down) {
+      if (downtimeCount > 0) {
+        return `最近${validDays}天 ${downtimeCount} 次故障，总计${formatTimeAgo(totalDowntime)}`;
+      }
+      return "当前离线";
+    }
+    return `最近${validDays}天运行正常`;
+  };
   return (
     <>
       <div
@@ -126,7 +154,7 @@ export default function WebSiteCard({
           <div className="flex items-center justify-between">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold truncate text-gray-800 dark:text-gray-100">
+                <h2 className="text-xl font-bold truncate text-gray-800 dark:text-gray-100">
                   {String.fromCharCode(65 + index)}•{friendly_name}
                 </h2>
                 <Icon
@@ -138,7 +166,7 @@ export default function WebSiteCard({
             </div>
             <div className="shrink-0">
               <div
-                className={cn('inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium text-xs whitespace-nowrap', STATUS_CONFIG[status]?.classes)}
+                className={cn('inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium text-sm whitespace-nowrap', STATUS_CONFIG[status]?.classes)}
               >
                 <div className="relative flex">
                   <div className={cn('w-3 h-3 rounded-full', statusConfig.dot)} />
@@ -215,7 +243,7 @@ export default function WebSiteCard({
                 />
                 <span>%</span>
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近30天</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">最近{daysAgo(create_datetime)}天</div>
             </div>
           </div>
           {/* 状态时间线图表 */}
@@ -245,9 +273,7 @@ export default function WebSiteCard({
           </div> */}
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span>30天前</span>
-              <span className="text-gray-500">
-                {/* {{ getDowntimeStats(monitor) }} */}
-              </span>
+              <span className="text-gray-500">{getDowntimeStats()}</span>
               <span>今日</span>
             </div>
           </div>

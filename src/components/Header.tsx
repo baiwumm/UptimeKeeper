@@ -7,8 +7,9 @@
  */
 import Image from 'next/image';
 import { type FC } from 'react';
-import ThemeButton from './ThemeButton';
+
 import CountDownButton from './CountDownButton';
+import ThemeButton from './ThemeButton';
 
 type HeaderProps = {
   fetchData: VoidFunction;
