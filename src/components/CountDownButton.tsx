@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-13 21:50:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-13 22:51:36
+ * @LastEditTime: 2025-09-15 15:28:04
  * @Description: 倒计时按钮
  */
 import { Icon } from '@iconify/react';
@@ -60,7 +60,7 @@ const CountDownButton: FC<CountDownButtonProps> = ({ fetchData, loading = false 
   useEffect(() => {
     if (countdown === 0) {
       // 自动重置
-      setCountdown(300);
+      setCountdown(CountDownSeconds);
       fetchData();
       // 注意：这里不需要 setIsActive(true)，因为下次循环会自然开始
     }

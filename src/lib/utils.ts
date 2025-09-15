@@ -51,10 +51,20 @@ export const THEME = {
 } as const;
 
 /**
- * @description: 生成近30天的查询字符串
+ * @description: 默认5分钟，转换为秒
+ */
+export const CountDownTime = parseInt(process.env.NEXT_PUBLIC_COUNTDOWN_TIME || '5', 10);
+
+/**
+ * 响应时间天数，默认 30 天，最小值 7 天，最大值 90 天
+ */
+export const ResponseDays: number = Math.max(7, Math.min(90, Number(process.env.NEXT_PUBLIC_RESPONSE_DAYS) || 30));
+
+/**
+ * @description: 生成近 ResponseDays 天的查询字符串
  */
 export function generateTimeRanges() {
-  return Array.from({ length: 30 }, (_, i) => {
+  return Array.from({ length: ResponseDays }, (_, i) => {
     const date = new Date()
     date.setDate(date.getDate() - i)
     const start = new Date(date).setHours(0, 0, 0, 0)
@@ -64,9 +74,9 @@ export function generateTimeRanges() {
 }
 
 /**
- * 计算时间戳距离当前的天数，不足一天也按一天算（向上取整），最大返回 30
+ * 计算时间戳距离当前的天数，不足一天也按一天算（向上取整），最大返回 90
  * @param timestamp - 时间戳（秒 或 毫秒）
- * @returns 天数（0 ~ 30）
+ * @returns 天数（0 ~ ResponseDays）
  */
 export const daysAgo = (timestamp: number): number => {
   const ms = timestamp < 10_000_000_000 ? timestamp * 1000 : timestamp;
@@ -76,7 +86,7 @@ export const daysAgo = (timestamp: number): number => {
   if (diffMs === 0) return 0;
 
   const days = Math.ceil(diffMs / 86400000); // 86400000 = 24 * 60 * 60 * 1000
-  return Math.min(days, 30);
+  return Math.min(days, ResponseDays);
 }
 
 /**
@@ -90,8 +100,3 @@ export const formatTimeAgo = (s: number): string => {
   const m = Math.floor((s % 3600) / 60);
   return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
 };
-
-/**
- * @description: 默认5分钟，转换为秒
- */
-export const CountDownTime = parseInt(process.env.NEXT_PUBLIC_COUNTDOWN_TIME || '5', 10);

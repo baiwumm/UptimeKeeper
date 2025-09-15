@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 import type { WebsiteItem, WebsiteStatus } from '@/lib/type';
-import { cn, daysAgo, formatTimeAgo, LOGS_TYPE, WEBSITE_STATUS } from '@/lib/utils';
+import { cn, daysAgo, formatTimeAgo, LOGS_TYPE, ResponseDays, WEBSITE_STATUS } from '@/lib/utils';
 
 import AverageResponseTimeModal from './AverageResponseTimeModal';
 import CountUp from './CountUp'
@@ -112,7 +112,7 @@ export default function WebSiteCard({
 
   // 过滤宕机的日志
   const downRecords = useMemo(() => {
-    const thirtyDaysAgo = Math.floor((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000);
+    const thirtyDaysAgo = Math.floor((Date.now() - ResponseDays * 24 * 60 * 60 * 1000) / 1000);
     return logs
       .filter((v) => v.type === LOGS_TYPE.Down && v.datetime >= thirtyDaysAgo)
       .sort((a, b) => b.datetime - a.datetime);
@@ -272,7 +272,7 @@ export default function WebSiteCard({
             />
           </div> */}
             <div className="flex justify-between text-xs text-gray-400 mt-2">
-              <span>30天前</span>
+              <span>{ResponseDays}天前</span>
               <span className="text-gray-500">{getDowntimeStats()}</span>
               <span>今日</span>
             </div>

@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { Log } from '@/lib/type'
-import { cn, formatTimeAgo, LOGS_TYPE } from '@/lib/utils';
+import { cn, formatTimeAgo, LOGS_TYPE, ResponseDays } from '@/lib/utils';
 
 type ErrorRecordPops = {
   id: number; // 主键
@@ -32,7 +32,7 @@ const ErrorRecord: FC<ErrorRecordPops> = ({ id, logs = [] }) => {
 
   // 过滤宕机的日志
   const downRecords = useMemo(() => {
-    const thirtyDaysAgo = Math.floor((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000);
+    const thirtyDaysAgo = Math.floor((Date.now() - ResponseDays * 24 * 60 * 60 * 1000) / 1000);
     return logs
       .filter((v) => v.type === LOGS_TYPE.Down && v.datetime >= thirtyDaysAgo)
       .sort((a, b) => b.datetime - a.datetime);

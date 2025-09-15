@@ -7,7 +7,7 @@
  */
 import { NextResponse } from 'next/server';
 
-import { generateTimeRanges } from '@/lib/utils'
+import { generateTimeRanges, ResponseDays } from '@/lib/utils'
 
 export async function GET() {
   const API_KEY = process.env.UPTIMEROBOT_API_KEY;
@@ -33,7 +33,7 @@ export async function GET() {
         format: 'json', // json 或 xml
         response_times: '1', // 1=返回响应时间点
         logs: '1', // 1=返回日志
-        custom_uptime_ratios: '30', // 如 '7-30'，正常运行时间百分比
+        custom_uptime_ratios: ResponseDays.toString(), // 如 '7-30'，正常运行时间百分比
         custom_uptime_ranges: generateTimeRanges(), // 自定义宕机持续时间(默认30天)
         response_times_average: '60', // 每 60 分钟取一次响应时间
         // 响应时间范围取最近24小时
