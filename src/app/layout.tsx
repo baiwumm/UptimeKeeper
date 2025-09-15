@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 14:09:06
+ * @LastEditTime: 2025-09-15 09:47:09
  * @Description: 布局文件
  */
 import "./globals.css";
@@ -10,6 +10,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from 'next-themes'
 
+import BackToTop from '@/components/BackToTop'; // 回到顶部按钮
 import FullLoading from '@/components/FullLoading'; // 全局 Loading
 
 export const metadata: Metadata = {
@@ -33,6 +34,8 @@ export default function RootLayout({
         <ThemeProvider attribute="class" enableSystem={false}>
           {/* 全局 Loading */}
           <FullLoading />
+          {/* 回到顶部 */}
+          <BackToTop />
           {/* 主体内容 */}
           <div className="max-w-7xl mx-auto p-4 flex flex-col gap-6 min-h-screen">
             <main>
