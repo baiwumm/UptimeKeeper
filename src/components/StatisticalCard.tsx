@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-11 17:36:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 12:02:54
+ * @LastEditTime: 2025-09-16 15:33:33
  * @Description: 统计卡片
  */
 import { Icon } from '@iconify/react';
@@ -84,10 +84,13 @@ const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageRespons
           onMouseEnter={(e) => {
             e.currentTarget.classList.add('hovered');
           }}
-          initial={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1 }}
-          transition={{ duration: 0.5, ease: 'linear' }}
+          transition={{
+            duration: 0.35,
+            ease: "easeOut"
+          }}
         >
           <div className="flex items-start justify-between relative">
             <div>

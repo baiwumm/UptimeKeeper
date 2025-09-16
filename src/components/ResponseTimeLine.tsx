@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-15 16:25:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 11:00:02
+ * @LastEditTime: 2025-09-16 15:25:40
  * @Description: 响应时间轴
  */
 import { motion } from 'motion/react';
@@ -130,10 +130,13 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ downRecords = [], create_
           <div className="font-bold">{v.date}</div>
           <div>{renderAvailability(v.value)}</div>
         </div>
-      )}>
+      )}
+        borderColor={getBoxColor(v.value).replace('bg-', 'border-')}
+      >
         <div className="relative w-full" style={{ paddingBottom: '100%' }}>
           <motion.div className={cn('absolute inset-0 rounded overflow-hidden', getBoxColor(v.value))}
             whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.85 }}
           />
         </div>
       </Tooltip>
