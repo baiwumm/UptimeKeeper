@@ -2,9 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-15 16:25:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 10:50:35
+ * @LastEditTime: 2025-09-16 11:00:02
  * @Description: 响应时间轴
  */
+import { motion } from 'motion/react';
 import { type FC } from 'react';
 
 import type { Log, WebsiteStatus } from '@/lib/type';
@@ -131,7 +132,9 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ downRecords = [], create_
         </div>
       )}>
         <div className="relative w-full" style={{ paddingBottom: '100%' }}>
-          <div className={cn('absolute inset-0 rounded overflow-hidden transform transition-transform duration-300 hover:scale-120', getBoxColor(v.value))} />
+          <motion.div className={cn('absolute inset-0 rounded overflow-hidden', getBoxColor(v.value))}
+            whileHover={{ scale: 1.15 }}
+          />
         </div>
       </Tooltip>
     ))}</div>
