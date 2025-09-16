@@ -2,10 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-11 17:36:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 10:19:08
+ * @LastEditTime: 2025-09-16 12:02:54
  * @Description: 统计卡片
  */
 import { Icon } from '@iconify/react';
+import { motion } from 'motion/react';
 import { type FC } from 'react';
 
 import type { WebsiteStatus } from '@/lib/type'
@@ -77,12 +78,16 @@ const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageRespons
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
       {overviewItems.map((v, index) => (
-        <div
+        <motion.div
           key={index}
           className={cn('card-base animated-border animate-fade', v.containerClass)}
           onMouseEnter={(e) => {
             e.currentTarget.classList.add('hovered');
           }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: 'linear' }}
         >
           <div className="flex items-start justify-between relative">
             <div>
@@ -110,7 +115,7 @@ const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageRespons
               />
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
