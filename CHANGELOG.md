@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/baiwumm/UptimeKeeper/compare/1.0.1...1.1.0) (2025-09-16)
+
+### ✨ Features | 新功能
+
+* 完善 网站信息配置 ([8cb9323](https://github.com/baiwumm/UptimeKeeper/commit/8cb93237bf59d91a4c848b9fb0df874f78f411f2))
+* 新增 NEXT_PUBLIC_RESPONSE_DAYS 环境变量 ([72b7fd4](https://github.com/baiwumm/UptimeKeeper/commit/72b7fd43d0065d5e043a184068f884754b1184ba))
+* 新增 ResponseTimeLine 组件 ([3b004b6](https://github.com/baiwumm/UptimeKeeper/commit/3b004b67fb35ac09c6994c40bda648eeafc0443a))
+
 ## [1.0.1](https://github.com/baiwumm/UptimeKeeper/compare/1.0.0...1.0.1) (2025-09-15)
 
 ### ✨ Features | 新功能
