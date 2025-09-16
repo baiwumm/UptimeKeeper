@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-15 09:43:22
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-15 10:12:12
+ * @LastEditTime: 2025-09-16 11:58:20
  * @Description: 回到顶部
  */
 'use client'
 
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -25,14 +25,15 @@ const BackToTop: React.FC<BackToTopProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0); // 0~100%
+  const { scrollYProgress } = useScroll()
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    setScrollProgress(v * 100); // 更新状态
+  });
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight === 0 ? 0 : (scrollTop / docHeight) * 100;
-
-      setScrollProgress(progress);
       setIsVisible(scrollTop > threshold);
     };
 
@@ -69,9 +70,6 @@ const BackToTop: React.FC<BackToTopProps> = ({
 
   // SVG 进度环配置
   const radius = 48; // 圆环半径
-  const circumference = 2 * Math.PI * radius; // 周长
-  const strokeDashoffset = circumference - (scrollProgress / 100) * circumference;
-
   return (
     <AnimatePresence>
       {isVisible && (
@@ -92,24 +90,21 @@ const BackToTop: React.FC<BackToTopProps> = ({
               cx="50"
               cy="50"
               r={radius}
-              stroke="currentColor"
-              strokeWidth="4"
+              strokeWidth="6"
               fill="none"
-              className="text-gray-200 dark:text-gray-700"
+              strokeDashoffset={0}
+              className="stroke-gray-200 dark:stroke-gray-500"
             />
             {/* 前景进度环 */}
-            <circle
+            <motion.circle
               cx="50"
               cy="50"
               r={radius}
-              stroke="currentColor"
-              strokeWidth="4"
+              strokeWidth="6"
               fill="none"
-              strokeDasharray={circumference}
-              strokeDashoffset={strokeDashoffset} // ✅ 核心：控制进度
-              strokeLinecap="round"
-              className="text-green-500 dark:text-green-400 transition-all duration-150 ease-linear"
-            // ✅ 关键：添加 transition，让进度平滑变化
+              strokeDashoffset={0}
+              className="stroke-green-500"
+              style={{ pathLength: scrollYProgress }}
             />
           </svg>
 
