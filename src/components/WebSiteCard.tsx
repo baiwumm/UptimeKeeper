@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-15 09:36:17
+ * @LastEditTime: 2025-09-15 16:27:29
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
@@ -15,6 +15,7 @@ import { cn, daysAgo, formatTimeAgo, LOGS_TYPE, ResponseDays, WEBSITE_STATUS } f
 import AverageResponseTimeModal from './AverageResponseTimeModal';
 import CountUp from './CountUp'
 import ErrorRecord from './ErrorRecord'
+import ResponseTimeLine from './ResponseTimeLine';
 
 type StatusConfig = Record<WebsiteStatus, {
   text: string; // 状态文案
@@ -262,15 +263,8 @@ export default function WebSiteCard({
                 </span>
               </div>
             </div>
-
-            {/* 时间线散点图 */}
-            {/* <div className="h-12">
-            <Scatter
-              v-if="getChartConfig(monitor).data"
-              :data="getChartConfig(monitor).data"
-              :options="getChartConfig(monitor).options"
-            />
-          </div> */}
+            {/* 响应时间轴 */}
+            <ResponseTimeLine downRecords={downRecords} create_datetime={create_datetime} status={status} />
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span>{ResponseDays}天前</span>
               <span className="text-gray-500">{getDowntimeStats()}</span>
