@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-15 16:25:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 10:07:37
+ * @LastEditTime: 2025-09-16 10:50:35
  * @Description: 响应时间轴
  */
 import { type FC } from 'react';
@@ -11,7 +11,7 @@ import type { Log, WebsiteStatus } from '@/lib/type';
 import { cn } from '@/lib/utils';
 import { ResponseDays, WEBSITE_STATUS } from '@/lib/utils';
 
-import Tooltip from './Tooltip'
+import Tooltip from './ToolTip'
 
 type DownRecord = {
   date: string; // 日期，格式 'YYYY-MM-DD'
