@@ -14,10 +14,24 @@ import BackToTop from '@/components/BackToTop'; // 回到顶部按钮
 import Footer from '@/components/Footer'; // 底部版权
 import FullLoading from '@/components/FullLoading'; // 全局 Loading
 
+import pkg from '../../package.json'
+
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_SITE_NAME} | ${process.env.NEXT_PUBLIC_SITE_DESCRIPTION}`,
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
   keywords: process.env.NEXT_PUBLIC_SITE_KEYWORDS,
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'zh_CN',
+    url: pkg.repository.url,
+    title: process.env.NEXT_PUBLIC_SITE_NAME,
+    description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
+    siteName: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
