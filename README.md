@@ -53,7 +53,7 @@ pnpm install
 
 ```env
 # UptimeRobot API Key
-UPTIMEROBOT_API_KEY = "ur1779826-ddf42d879d591ecbc2d29790"
+UPTIMEROBOT_API_KEY = "xxxx"
 # API 代理地址
 UPTIMEROBOT_API_URL = "https://api.uptimerobot.com/v2/getMonitors"
 
