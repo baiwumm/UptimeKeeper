@@ -1,4 +1,4 @@
-import { LOGS_TYPE, MONITOR_TYPE, THEME,WEBSITE_STATUS } from '@/lib/utils';
+import { LOGS_TYPE, MONITOR_TYPE, THEME, WEBSITE_STATUS } from '@/lib/utils';
 
 
 /**
@@ -67,5 +67,6 @@ export type WebsiteItem = {
   interval: number; // 监控检查的时间间隔（默认为300秒）
   type: MonitorType; // 监控类型
   logs: Log[]; // 日志列表
-  create_datetime:number; // 创建时间
+  create_datetime: number; // 创建时间
+  custom_uptime_ranges: string; // 自定义宕机持续时间
 }

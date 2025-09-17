@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-15 16:25:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 15:25:40
+ * @LastEditTime: 2025-09-17 12:09:14
  * @Description: 响应时间轴
  */
 import { motion } from 'motion/react';
 import { type FC } from 'react';
 
-import type { Log, WebsiteStatus } from '@/lib/type';
+import type { WebsiteStatus } from '@/lib/type';
 import { cn } from '@/lib/utils';
 import { ResponseDays, WEBSITE_STATUS } from '@/lib/utils';
 
@@ -20,12 +20,12 @@ type DownRecord = {
 }
 
 type ResponseTimeLineProps = {
-  downRecords: Log[]; // 宕机日志
   create_datetime: number; // 创建时间
   status: WebsiteStatus; // 站点状态
+  custom_uptime_ranges: string; // 宕机可用率
 }
 
-const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ downRecords = [], create_datetime, status }) => {
+const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ create_datetime, status, custom_uptime_ranges = '' }) => {
   /**
  * 将日期格式化为 'YYYY-MM-DD' 字符串
  */
@@ -36,42 +36,12 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ downRecords = [], create_
     return `${year}-${month}-${day}`;
   }
 
-  /**
- * 计算每天的 duration 占全天时间（86400 秒）的百分比
- * 返回：{ 'YYYY-MM-DD': number }
- */
-  function calculateDailyDurationPercentage(): Record<string, number> {
-    const SECONDS_PER_DAY = 24 * 60 * 60; // 86400 秒
-
-    // 用于按天聚合 duration
-    const dailyTotal: Record<string, number> = {};
-
-    downRecords.forEach(record => {
-      const dateKey = formatDate(new Date(record.datetime * 1000)); // 转为 'YYYY-MM-DD' 格式
-      if (!dailyTotal[dateKey]) {
-        dailyTotal[dateKey] = 0;
-      }
-      dailyTotal[dateKey] += record.duration; // 累加当天所有请求的 duration
-    });
-
-    // 转换为百分比，保留两位小数
-    const result: Record<string, number> = {};
-    for (const date in dailyTotal) {
-      const totalDuration = dailyTotal[date];
-      const percentage = (totalDuration / SECONDS_PER_DAY) * 100;
-      result[date] = Math.round(percentage * 100) / 100; // 保留两位小数
-    }
-
-    return result;
-  }
-
   // 生成日期数据的函数
   function generateDateData(): DownRecord[] {
     const result: DownRecord[] = [];
-    const percentages: Record<string, number> = calculateDailyDurationPercentage();
     const now = new Date();
-
-    for (let i = 0; i < ResponseDays; i++) {
+    const customRanges = custom_uptime_ranges.split('-');
+    for (let i = ResponseDays - 1; i >= 0; i--) {
       // 从当前日期开始，往前推 i 天
       const date = new Date(now);
       date.setDate(now.getDate() - i);
@@ -80,7 +50,7 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ downRecords = [], create_
 
       // 判断该日期是否早于 create_datetime
       const isBeforeCreate = date.getTime() < create_datetime * 1000;
-      const value = isBeforeCreate ? 0 : (percentages[dateString] ? 100 - percentages[dateString] : 100);
+      const value = isBeforeCreate ? 0 : Number(customRanges[i]);
 
       result.push({
         date: dateString,
@@ -124,7 +94,7 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ downRecords = [], create_
     return value === 0 ? '无数据' : `可用率:${value}%`
   }
   return (
-    <div className='grid gap-1 w-full' style={{ gridTemplateColumns: 'repeat(30, 1fr)' }}>{generateDateData().reverse().map((v, i) => (
+    <div className='grid gap-1 w-full' style={{ gridTemplateColumns: 'repeat(30, 1fr)' }}>{generateDateData().map((v, i) => (
       <Tooltip key={i} text={(
         <div className="text-xs text-black dark:text-white">
           <div className="font-bold">{v.date}</div>

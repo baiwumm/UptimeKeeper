@@ -42,7 +42,8 @@ export default function WebSiteCard({
   type,
   response_times = [],
   logs,
-  create_datetime
+  create_datetime,
+  custom_uptime_ranges
 }: WebSiteCardProps) {
   const [open, setOpen] = useState(false);
   /**
@@ -264,7 +265,7 @@ export default function WebSiteCard({
               </div>
             </div>
             {/* 响应时间轴 */}
-            <ResponseTimeLine downRecords={downRecords} create_datetime={create_datetime} status={status} />
+            <ResponseTimeLine create_datetime={create_datetime} status={status} custom_uptime_ranges={custom_uptime_ranges} />
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span>{ResponseDays}天前</span>
               <span className="text-gray-500">{getDowntimeStats()}</span>
