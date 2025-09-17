@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 10:09:14
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-12 10:27:59
+ * @LastEditTime: 2025-09-17 17:39:57
  * @Description: 数字动画组件
  */
 import { useInView, useMotionValue, useSpring } from 'motion/react';
@@ -19,6 +19,7 @@ interface CountUpProps {
   separator?: string;
   onStart?: () => void;
   onEnd?: () => void;
+  inViewTrigger?: boolean; // ✅ 新增：是否需要进入视口才触发
 }
 
 export default function CountUp({
@@ -31,7 +32,8 @@ export default function CountUp({
   startWhen = true,
   separator = '',
   onStart,
-  onEnd
+  onEnd,
+  inViewTrigger = false // 默认不依赖视口
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(direction === 'down' ? to : from);
@@ -39,10 +41,7 @@ export default function CountUp({
   const damping = 20 + 40 * (1 / duration);
   const stiffness = 100 * (1 / duration);
 
-  const springValue = useSpring(motionValue, {
-    damping,
-    stiffness
-  });
+  const springValue = useSpring(motionValue, { damping, stiffness });
 
   const isInView = useInView(ref, { once: true, margin: '0px' });
 
@@ -59,38 +58,38 @@ export default function CountUp({
 
   const maxDecimals = Math.max(getDecimalPlaces(from), getDecimalPlaces(to));
 
+  // 初始化文本
   useEffect(() => {
     if (ref.current) {
       ref.current.textContent = String(direction === 'down' ? to : from);
     }
   }, [from, to, direction]);
 
+  // 动画触发逻辑
   useEffect(() => {
-    if (isInView && startWhen) {
-      if (typeof onStart === 'function') {
-        onStart();
-      }
+    if (!startWhen) return;
 
-      const timeoutId = setTimeout(() => {
-        motionValue.set(direction === 'down' ? from : to);
-      }, delay * 1000);
+    // ✅ 决定是否要依赖视口
+    const canStart = inViewTrigger ? isInView : true;
+    if (!canStart) return;
 
-      const durationTimeoutId = setTimeout(
-        () => {
-          if (typeof onEnd === 'function') {
-            onEnd();
-          }
-        },
-        delay * 1000 + duration * 1000
-      );
+    if (typeof onStart === 'function') onStart();
 
-      return () => {
-        clearTimeout(timeoutId);
-        clearTimeout(durationTimeoutId);
-      };
-    }
-  }, [isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
+    const timeoutId = setTimeout(() => {
+      motionValue.set(direction === 'down' ? from : to);
+    }, delay * 1000);
 
+    const durationTimeoutId = setTimeout(() => {
+      if (typeof onEnd === 'function') onEnd();
+    }, delay * 1000 + duration * 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(durationTimeoutId);
+    };
+  }, [inViewTrigger, isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
+
+  // 数字变化监听
   useEffect(() => {
     const unsubscribe = springValue.on('change', latest => {
       if (ref.current) {
@@ -102,9 +101,11 @@ export default function CountUp({
           maximumFractionDigits: hasDecimals ? maxDecimals : 0
         };
 
-        const formattedNumber = Intl.NumberFormat('en-US', options).format(latest);
+        const formattedNumber = Intl.NumberFormat('zh-CN', options).format(latest);
 
-        ref.current.textContent = separator ? formattedNumber.replace(/,/g, separator) : formattedNumber;
+        ref.current.textContent = separator
+          ? formattedNumber.replace(/,/g, separator)
+          : formattedNumber;
       }
     });
 
@@ -113,3 +114,4 @@ export default function CountUp({
 
   return <span className={className} ref={ref} />;
 }
+
