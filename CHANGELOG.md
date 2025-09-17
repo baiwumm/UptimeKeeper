@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.1](https://github.com/baiwumm/UptimeKeeper/compare/1.1.0...1.1.1) (2025-09-17)
+
+### ✨ Features | 新功能
+
+* 细节调整 ([ff8d8dc](https://github.com/baiwumm/UptimeKeeper/commit/ff8d8dc76ec12fd5292580b354c9ce3ae57ddec5))
+* 优化 响应时间轴 的数据显示逻辑 ([a9ab60f](https://github.com/baiwumm/UptimeKeeper/commit/a9ab60f57e84a365e0057129adec51e0572759ca))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 解决打包报错的问题 ([215c16f](https://github.com/baiwumm/UptimeKeeper/commit/215c16f0d13ed2a9e905ae8fad4a12b8a1347900))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 调整 Tooltip 组件的动画效果 ([3dacf5f](https://github.com/baiwumm/UptimeKeeper/commit/3dacf5f02d2af38e27ec058b4981945beaa94abf))
+* 优化动画显示 ([a28e04a](https://github.com/baiwumm/UptimeKeeper/commit/a28e04a123611b19340311a76e3f6aba28a027ee))
+* 优化回到顶部进度显示 ([12888b5](https://github.com/baiwumm/UptimeKeeper/commit/12888b560d4d8ed7e197ca6b0537a669589c9da9))
+* 优化统计卡淡入淡出动画 ([bdf88e0](https://github.com/baiwumm/UptimeKeeper/commit/bdf88e06a7624a83df5bb5090d1788dd3d967e46))
+
 ## [1.1.0](https://github.com/baiwumm/UptimeKeeper/compare/1.0.1...1.1.0) (2025-09-16)
 
 ### ✨ Features | 新功能
