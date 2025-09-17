@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-15 16:25:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-17 12:09:14
+ * @LastEditTime: 2025-09-17 14:20:13
  * @Description: 响应时间轴
  */
 import { motion } from 'motion/react';
@@ -63,9 +63,6 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ create_datetime, status, 
 
   // 设置每个小方块的颜色
   function getBoxColor(value: number): string {
-    if (value === 0) {
-      return 'bg-gray-300'; // 灰色
-    }
     // 暂停，黄色
     if (status === WEBSITE_STATUS.Paused) {
       return 'bg-yellow-500';
@@ -73,6 +70,9 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ create_datetime, status, 
     // 离线，红色
     if (status === WEBSITE_STATUS.Down) {
       return 'bg-red-500';
+    }
+    if (value === 0) {
+      return 'bg-gray-300'; // 灰色
     }
     if (value >= 99.99) {
       return 'bg-green-500'; // 绿色
@@ -101,7 +101,6 @@ const ResponseTimeLine: FC<ResponseTimeLineProps> = ({ create_datetime, status, 
           <div>{renderAvailability(v.value)}</div>
         </div>
       )}
-        borderColor={getBoxColor(v.value).replace('bg-', 'border-')}
       >
         <div className="relative w-full" style={{ paddingBottom: '100%' }}>
           <motion.div className={cn('absolute inset-0 rounded overflow-hidden', getBoxColor(v.value))}
