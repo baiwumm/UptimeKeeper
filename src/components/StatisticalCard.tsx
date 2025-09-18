@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-11 17:36:05
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 15:33:33
+ * @LastEditTime: 2025-09-18 15:48:32
  * @Description: 统计卡片
  */
 import { Icon } from '@iconify/react';
@@ -98,13 +98,16 @@ const StatisticalCard: FC<StatisticalCardProps> = ({ status = [], averageRespons
                 {v.label}
               </div>
               <div className="mt-2 text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
-                <CountUp
-                  from={0}
-                  to={Number(v.value)}
-                  separator=","
-                  direction={loading ? "down" : "up"}
-                  duration={1}
-                />
+                {loading ? (
+                  <span>{Number(v.value)}</span>
+                ) : (
+                  <CountUp
+                    from={0}
+                    to={Number(v.value)}
+                    direction="up"
+                    duration={1}
+                  />
+                )}
                 <span v-if="item.unit">{v.unit}</span>
               </div>
               <div className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
