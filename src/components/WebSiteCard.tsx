@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 17:06:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-15 16:27:29
+ * @LastEditTime: 2025-09-18 10:25:27
  * @Description: 站点卡片
  */
 import { Icon } from '@iconify/react';
@@ -225,7 +225,6 @@ export default function WebSiteCard({
                 <CountUp
                   from={0}
                   to={Number(Number(average_response_time).toFixed(0))}
-                  separator=","
                   direction="up"
                   duration={1}
                 />
@@ -239,7 +238,6 @@ export default function WebSiteCard({
                 <CountUp
                   from={0}
                   to={Number(Number(custom_uptime_ratio).toFixed(2))}
-                  separator=","
                   direction="up"
                   duration={1}
                 />

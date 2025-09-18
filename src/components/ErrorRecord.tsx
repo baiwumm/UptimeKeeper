@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-15 09:35:53
+ * @LastEditTime: 2025-09-18 09:28:51
  * @Description: 故障记录
  */
 import { Icon } from '@iconify/react';
@@ -133,9 +133,9 @@ const ErrorRecord: FC<ErrorRecordPops> = ({ id, logs = [] }) => {
               <div className="p-4 max-h-[280px] overflow-y-auto">
                 {downRecords.length ? (
                   <div className="flex flex-col gap-2">
-                    {downRecords.map(({ id, reason, datetime, duration }) => (
+                    {downRecords.map(({ reason, datetime, duration }, index) => (
                       <div
-                        key={id}
+                        key={index}
                         className="p-3 bg-red-50/90 dark:bg-red-900/20 rounded-lg border border-red-200/80 dark:border-red-800/80"
                       >
                         <div className="flex justify-between">

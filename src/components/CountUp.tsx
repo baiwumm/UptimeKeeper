@@ -2,10 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 10:09:14
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-17 17:39:57
+ * @LastEditTime: 2025-09-18 10:58:16
  * @Description: 数字动画组件
  */
-import { useInView, useMotionValue, useSpring } from 'motion/react';
+import { useMotionValue, useSpring } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 interface CountUpProps {
@@ -19,7 +19,6 @@ interface CountUpProps {
   separator?: string;
   onStart?: () => void;
   onEnd?: () => void;
-  inViewTrigger?: boolean; // ✅ 新增：是否需要进入视口才触发
 }
 
 export default function CountUp({
@@ -33,7 +32,6 @@ export default function CountUp({
   separator = '',
   onStart,
   onEnd,
-  inViewTrigger = false // 默认不依赖视口
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(direction === 'down' ? to : from);
@@ -42,8 +40,6 @@ export default function CountUp({
   const stiffness = 100 * (1 / duration);
 
   const springValue = useSpring(motionValue, { damping, stiffness });
-
-  const isInView = useInView(ref, { once: true, margin: '0px' });
 
   const getDecimalPlaces = (num: number): number => {
     const str = num.toString();
@@ -69,10 +65,6 @@ export default function CountUp({
   useEffect(() => {
     if (!startWhen) return;
 
-    // ✅ 决定是否要依赖视口
-    const canStart = inViewTrigger ? isInView : true;
-    if (!canStart) return;
-
     if (typeof onStart === 'function') onStart();
 
     const timeoutId = setTimeout(() => {
@@ -87,7 +79,7 @@ export default function CountUp({
       clearTimeout(timeoutId);
       clearTimeout(durationTimeoutId);
     };
-  }, [inViewTrigger, isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
+  }, [startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
 
   // 数字变化监听
   useEffect(() => {
