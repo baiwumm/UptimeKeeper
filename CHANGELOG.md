@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.2](https://github.com/baiwumm/UptimeKeeper/compare/1.1.1...1.1.2) (2025-09-18)
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 解决统计卡片离开窗口重置0的情况 ([7e82323](https://github.com/baiwumm/UptimeKeeper/commit/7e823231191520a1e8facea05e24224dc0bb08a5))
+* 修复统计数据偶尔会归0的情况 ([d77a2f0](https://github.com/baiwumm/UptimeKeeper/commit/d77a2f0ef56c9be1018d65dad9766a2935bf986f))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 细节优化 ([136d2c7](https://github.com/baiwumm/UptimeKeeper/commit/136d2c7c5a307745e6ed1c80067c2db7dd0d8b8a))
+
 ## [1.1.1](https://github.com/baiwumm/UptimeKeeper/compare/1.1.0...1.1.1) (2025-09-17)
 
 ### ✨ Features | 新功能
