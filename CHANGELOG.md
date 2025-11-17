@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.3](https://github.com/baiwumm/UptimeKeeper/compare/1.1.2...1.1.3) (2025-11-17)
+
+### ✨ Features | 新功能
+
+* 添加 Vercel 统计代码 ([be173dd](https://github.com/baiwumm/UptimeKeeper/commit/be173dd723237ad46b8b9fa564983e8e07ba4fdd))
+
 ## [1.1.2](https://github.com/baiwumm/UptimeKeeper/compare/1.1.1...1.1.2) (2025-09-18)
 
 ### 🐛 Bug Fixes | Bug 修复
