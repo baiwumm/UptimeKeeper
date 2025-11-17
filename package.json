@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@ant-design/charts": "^2.6.4",
+    "@vercel/analytics": "^1.5.0",
     "clsx": "^2.1.1",
     "motion": "^12.23.12",
     "next": "15.5.2",
