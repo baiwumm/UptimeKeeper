@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-16 08:39:59
+ * @LastEditTime: 2026-01-05 16:46:08
  * @Description: 入口文件
  */
 'use client';
@@ -23,7 +23,7 @@ export default function Home() {
     setLoading(true);
     await fetch('/api/uptimerobot').then(async (res) => {
       const result = await res.json();
-      setData(result);
+      setData(result?.data || []);
     }).finally(() => {
       setLoading(false);
     });

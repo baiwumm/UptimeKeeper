@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:37:41
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2025-09-11 15:23:44
+ * @LastEditTime: 2026-01-05 16:43:11
  * @Description: 请求站点列表
  */
 import { NextResponse } from 'next/server';
@@ -21,39 +21,31 @@ export async function GET() {
   }
 
   try {
-    const now = Math.floor(Date.now() / 1000);
-    const start = now - 24 * 60 * 60;
-    const response = await fetch(API_URL as string, {
-      method: 'POST',
+    const res = await fetch(API_URL!, {
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${API_KEY}`,
+        'Content-Type': 'application/json',
       },
-      body: new URLSearchParams({
-        api_key: API_KEY, // API 密钥（必填）
-        format: 'json', // json 或 xml
-        response_times: '1', // 1=返回响应时间点
-        logs: '1', // 1=返回日志
-        custom_uptime_ratios: ResponseDays.toString(), // 如 '7-30'，正常运行时间百分比
-        custom_uptime_ranges: generateTimeRanges(), // 自定义宕机持续时间(默认30天)
-        response_times_average: '60', // 每 60 分钟取一次响应时间
-        // 响应时间范围取最近24小时
-        response_times_start_date: start.toString(),
-        response_times_end_date: now.toString(),
-      }),
-    });
+      // 可选：Next.js 缓存策略
+      cache: 'no-store', // 实时监控数据，建议不缓存
+    })
 
-    if (!response.ok) {
-      throw new Error(`UptimeRobot API 接口报错: ${response.status}`);
+    if (!res.ok) {
+      const text = await res.text()
+      return NextResponse.json(
+        { message: 'UptimeRobot API error', detail: text },
+        { status: res.status }
+      )
     }
 
-    const data = await response.json();
-    // 检查返回状态
-    if (data?.stat === 'ok') {
-      return NextResponse.json(data.monitors);
-    } else {
-      throw new Error(`API 请求失败: ${data?.message || '未知错误'}`);
-    }
+    const data = await res.json()
+
+    return NextResponse.json(data)
   } catch (error) {
-    throw new Error(`UptimeRobot API 接口报错: ${(error as Error).message}`);
+    return NextResponse.json(
+      { message: '服务器错误', error },
+      { status: 500 }
+    )
   }
 }
