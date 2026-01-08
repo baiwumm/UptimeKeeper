@@ -1,102 +1,58 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-/**
- * 智能合并 Tailwind CSS 类名
- * - 支持条件判断
- * - 自动去重
- * - 智能覆盖（如 p-4 p-8 → p-8）
- */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
+}
+
+
+/**
+ * Dynamically get a nested value from an array or
+ * object with a string.
+ *
+ * @example get(person, 'friends[0].name')
+ */
+export const get = <TDefault = unknown>(
+  value: unknown,
+  path: string,
+  defaultValue?: TDefault
+): TDefault => {
+  const segments = path.split(/[\.\[\]]/g)
+  let current: any = value
+  for (const key of segments) {
+    if (current === null) return defaultValue as TDefault
+    if (current === undefined) return defaultValue as TDefault
+    const dequoted = key.replace(/['"]/g, '')
+    if (dequoted.trim() === '') continue
+    current = current[dequoted]
+  }
+  if (current === undefined) return defaultValue as TDefault
+  return current
 }
 
 /**
- * @description: 网站状态
+ * @description: 截取域名
+ * @param {string} url
  */
-export const WEBSITE_STATUS = {
-  Up: 2, // 在线
-  Paused: 0, // 暂停
-  Prepare: 1, // 准备中
-  Down: 9, // 离线
-} as const;
+export const extractDomainPart = (url: string) => {
+  // 创建一个URL对象
+  const urlObj = new URL(url);
 
-/**
- * @description: 监控类型
- */
-export const MONITOR_TYPE = {
-  Https: 1,
-  Keyword: 2,
-  Ping: 3,
-  Port: 4,
-  Heartbeat: 5,
-} as const;
+  // 获取主机名(hostname)
+  const hostname = urlObj.hostname;
 
-/**
- * @description: 日志类型
- */
-export const LOGS_TYPE = {
-  Down: 1,
-  Up: 2,
-  Paused: 99,
-  Started: 8,
-} as const;
+  // 分割主机名部分
+  const parts = hostname.split(".");
 
-/**
- * @description: 主题模式
- */
-export const THEME = {
-  Light: 'light',
-  Dark: 'dark',
-} as const;
+  // 处理不同的域名情况
+  if (parts.length === 3 && parts[0] !== "www") {
+    // 类似 https://react.baiwumm.com 的情况 - 返回第一个部分
+    return parts[0];
+  } else if (parts.length === 2 || (parts.length === 3 && parts[0] === "www")) {
+    // 类似 https://baiwumm.com 或 https://www.baiwumm.com 的情况 - 返回 'www'
+    return "www";
+  }
 
-/**
- * @description: 默认5分钟，转换为秒
- */
-export const CountDownTime = parseInt(process.env.NEXT_PUBLIC_COUNTDOWN_TIME || '5', 10);
-
-/**
- * 响应时间天数，默认 30 天，最小值 7 天，最大值 90 天
- */
-export const ResponseDays: number = Math.max(7, Math.min(90, Number(process.env.NEXT_PUBLIC_RESPONSE_DAYS) || 30));
-
-/**
- * @description: 生成近 ResponseDays 天的查询字符串
- */
-export function generateTimeRanges() {
-  return Array.from({ length: ResponseDays }, (_, i) => {
-    const date = new Date()
-    date.setDate(date.getDate() - i)
-    const start = new Date(date).setHours(0, 0, 0, 0)
-    const end = new Date(date).setHours(23, 59, 59, 999)
-    return `${Math.floor(start / 1000)}_${Math.floor(end / 1000)}`
-  }).join('-')
+  // 默认情况
+  return hostname;
 }
-
-/**
- * 计算时间戳距离当前的天数，不足一天也按一天算（向上取整），最大返回 90
- * @param timestamp - 时间戳（秒 或 毫秒）
- * @returns 天数（0 ~ ResponseDays）
- */
-export const daysAgo = (timestamp: number): number => {
-  const ms = timestamp < 10_000_000_000 ? timestamp * 1000 : timestamp;
-  const diffMs = Date.now() - ms;
-
-  if (diffMs < 0) return 0;
-  if (diffMs === 0) return 0;
-
-  const days = Math.ceil(diffMs / 86400000); // 86400000 = 24 * 60 * 60 * 1000
-  return Math.min(days, ResponseDays);
-}
-
-/**
-   * @param ms - 毫秒数
-   * @returns 格式化后的字符串，如 "1小时9分钟" 或 "45秒"
-   */
-export const formatTimeAgo = (s: number): string => {
-  if (s < 60) return `${s}秒`;
-  const d = Math.floor(s / 86400);
-  const h = Math.floor((s % 86400) / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
-};

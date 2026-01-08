@@ -2,16 +2,15 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:37:41
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-05 16:43:11
+ * @LastEditTime: 2026-01-06 13:48:12
  * @Description: 请求站点列表
  */
 import { NextResponse } from 'next/server';
 
-import { generateTimeRanges, ResponseDays } from '@/lib/utils'
-
 export async function GET() {
   const API_KEY = process.env.UPTIMEROBOT_API_KEY;
   const API_URL = process.env.UPTIMEROBOT_API_URL;
+  const STATUS_API_URL = process.env.UPTIMEROBOT_STATUS_API_URL;
 
   if (!API_KEY) {
     return NextResponse.json(
@@ -21,6 +20,7 @@ export async function GET() {
   }
 
   try {
+    // 请求站点列表
     const res = await fetch(API_URL!, {
       method: 'GET',
       headers: {
@@ -39,9 +39,27 @@ export async function GET() {
       )
     }
 
-    const data = await res.json()
-
-    return NextResponse.json(data)
+    const data = (await res.json())?.data || [];
+    let result = [];
+    let statistics = {};
+    if (data?.length) {
+      // 请求站点状态
+      const statusRes = await fetch(STATUS_API_URL!, {
+        method: 'GET'
+      });
+      const statusData = await statusRes.json();
+      if (statusData?.statistics) {
+        statistics = statusData?.statistics;
+      }
+      result = data.map((m) => {
+        const monitor = statusData.data.find((s) => s.monitorId === m.id);
+        return {
+          ...m,
+          monitor
+        }
+      })
+    }
+    return NextResponse.json({ data: result, statistics })
   } catch (error) {
     return NextResponse.json(
       { message: '服务器错误', error },

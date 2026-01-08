@@ -2,87 +2,97 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-05 16:46:08
+ * @LastEditTime: 2026-01-08 10:10:59
  * @Description: 入口文件
  */
-'use client';
-import { Icon } from '@iconify/react'
-import { motion } from 'motion/react';
-import { useEffect, useState } from 'react'
+"use client"
+import { useState } from 'react';
+import useSWR from 'swr';
 
-import Header from '@/components/Header'
-import StatisticalCard from '@/components/StatisticalCard'
-import WebSiteCard from '@/components/WebSiteCard';
-import type { WebsiteItem } from '@/lib/type';
+import BlurFade from '@/components/BlurFade';
+import EmptyPage from '@/components/EmptyPage';
+import ErrorPage from '@/components/ErrorPage';
+import Footer from '@/components/Footer';
+import Header from "@/components/Header";
+import MonitorCard from '@/components/MonitorCard';
+import StatisticCard from "@/components/StatisticCard";
+import { Spinner } from "@/components/ui/spinner";
+import { useAvailableHeight } from '@/hooks/use-available-height';
+
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function Home() {
-  const [data, setData] = useState<WebsiteItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  // 请求站点接口
-  const fetchData = async () => {
-    setLoading(true);
-    await fetch('/api/uptimerobot').then(async (res) => {
-      const result = await res.json();
-      setData(result?.data || []);
-    }).finally(() => {
-      setLoading(false);
-    });
-  };
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  // 初始化挂载
-  useEffect(() => {
-    fetchData()
-  }, [])
-  return (
-    <div className="flex flex-col justify-center gap-6">
-      {/* 顶部标题栏 */}
-      <Header fetchData={fetchData} loading={loading} />
-      {/* 统计卡片 */}
-      <StatisticalCard
-        status={data?.length ? data.map((v) => v.status) : []}
-        averageResponseTimes={data?.length ? data.map((v) => v.average_response_time) : []}
-        loading={loading}
-      />
-      <div className="flex flex-col gap-6">
-        {/* 加载状态 */}
-        {loading ? (
-          <div className="flex items-center justify-center p-12">
-            <Icon
-              icon="svg-spinners:180-ring-with-bg"
-              className="w-12 h-12 text-gray-400 dark:text-gray-300 animate-spin"
-            />
+  // 计算主体内容高度
+  const mainHeight = useAvailableHeight({
+    elementIds: ['header', 'footer'],
+    debounceMs: 150,
+  });
+
+  // 请求站点接口
+  const { data, error, isValidating, isLoading, mutate } = useSWR('/api/uptimerobot', fetcher, {
+    revalidateOnFocus: false,
+    onSuccess: () => {
+      setRefreshKey(prev => prev + 1);
+    }
+  });
+  const loading = isValidating || isLoading;
+  const monitors: App.Monitor[] = data?.data || [];
+  const statistics = data?.statistics;
+
+  // 渲染主体内容
+  const renderContent = () => {
+    // 加载中
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center h-40">
+          <div className="flex flex-col items-center gap-2">
+            <Spinner className="size-6" variant="infinite" />
+            <span className="text-sm font-bold">加载中...</span>
           </div>
-        ) : data?.length ? (
-          // 站点卡片
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-            {data.map((v: WebsiteItem, i: number) => (
-              <motion.div
-                key={v.url}
-                initial={{ opacity: 0, y: 20, scale: 0.97 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.05 }} // 至少 5% 进入视口才触发
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-              >
-                <WebSiteCard {...v} index={i} />
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div
-            className="flex flex-col items-center gap-4 p-8 rounded-2xl bg-red-50/50 dark:bg-red-900/20 border-2 border-red-100 dark:border-red-800/50 backdrop-blur-sm animate-fade"
-          >
-            <div className="relative">
-              <Icon icon="carbon:warning-filled" className="w-12 h-12 text-red-500/90 dark:text-red-400/90" />
-              <div className="absolute inset-0 w-12 h-12 bg-red-500/20 dark:bg-red-400/20 rounded-full animate-ping" />
-            </div>
-            <div className="text-center">
-              <div className="text-red-600 dark:text-red-400 font-medium mb-1">
-                获取监控数据失败，请稍后重试
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
+      )
+    }
+    // 加载错误
+    if (error) {
+      return (
+        <ErrorPage />
+      )
+    }
+    // 没数据
+    if (!monitors.length) {
+      return (
+        <EmptyPage />
+      )
+    }
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {monitors.map((monitor, index) => (
+          <BlurFade key={monitor.id} inView>
+            <MonitorCard index={index} {...monitor} />
+          </BlurFade>
+        ))}
       </div>
-    </div>
+    )
+  }
+
+  // 手动刷新函数
+  const refresh = () => {
+    mutate();
+  };
+  return (
+    <>
+      {/* 头部 */}
+      <Header refresh={refresh} isLoading={isLoading} />
+      {/* 主体内容 */}
+      <main className="container mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
+        {/* 统计卡片 */}
+        <StatisticCard statistics={statistics} refreshKey={refreshKey} />
+        {renderContent()}
+      </main>
+      {/* 底部版权 */}
+      <Footer />
+    </>
   );
 }
