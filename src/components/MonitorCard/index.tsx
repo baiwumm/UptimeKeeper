@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 10:37:52
+ * @LastEditTime: 2026-01-09 10:03:37
  * @Description: 监控卡片
  */
 import dayjs from 'dayjs';
@@ -67,7 +67,7 @@ const MonitorCard: FC<MonitorCardProps> = ({
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {/* 监控缩略图 */}
-        <MonitorThumbnail url={url} />
+        <MonitorThumbnail url={url} friendlyName={friendlyName} />
         {/* 运行时间和可用性 */}
         <div className="grid grid-cols-2 gap-4">
           <div className={cn(SECTION_CLASSNAME, "flex flex-col gap-1")}>
