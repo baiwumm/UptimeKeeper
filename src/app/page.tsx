@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 10:10:59
+ * @LastEditTime: 2026-01-08 17:32:09
  * @Description: 入口文件
  */
 "use client"
@@ -19,7 +19,15 @@ import StatisticCard from "@/components/StatisticCard";
 import { Spinner } from "@/components/ui/spinner";
 import { useAvailableHeight } from '@/hooks/use-available-height';
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    // 可选：把状态码或响应体作为错误信息
+    const errorText = await res.text();
+    throw new Error(`HTTP ${res.status}: ${errorText}`);
+  }
+  return res.json();
+};
 
 export default function Home() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -33,13 +41,16 @@ export default function Home() {
   // 请求站点接口
   const { data, error, isValidating, isLoading, mutate } = useSWR('/api/uptimerobot', fetcher, {
     revalidateOnFocus: false,
-    onSuccess: () => {
-      setRefreshKey(prev => prev + 1);
+    onSuccess: (data) => {
+      if (data) {
+        setRefreshKey(prev => prev + 1);
+      }
     }
   });
   const loading = isValidating || isLoading;
   const monitors: App.Monitor[] = data?.data || [];
   const statistics = data?.statistics;
+  console.log('error', error)
 
   // 渲染主体内容
   const renderContent = () => {

@@ -55,10 +55,11 @@ declare namespace App {
     friendlyName: string;
     monitor: MonitorStatistics;
     lastIncident: null | {
-      status: 'Resolved' | 'Started';
+      status: 'Resolved' | 'Ongoing';
       startedAt: string;
-      duration: number;
+      duration?: number | null;
       reason: string;
+      cause: number;
     };
     interval: number;
   }

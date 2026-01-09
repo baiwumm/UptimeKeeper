@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 09:53:58
+ * @LastEditTime: 2026-01-08 18:25:35
  * @Description: 网络状态
  */
 import { motion } from 'motion/react';
@@ -12,7 +12,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/animate-ui
 import { Badge, BadgeDot } from '@/components/ui/badge';
 import { STATUS } from '@/enums';
 import { useHeatmapDays } from '@/hooks/use-heatmap-days'
-import { cn, get } from '@/lib/utils';
+import { cn, get, SECTION_CLASSNAME } from '@/lib/utils';
 
 type Props = Pick<App.Monitor, 'status' | 'type' | 'interval'> & {
   data: App.Ratio[];
@@ -50,7 +50,7 @@ const DailyAvailability: FC<Props> = ({
     [status, raw]
   );
   return (
-    <div className="rounded-md bg-secondary p-4 text-gray-500 dark:text-gray-400 text-xs space-y-3">
+    <div className={cn(SECTION_CLASSNAME, 'space-y-3')}>
       {/* Header */}
       <Badge variant={get(raw, 'badge', 'secondary')} appearance="ghost">
         <BadgeDot />
@@ -82,7 +82,7 @@ const DailyAvailability: FC<Props> = ({
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between items-center text-gray-400">
+      <div className="flex justify-between items-center">
         <span>{DAYS} 天前</span>
         <span>今日</span>
       </div>

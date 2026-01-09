@@ -22,10 +22,10 @@ const MonitorThumbnail: FC<MonitorThumbnailProps> = ({ url }) => {
       <Image
         src={`/${extractDomainPart(url)}.png`}
         alt="网站缩略图"
-        width={1052}
-        height={548}
+        width={2026}
+        height={1107}
         priority
-        className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 aspect-[526/274]"
+        className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 aspect-[2026/1107]"
       />
 
       {/* 图片底部装饰条 */}

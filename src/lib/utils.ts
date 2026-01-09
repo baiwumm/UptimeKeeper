@@ -56,3 +56,18 @@ export const extractDomainPart = (url: string) => {
   // 默认情况
   return hostname;
 }
+
+/**
+   * @param ms - 毫秒数
+   * @returns 格式化后的字符串，如 "1小时9分钟" 或 "45秒"
+   */
+export const formatTimeAgo = (s: number): string => {
+  if (s < 60) return `${s}秒`;
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
+};
+
+// 统一样式
+export const SECTION_CLASSNAME = "bg-secondary text-gray-500 dark:text-gray-400 rounded-md text-xs p-4"

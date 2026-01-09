@@ -11,13 +11,14 @@ import { type FC } from 'react';
 
 import { RippleButton } from "@/components/animate-ui/components/buttons/ripple";
 import DailyAvailability from '@/components/DailyAvailability';
+import IncidentModal from '@/components/IncidentModal';
 import MonitorThumbnail from '@/components/MonitorThumbnail';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardToolbar } from '@/components/ui/card';
 import { CountingNumber } from '@/components/ui/counting-number';
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
 import { STATUS } from '@/enums';
-import { get } from '@/lib/utils';
+import { cn, get, SECTION_CLASSNAME } from '@/lib/utils';
 
 type MonitorCardProps = {
   index: number;
@@ -32,7 +33,8 @@ const MonitorCard: FC<MonitorCardProps> = ({
   monitor,
   type,
   interval,
-  createDateTime
+  createDateTime,
+  lastIncident
 }) => {
   // 获取原配置
   const raw = STATUS.raw(status);
@@ -68,7 +70,7 @@ const MonitorCard: FC<MonitorCardProps> = ({
         <MonitorThumbnail url={url} />
         {/* 运行时间和可用性 */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-secondary text-gray-500 dark:text-gray-400 rounded-md text-xs p-4 flex flex-col gap-1">
+          <div className={cn(SECTION_CLASSNAME, "flex flex-col gap-1")}>
             <div>已运行</div>
             <div className="flex items-center gap-1">
               <CountingNumber
@@ -80,7 +82,7 @@ const MonitorCard: FC<MonitorCardProps> = ({
             </div>
             <div>{dayjs(createDateTime).format('YYYY年MM月DD日')}</div>
           </div>
-          <div className="bg-secondary text-gray-500 dark:text-gray-400 rounded-md text-xs p-4 flex flex-col gap-1">
+          <div className={cn(SECTION_CLASSNAME, "flex flex-col gap-1")}>
             <div>可用性</div>
             <CountingNumber
               to={Number(get(monitor, '30dRatio.ratio', 0))}
@@ -92,6 +94,8 @@ const MonitorCard: FC<MonitorCardProps> = ({
         </div>
         {/* 可用率 图表 */}
         <DailyAvailability status={status} type={type} interval={interval} data={monitor?.dailyRatios || []} />
+        {/* 最近一次故障 */}
+        <IncidentModal lastIncident={lastIncident} />
       </CardContent>
     </Card>
   )
