@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-08 10:02:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 10:20:52
+ * @LastEditTime: 2026-01-09 13:58:52
  * @Description: 监控缩略图
  */
 import { Eye } from 'lucide-react';
@@ -27,7 +27,8 @@ const MonitorThumbnail: FC<MonitorThumbnailProps> = ({ url, friendlyName }) => {
         alt={`${friendlyName} 网站预览图`}
         fill
         loading="lazy"
-        className="object-cover transition-transform duration-700 ease-out group-hover:scale-95 scale-90"
+        sizes="(min-width: 768px) 50vw, 100vw"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-90 scale-85"
       />
 
       {/* 图片底部信息条 */}

@@ -27,7 +27,7 @@ export const STATISTICS = Enum({
     icon: 'monitor',
     iconClass: 'text-green-500',
     text: 'counts.total',
-    suffix: '',
+    suffix: '个',
     badge: '已纳入监控'
   },
   UP: {
@@ -36,7 +36,7 @@ export const STATISTICS = Enum({
     icon: 'circle-check',
     iconClass: 'text-green-500',
     text: 'counts.up',
-    suffix: '',
+    suffix: '个',
     badge: '访问正常'
   },
   DOWN: {
@@ -45,7 +45,7 @@ export const STATISTICS = Enum({
     icon: 'circle-x',
     iconClass: 'text-red-500',
     text: 'counts.down',
-    suffix: '',
+    suffix: '个',
     badge: '存在异常'
   },
   RADIO: {

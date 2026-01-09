@@ -1,15 +1,16 @@
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
- * @Date: 2025-09-10 15:37:41
+ * @Date: 2026-01-09 13:40:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 14:46:14
- * @Description: 请求站点列表
+ * @LastEditTime: 2026-01-09 14:46:43
+ * @Description: 获取监控详情
  */
+
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(_, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const API_KEY = process.env.UPTIMEROBOT_API_KEY;
-  const API_URL = process.env.UPTIMEROBOT_API_URL;
   const STATUS_API_URL = process.env.UPTIMEROBOT_STATUS_API_URL;
   const STATUS_API_KEY = process.env.UPTIMEROBOT_STATUS_API_KEY;
 
@@ -22,7 +23,7 @@ export async function GET() {
 
   try {
     // 请求站点列表
-    const res = await fetch(API_URL!, {
+    const res = await fetch(`${STATUS_API_URL}/getMonitor/${STATUS_API_KEY}?m=${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${API_KEY}`,
@@ -40,27 +41,8 @@ export async function GET() {
       )
     }
 
-    const data = (await res.json())?.data || [];
-    let result = [];
-    let statistics = {};
-    if (data?.length) {
-      // 请求站点状态
-      const statusRes = await fetch(`${STATUS_API_URL!}/getMonitorList/${STATUS_API_KEY}`, {
-        method: 'GET'
-      });
-      const statusData = await statusRes.json();
-      if (statusData?.statistics) {
-        statistics = statusData?.statistics;
-      }
-      result = data.map((m) => {
-        const monitor = statusData.data.find((s) => s.monitorId === m.id);
-        return {
-          ...m,
-          monitor
-        }
-      })
-    }
-    return NextResponse.json({ data: result, statistics })
+    const data = await res.json();
+    return NextResponse.json(data)
   } catch (error) {
     return NextResponse.json(
       { message: '服务器错误', error },

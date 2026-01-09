@@ -2,25 +2,33 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:44:18
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 10:47:01
+ * @LastEditTime: 2026-01-09 14:38:57
  * @Description: 监控统计指标
  */
 import { type Dayjs } from 'dayjs';
+import { ChartSpline } from "lucide-react";
 import { type FC } from 'react';
 
+import { RippleButton } from "@/components/animate-ui/components/buttons/ripple";
 import { CountingNumber } from '@/components/ui/counting-number';
 import { cn, get, SECTION_CLASSNAME } from '@/lib/utils';
 
 type MonitorStatsProps = {
   runningDays: number;
   createdAt: Dayjs;
+  onShowResponse: VoidFunction;
 } & Pick<App.Monitor, 'monitor'>;
 
-const MonitorStats: FC<MonitorStatsProps> = ({ runningDays = 0, createdAt, monitor }) => {
+const MonitorStats: FC<MonitorStatsProps> = ({ runningDays = 0, createdAt, monitor, onShowResponse }) => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className={cn(SECTION_CLASSNAME, "flex flex-col gap-1")}>
-        <div>已运行</div>
+        <div className="flex justify-between items-center">
+          <div>已运行</div>
+          <RippleButton variant="dim" radius="full" mode="icon" onClick={onShowResponse} className="w-auto h-auto">
+            <ChartSpline />
+          </RippleButton>
+        </div>
         <div className="flex items-center gap-1">
           <CountingNumber
             to={runningDays}

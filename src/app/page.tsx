@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 17:32:09
+ * @LastEditTime: 2026-01-09 14:48:15
  * @Description: 入口文件
  */
 "use client"
@@ -15,22 +15,17 @@ import ErrorPage from '@/components/ErrorPage';
 import Footer from '@/components/Footer';
 import Header from "@/components/Header";
 import MonitorCard from '@/components/MonitorCard';
+import MonitorHealthDialog from '@/components/MonitorHealthDialog';
 import StatisticCard from "@/components/StatisticCard";
 import { Spinner } from "@/components/ui/spinner";
 import { useAvailableHeight } from '@/hooks/use-available-height';
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  if (!res.ok) {
-    // 可选：把状态码或响应体作为错误信息
-    const errorText = await res.text();
-    throw new Error(`HTTP ${res.status}: ${errorText}`);
-  }
-  return res.json();
-};
+import { fetcher } from '@/lib/utils';
 
 export default function Home() {
+  // 统计卡片刷新标识
   const [refreshKey, setRefreshKey] = useState(0);
+  // 监控 id
+  const [monitorId, setMonitorId] = useState<number | null>(null);
 
   // 计算主体内容高度
   const mainHeight = useAvailableHeight({
@@ -50,7 +45,6 @@ export default function Home() {
   const loading = isValidating || isLoading;
   const monitors: App.Monitor[] = data?.data || [];
   const statistics = data?.statistics;
-  console.log('error', error)
 
   // 渲染主体内容
   const renderContent = () => {
@@ -81,7 +75,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {monitors.map((monitor, index) => (
           <BlurFade key={monitor.id} inView>
-            <MonitorCard index={index} {...monitor} />
+            <MonitorCard index={index} {...monitor} onShowResponse={() => setMonitorId(monitor.id)} />
           </BlurFade>
         ))}
       </div>
@@ -104,6 +98,13 @@ export default function Home() {
       </main>
       {/* 底部版权 */}
       <Footer />
+      {/* 监控健康概览 */}
+      <MonitorHealthDialog
+        monitorId={monitorId}
+        open={!!monitorId}
+        onOpenChange={(open) => {
+          if (!open) setMonitorId(null);
+        }} />
     </>
   );
 }

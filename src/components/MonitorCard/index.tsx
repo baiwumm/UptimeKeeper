@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 10:48:10
+ * @LastEditTime: 2026-01-09 14:29:47
  * @Description: 监控卡片
  */
 import dayjs from 'dayjs';
@@ -19,6 +19,7 @@ import { STATUS } from '@/enums';
 
 type MonitorCardProps = {
   index: number;
+  onShowResponse: VoidFunction;
 } & App.Monitor;
 
 const MonitorCard: FC<MonitorCardProps> = ({
@@ -31,7 +32,8 @@ const MonitorCard: FC<MonitorCardProps> = ({
   type,
   interval,
   createDateTime,
-  lastIncident
+  lastIncident,
+  onShowResponse
 }) => {
   // 获取原配置
   const raw = useMemo(() => STATUS.raw(status), [status]);
@@ -53,7 +55,7 @@ const MonitorCard: FC<MonitorCardProps> = ({
         {/* 监控缩略图 */}
         <MonitorThumbnail url={url} friendlyName={friendlyName} />
         {/* 监控统计指标 */}
-        <MonitorStats runningDays={runningDays} createdAt={createdAt} monitor={monitor} />
+        <MonitorStats runningDays={runningDays} createdAt={createdAt} monitor={monitor} onShowResponse={onShowResponse} />
         {/* 监控状态 */}
         {monitor?.dailyRatios?.length ? (
           <MonitorAvailability status={status} type={type} interval={interval} data={monitor?.dailyRatios || []} />

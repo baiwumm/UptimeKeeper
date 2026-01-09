@@ -76,7 +76,7 @@ const Footer: FC = () => {
             > UptimeRobot </a>
             接口
             <Separator className="h-3" orientation="vertical" />
-            检测频率 5 分钟
+            检测频率 {process.env.NEXT_PUBLIC_INTERVAL} 分钟
           </div>
           <div className="flex items-center flex-col md:flex-row gap-2">
             {IcpLinks.map(({ image, url, label }) => (
