@@ -2,11 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 17:01:34
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 10:37:17
+ * @LastEditTime: 2026-01-09 17:21:37
  * @Description: 头部
  */
 "use client"
-import { House, Mail, Moon, RefreshCcw, Sun } from "lucide-react"
+import { House, Moon, RefreshCcw, Sun } from "lucide-react"
 import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
 import Link from "next/link";
@@ -17,7 +17,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/animate-ui
 import { RippleButton } from "@/components/animate-ui/components/buttons/ripple"
 import { type Resolved, type ThemeSelection, ThemeToggler as ThemeTogglerPrimitive } from '@/components/animate-ui/primitives/effects/theme-toggler';
 import { THEME_MODE } from '@/enums';
-import { GithubIcon, JuejinIcon } from '@/lib/icons';
+import { GithubIcon } from '@/lib/icons';
 import pkg from '#/package.json';
 
 type Social = {
@@ -34,18 +34,8 @@ type HeaderProps = {
 const socials: Social[] = [
   {
     name: "GitHub",
-    url: `https://github.com/${pkg.author.name}`,
+    url: `https://github.com/${pkg.repository.url}`,
     icon: <GithubIcon />
-  },
-  {
-    name: "掘金",
-    url: 'https://juejin.cn/user/1917147257534279',
-    icon: <JuejinIcon />
-  },
-  {
-    name: "Email",
-    url: `mailto:${pkg.author.email}`,
-    icon: <Mail />
   }
 ]
 
@@ -72,20 +62,6 @@ const Header: FC<HeaderProps> = ({ refresh, isLoading = false }) => {
               <p>刷新</p>
             </TooltipContent>
           </Tooltip>
-          {socials.map(({ name, url, icon }) => (
-            <Tooltip key={name}>
-              <TooltipTrigger asChild>
-                <Link href={url} aria-label={name} target="_blank">
-                  <RippleButton variant="ghost" radius="full" mode="icon" size='sm'>
-                    {icon}
-                  </RippleButton>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{name}</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
           <ThemeTogglerPrimitive
             theme={theme as ThemeSelection}
             resolvedTheme={resolvedTheme as Resolved}
@@ -136,6 +112,20 @@ const Header: FC<HeaderProps> = ({ refresh, isLoading = false }) => {
               </Tooltip>
             )}
           </ThemeTogglerPrimitive>
+          {socials.map(({ name, url, icon }) => (
+            <Tooltip key={name}>
+              <TooltipTrigger asChild>
+                <Link href={url} aria-label={name} target="_blank">
+                  <RippleButton variant="ghost" radius="full" mode="icon" size='sm'>
+                    {icon}
+                  </RippleButton>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{name}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
           <Tooltip>
             <TooltipTrigger asChild>
               <Link href={pkg.author.url} aria-label="主页" target="_blank">

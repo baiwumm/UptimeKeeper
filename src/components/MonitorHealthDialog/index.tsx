@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 14:47:26
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 17:06:52
+ * @LastEditTime: 2026-01-09 17:28:05
  * @Description: 监控健康概览
  */
 import { TriangleAlert } from "lucide-react";
@@ -13,7 +13,7 @@ import ResponseTimeChart from './ResponseTimeChart';
 
 import BlurFade from '@/components/BlurFade';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
+import { Badge, BadgeDot } from '@/components/ui/badge';
 import { CountingNumber } from '@/components/ui/counting-number';
 import {
   Dialog,
@@ -136,7 +136,15 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl p-0">
         <DialogHeader className="pt-5 pb-3 m-0 border-b border-border">
-          <DialogTitle className="px-6">监控健康概览 - {monitor.name || '--'}</DialogTitle>
+          <div className="px-6 flex items-center gap-2">
+            <DialogTitle>监控健康概览</DialogTitle>
+            {monitor?.name && (
+              <Badge variant="success" appearance="light">
+                <BadgeDot />
+                {monitor.name}
+              </Badge>
+            )}
+          </div>
         </DialogHeader>
         <DialogBody className="p-4">
           {renderContent()}

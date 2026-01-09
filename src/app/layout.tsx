@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 09:56:41
+ * @LastEditTime: 2026-01-09 17:19:19
  * @Description: 布局文件
  */
 import { Analytics } from "@vercel/analytics/next"
@@ -45,7 +45,7 @@ export default function RootLayout({
         <meta name="version" content={pkg.version} />
         <link rel="stylesheet" href="https://cdn.baiwumm.com/fonts/MapleMono-CN-Regular/result.css" />
       </head>
-      <body>
+      <body className="bg-[radial-gradient(80%_50%_at_50%_0%,hsl(var(--primary)/0.08),transparent_70%)] dark:bg-[radial-gradient(80%_50%_at_50%_0%,hsl(var(--primary)/0.12),transparent_70%)]">
         {/* Vercel 统计 */}
         <Analytics />
         <ThemeProvider attribute="class" enableSystem={false}>
