@@ -3,7 +3,7 @@
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
  * @LastEditTime: 2026-01-09 10:19:15
- * @Description: 故障记录
+ * @Description: 监控故障
  */
 "use client"
 import dayjs from 'dayjs';
@@ -14,7 +14,7 @@ import { Alert, AlertIcon, AlertTitle, AlertToolbar } from '@/components/ui/aler
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn, formatTimeAgo, SECTION_CLASSNAME } from '@/lib/utils';
 
-type IncidentModalPops = {
+type MonitorIncidentPops = {
   lastIncident: App.Monitor['lastIncident'];
 }
 
@@ -27,7 +27,7 @@ const ERROR_MESSAGES: Record<number, string> = {
 };
 
 const DEFAULT_ERROR_MESSAGE = "连接异常";
-const IncidentModal: FC<IncidentModalPops> = ({ lastIncident }) => {
+const MonitorIncident: FC<MonitorIncidentPops> = ({ lastIncident }) => {
   const [open, setOpen] = useState(false);
   // 是否仍在发生
   const isOngoing = lastIncident?.status === 'Ongoing';
@@ -69,4 +69,4 @@ const IncidentModal: FC<IncidentModalPops> = ({ lastIncident }) => {
     </Popover>
   )
 }
-export default IncidentModal;
+export default MonitorIncident;

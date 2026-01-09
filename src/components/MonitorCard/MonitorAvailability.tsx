@@ -2,8 +2,8 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 18:25:35
- * @Description: 网络状态
+ * @LastEditTime: 2026-01-09 10:41:54
+ * @Description: 监控状态
  */
 import { motion } from 'motion/react';
 import { FC, useCallback } from 'react';
@@ -14,13 +14,13 @@ import { STATUS } from '@/enums';
 import { useHeatmapDays } from '@/hooks/use-heatmap-days'
 import { cn, get, SECTION_CLASSNAME } from '@/lib/utils';
 
-type Props = Pick<App.Monitor, 'status' | 'type' | 'interval'> & {
+type MonitorAvailabilityProps = Pick<App.Monitor, 'status' | 'type' | 'interval'> & {
   data: App.Ratio[];
 };
 
 const DAYS = 30;
 
-const DailyAvailability: FC<Props> = ({
+const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
   status,
   type,
   interval,
@@ -90,4 +90,4 @@ const DailyAvailability: FC<Props> = ({
   );
 };
 
-export default DailyAvailability;
+export default MonitorAvailability;
