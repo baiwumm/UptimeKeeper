@@ -82,5 +82,11 @@ export const formatTimeAgo = (s: number): string => {
   return (d ? `${d}天` : '') + (h ? `${h}小时` : '') + (m ? `${m}分钟` : '');
 };
 
+export const formatTime = (seconds: number) => {
+  const mm = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const ss = String(seconds % 60).padStart(2, '0');
+  return `${mm}:${ss}`;
+};
+
 // 统一样式
 export const SECTION_CLASSNAME = "bg-secondary text-gray-500 dark:text-gray-400 rounded-md text-xs p-4"

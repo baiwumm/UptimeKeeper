@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 14:48:15
+ * @LastEditTime: 2026-01-12 10:10:03
  * @Description: 入口文件
  */
 "use client"
@@ -84,12 +84,12 @@ export default function Home() {
 
   // 手动刷新函数
   const refresh = () => {
-    mutate();
-  };
+    mutate()
+  }
   return (
     <>
       {/* 头部 */}
-      <Header refresh={refresh} isLoading={isLoading} />
+      <Header refresh={refresh} loading={loading} />
       {/* 主体内容 */}
       <main className="container mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
         {/* 统计卡片 */}
