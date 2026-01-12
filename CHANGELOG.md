@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.0.0](https://github.com/baiwumm/UptimeKeeper/compare/1.1.3...2.0.0) (2026-01-12)
+
+### ✨ Features | 新功能
+
+* 更新 next 版本 ([b971172](https://github.com/baiwumm/UptimeKeeper/commit/b97117298529852ebaa99966aa97e6845b57d4fd))
+* 添加 SEO 优化信息 ([e3c0ea8](https://github.com/baiwumm/UptimeKeeper/commit/e3c0ea8a4ef6d9e8eda46c1c9128ce42a75c11d0))
+* 新增 CountDownButton 倒计时组件 ([14c6d29](https://github.com/baiwumm/UptimeKeeper/commit/14c6d29e9c7d7f204ee622200314d6d4e4def556))
+* **IncidentModal:** 新增故障信息弹窗 ([b3298c9](https://github.com/baiwumm/UptimeKeeper/commit/b3298c9c73a43758540a97ec873b9e41f34cdb19))
+* **MonitorHealthDialog:** 新增“监控健康概览”组件 ([73b8434](https://github.com/baiwumm/UptimeKeeper/commit/73b84345f06349021180169351ed033f27074e2e))
+* update images ([9a626ac](https://github.com/baiwumm/UptimeKeeper/commit/9a626ac12d5a995a6f9c51099e08df8dad08825b))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 修复打包报错问题 ([31d8f5b](https://github.com/baiwumm/UptimeKeeper/commit/31d8f5b2a8c1b77e7464be26274dd1fca9517805))
+
+### 💄 Styles | 风格
+
+* 细节调整 ([7024680](https://github.com/baiwumm/UptimeKeeper/commit/70246806c274304f73cb669414af8258f90a6c23))
+
+### ♻ Code Refactoring | 代码重构
+
+* 基于 Next.js16 重构，完成基本布局排版 ([80ec2a3](https://github.com/baiwumm/UptimeKeeper/commit/80ec2a3762d4050fb7e5e2dff5d6958965af15ea))
+* 升级 next 到最新版本 ([6978619](https://github.com/baiwumm/UptimeKeeper/commit/6978619f93d2a78dd2427b2928f1e9d1b7ddc390))
+
+### ⚡ Performance Improvements | 性能优化
+
+* **MonitorCard:** 文件结构优化 ([b8c5de6](https://github.com/baiwumm/UptimeKeeper/commit/b8c5de65e834e4b97b9ea0bb5f428859c00430e7))
+* **MonitorThumbnail:** 缩略图样式调整 ([4140e06](https://github.com/baiwumm/UptimeKeeper/commit/4140e0600e3939429fcbe7a998e09c88af80aae4))
+
 ## [1.1.3](https://github.com/baiwumm/UptimeKeeper/compare/1.1.2...1.1.3) (2025-11-17)
 
 ### ✨ Features | 新功能
