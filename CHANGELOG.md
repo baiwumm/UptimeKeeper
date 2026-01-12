@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.1](https://github.com/baiwumm/UptimeKeeper/compare/2.0.0...2.0.1) (2026-01-12)
+
+### ✨ Features | 新功能
+
+* update README.md ([1edc01b](https://github.com/baiwumm/UptimeKeeper/commit/1edc01b973a4f5e30b3d1f25e4884612db568583))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 细节调整 ([2388b79](https://github.com/baiwumm/UptimeKeeper/commit/2388b79fc3f2c9fc6d74e4499a77562e93e83bd1))
+
 ## [2.0.0](https://github.com/baiwumm/UptimeKeeper/compare/1.1.3...2.0.0) (2026-01-12)
 
 ### ✨ Features | 新功能
