@@ -35,7 +35,7 @@ type HeaderProps = {
 const socials: Social[] = [
   {
     name: "GitHub",
-    url: `https://github.com/${pkg.repository.url}`,
+    url: pkg.repository.url,
     icon: <GithubIcon />
   }
 ]

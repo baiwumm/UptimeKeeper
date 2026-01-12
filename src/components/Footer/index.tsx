@@ -2,14 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-06 17:25:42
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-08 10:55:34
+ * @LastEditTime: 2026-01-12 11:24:32
  * @Description: 底部版权
  */
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { type FC, type ReactNode } from 'react';
 
-import { RippleButton } from "@/components/animate-ui/components/buttons/ripple";
 import { Separator } from "@/components/ui/separator";
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
 import pkg from '#/package.json';

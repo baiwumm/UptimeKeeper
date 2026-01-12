@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:30:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 10:37:51
+ * @LastEditTime: 2026-01-12 14:22:18
  * @Description: 监控卡片头部
  */
 import { Link } from "lucide-react";
@@ -22,7 +22,7 @@ type MonitorHeaderProps = {
 
 const MonitorHeader: FC<MonitorHeaderProps> = ({ index, friendlyName, url, tags, raw }) => {
   return (
-    <CardHeader className="items-start">
+    <CardHeader className="items-start pb-0">
       <CardTitle>
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold truncate text-gray-800 dark:text-gray-100">
