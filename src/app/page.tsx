@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-12 10:10:03
+ * @LastEditTime: 2026-01-20 10:49:29
  * @Description: 入口文件
  */
 "use client"
@@ -91,7 +91,7 @@ export default function Home() {
       {/* 头部 */}
       <Header refresh={refresh} loading={loading} />
       {/* 主体内容 */}
-      <main className="container mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
+      <main className="container max-w-320 mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
         {/* 统计卡片 */}
         <StatisticCard statistics={statistics} refreshKey={refreshKey} />
         {renderContent()}

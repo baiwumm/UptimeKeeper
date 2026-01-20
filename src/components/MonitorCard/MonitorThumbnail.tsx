@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-08 10:02:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 13:58:52
+ * @LastEditTime: 2026-01-20 10:24:41
  * @Description: 监控缩略图
  */
 import { Eye } from 'lucide-react';
@@ -21,7 +21,7 @@ const MonitorThumbnail: FC<MonitorThumbnailProps> = ({ url, friendlyName }) => {
 
   return (
     <div
-      className="group relative aspect-[2026/1107] rounded-2xl shadow-xl focus-within:shadow-2xl transition-[box-shadow] duration-500 overflow-hidden">
+      className="group relative aspect-[1120/582] rounded-2xl shadow-xl focus-within:shadow-2xl transition-[box-shadow] duration-500 overflow-hidden">
       <Image
         src={`/${domain}.png`}
         alt={`${friendlyName} 网站预览图`}
