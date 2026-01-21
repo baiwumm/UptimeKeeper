@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.4](https://github.com/baiwumm/UptimeKeeper/compare/2.0.3...2.0.4) (2026-01-21)
+
+### ✨ Features | 新功能
+
+* 更新 Demo 图 ([1361c2e](https://github.com/baiwumm/UptimeKeeper/commit/1361c2e299e8f6581a3bea4d1c2e67ff0190cb7f))
+
 ## [2.0.3](https://github.com/baiwumm/UptimeKeeper/compare/2.0.2...2.0.3) (2026-01-21)
 
 ### 💄 Styles | 风格
