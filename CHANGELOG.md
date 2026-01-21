@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.3](https://github.com/baiwumm/UptimeKeeper/compare/2.0.2...2.0.3) (2026-01-21)
+
+### 💄 Styles | 风格
+
+* 背景色微调 ([ebc0325](https://github.com/baiwumm/UptimeKeeper/commit/ebc0325f0ee55470eee787b95c0b8766130c5066))
+
 ## [2.0.2](https://github.com/baiwumm/UptimeKeeper/compare/2.0.1...2.0.2) (2026-01-20)
 
 ### ✨ Features | 新功能
