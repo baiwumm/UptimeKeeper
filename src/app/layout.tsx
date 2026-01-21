@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-12 10:42:24
+ * @LastEditTime: 2026-01-21 14:57:52
  * @Description: 布局文件
  */
 import { Analytics } from "@vercel/analytics/next"
@@ -64,7 +64,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="UptimeKeeper" />
         <link rel="stylesheet" href="https://cdn.baiwumm.com/fonts/MapleMono-CN-Regular/result.css" />
       </head>
-      <body className="bg-[radial-gradient(80%_50%_at_50%_0%,hsl(var(--primary)/0.08),transparent_70%)] dark:bg-[radial-gradient(80%_50%_at_50%_0%,hsl(var(--primary)/0.12),transparent_70%)]">
+      <body className="bg-gradient-to-br from-slate-100 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Vercel 统计 */}
         <Analytics />
         <ThemeProvider attribute="class" enableSystem={false}>
@@ -74,6 +74,10 @@ export default function RootLayout({
             <BackTop />
           </TooltipProvider>
         </ThemeProvider>
+        {/* 装饰光斑 */}
+        <div className="pointer-events-none fixed -top-40 -right-40 size-80 rounded-full bg-blue-200/30 dark:bg-blue-900/20 blur-lg -z-1" />
+        <div className="pointer-events-none fixed -bottom-20 -left-20 size-60 rounded-full bg-violet-200/30 dark:bg-violet-900/20 blur-lg -z-1" />
+        <div className="pointer-events-none fixed -bottom-25 -right-25 size-60 rounded-full bg-amber-100/30 dark:bg-amber-800/10 blur-lg -z-1" />
       </body>
     </html>
   );
