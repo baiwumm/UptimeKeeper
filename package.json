@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
+    "@heroui/react": "3.0.0-rc.1",
+    "@heroui/styles": "3.0.0-rc.1",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
