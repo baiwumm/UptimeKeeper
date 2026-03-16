@@ -2,14 +2,15 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-06 17:25:42
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-12 11:24:32
+ * @LastEditTime: 2026-03-16 17:01:25
  * @Description: 底部版权
  */
+import { Description, Separator } from "@heroui/react";
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { type FC, type ReactNode } from 'react';
 
-import { Separator } from "@/components/ui/separator";
+import { ShimmeringText } from '@/components/ShimmeringText';
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
 import pkg from '#/package.json';
 
@@ -40,10 +41,17 @@ const Footer: FC = () => {
       <Separator />
       <div className="mx-auto w-full container! px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
         <div className="flex flex-col gap-1">
-          <div className="flex items-center justify-center gap-3 md:justify-start">
+          <div className="flex items-center justify-center gap-3">
             <div className="flex items-center gap-2">
               <Image src='/logo.svg' width={20} height={20} alt="Logo" />
-              <span className="text-small font-bold">{process.env.NEXT_PUBLIC_APP_NAME}</span>
+              <ShimmeringText
+                text={process.env.NEXT_PUBLIC_APP_NAME!}
+                className="text-sm font-black"
+                duration={1.5}
+                repeatDelay={1}
+                color="var(--foreground)"
+                shimmerColor="var(--background)"
+              />
             </div>
             <Separator className="h-4" orientation="vertical" />
             <Status variant="success" className="px-1.5 py-1 text-[10px]">
@@ -51,18 +59,18 @@ const Footer: FC = () => {
               <StatusLabel>服务状态正常</StatusLabel>
             </Status>
           </div>
-          <p className="text-center text-xs text-slate-500/75 dark:text-slate-300/75">
+          <Description>
             &copy; {dayjs().format('YYYY')} {" "}
             <a
               href={pkg.author.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="hover:text-accent transition-colors"
             >
               {process.env.NEXT_PUBLIC_COPYRIGHT}
             </a>
             . All rights reserved.
-          </p>
+          </Description>
         </div>
         <div className="flex flex-col gap-1 items-center text-xs text-slate-500/75 dark:text-slate-300/75 ">
           <div className="flex items-center gap-2">
@@ -71,7 +79,7 @@ const Footer: FC = () => {
               href="https://uptimerobot.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="hover:text-accent transition-colors"
             > UptimeRobot </a>
             接口
             <Separator className="h-3" orientation="vertical" />
@@ -85,7 +93,7 @@ const Footer: FC = () => {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-center hover:text-foreground transition-colors"
+                  className="hover:text-accent transition-colors"
                 >
                   {label}
                 </a>
