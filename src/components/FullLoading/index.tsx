@@ -2,15 +2,18 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-11-28 14:14:54
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-05 17:43:33
+ * @LastEditTime: 2026-03-16 16:14:29
  * @Description: 全局 Loading
  */
 "use client"
-import { useEffect, useState } from 'react';
+import { Description, Spinner } from "@heroui/react";
+import { type FC, type ReactNode, useEffect, useState } from 'react';
 
-import { Spinner } from "@/components/ui/spinner";
+type FullLoadingProps = {
+  children: ReactNode;
+}
 
-const FullLoading = () => {
+const FullLoading: FC<FullLoadingProps> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -21,14 +24,14 @@ const FullLoading = () => {
   // 判断组件是否挂载
   if (!mounted) {
     return (
-      <div className="fixed inset-0 flex w-screen h-screen justify-center items-center flex-col z-999 overflow-hidden bg-primary-foreground">
+      <div className="fixed inset-0 flex w-screen h-screen justify-center items-center flex-col z-999 overflow-hidden bg-background">
         <div className="flex flex-col items-center gap-2">
-          <Spinner className="size-6" variant="circle-filled" />
-          <span className="font-bold">加载中...</span>
+          <Spinner />
+          <Description className="font-black">加载中,请稍后...</Description>
         </div>
       </div>
     );
   }
-  return null;
+  return children
 };
 export default FullLoading;

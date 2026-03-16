@@ -2,34 +2,31 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 17:01:34
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-12 10:09:21
+ * @LastEditTime: 2026-03-16 16:50:58
  * @Description: 头部
  */
 "use client"
-import { House, Moon, Sun } from "lucide-react"
-import { AnimatePresence, motion } from 'motion/react';
+import { Button, Tooltip } from "@heroui/react";
+import { House } from "lucide-react"
 import Image from 'next/image';
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import { type FC, type ReactNode } from 'react';
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/animate-ui/components/animate/tooltip"
-import { RippleButton } from "@/components/animate-ui/components/buttons/ripple"
-import { type Resolved, type ThemeSelection, ThemeToggler as ThemeTogglerPrimitive } from '@/components/animate-ui/primitives/effects/theme-toggler';
 import CountDownButton from '@/components/CountDownButton';
-import { THEME_MODE } from '@/enums';
+import { ShimmeringText } from '@/components/ShimmeringText';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { GithubIcon } from '@/lib/icons';
 import pkg from '#/package.json';
+
+type HeaderProps = {
+  refresh: VoidFunction;
+  loading: boolean;
+}
 
 type Social = {
   name: string;
   url: string;
   icon: ReactNode;
-}
-
-type HeaderProps = {
-  refresh: VoidFunction;
-  loading: boolean;
 }
 
 const socials: Social[] = [
@@ -41,95 +38,49 @@ const socials: Social[] = [
 ]
 
 const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
-  const { theme, resolvedTheme, setTheme } = useTheme();
-  const isDark = theme === THEME_MODE.DARK;
-
   return (
     <header className="sticky top-0 border-b border-default h-15 z-20 backdrop-blur-sm" id="header">
       <div className="flex justify-between items-center container mx-auto h-full px-4">
         {/* 左侧 Logo */}
         <div className="flex gap-2 items-center">
           <Image src='/logo.svg' width={36} height={36} alt="Logo" />
-          <h1 className="font-black text-base">{process.env.NEXT_PUBLIC_APP_NAME}</h1>
+          <ShimmeringText
+            text={process.env.NEXT_PUBLIC_APP_NAME!}
+            className="text-2xl font-black hidden sm:block"
+            duration={1.5}
+            repeatDelay={1}
+            color="var(--foreground)"
+            shimmerColor="var(--background)"
+          />
         </div>
         {/* 右侧区域 */}
         <div className="flex items-center gap-1">
           <CountDownButton refresh={refresh} loading={loading} />
-          <ThemeTogglerPrimitive
-            theme={theme as ThemeSelection}
-            resolvedTheme={resolvedTheme as Resolved}
-            setTheme={setTheme}
-            direction='ltr'
-          >
-            {({ toggleTheme }) => (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <RippleButton
-                    aria-label="ThemeToggle"
-                    variant="ghost"
-                    radius="full"
-                    mode="icon" size='sm'
-
-                    onClick={() => toggleTheme(isDark ? THEME_MODE.LIGHT : THEME_MODE.DARK)}
-                  >
-                    <AnimatePresence mode="wait" initial={false}>
-                      {isDark ? (
-                        <motion.div
-                          key="moon"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          transition={{ duration: 0.2, ease: 'easeInOut' }}
-                          className="text-neutral-800 dark:text-neutral-200"
-                        >
-                          <Moon className="h-[1.2rem] w-[1.2rem]" />
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="sun"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          transition={{ duration: 0.2, ease: 'easeInOut' }}
-                          className="text-neutral-800 dark:text-neutral-200"
-                        >
-                          <Sun className="h-[1.2rem] w-[1.2rem]" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </RippleButton>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>主题模式</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </ThemeTogglerPrimitive>
+          {/* 主题切换按钮 */}
+          <ThemeSwitcher />
           {socials.map(({ name, url, icon }) => (
-            <Tooltip key={name}>
-              <TooltipTrigger asChild>
-                <Link href={url} aria-label={name} target="_blank">
-                  <RippleButton variant="ghost" radius="full" mode="icon" size='sm'>
-                    {icon}
-                  </RippleButton>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{name}</p>
-              </TooltipContent>
+            <Tooltip key={name} delay={0}>
+              <Link href={url} aria-label={name} target="_blank">
+                <Button variant="ghost" isIconOnly size='sm' className="rounded-full">
+                  {icon}
+                </Button>
+              </Link>
+              <Tooltip.Content showArrow>
+                <Tooltip.Arrow />
+                {name}
+              </Tooltip.Content>
             </Tooltip>
           ))}
           <Tooltip>
-            <TooltipTrigger asChild>
-              <Link href={pkg.author.url} aria-label="主页" target="_blank">
-                <RippleButton variant="ghost" radius="full" mode="icon" size='sm'>
-                  <House />
-                </RippleButton>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>博客</p>
-            </TooltipContent>
+            <Link href={pkg.author.url} aria-label="主页" target="_blank">
+              <Button variant="ghost" isIconOnly size='sm' className="rounded-full">
+                <House />
+              </Button>
+            </Link>
+            <Tooltip.Content showArrow>
+              <Tooltip.Arrow />
+              博客
+            </Tooltip.Content>
           </Tooltip>
         </div>
       </div>

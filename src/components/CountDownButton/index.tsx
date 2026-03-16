@@ -2,14 +2,14 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-12 10:03:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-12 10:13:48
+ * @LastEditTime: 2026-03-16 16:31:42
  * @Description: 倒计时按钮
  */
 "use client"
+import { Button, Description, Spinner } from "@heroui/react";
 import { RefreshCcw } from "lucide-react";
 import { type FC, useEffect, useState } from 'react';
 
-import { RippleButton } from "@/components/animate-ui/components/buttons/ripple";
 import { formatTime } from '@/lib/utils';
 
 type CountDownButtonProps = {
@@ -51,10 +51,14 @@ const CountDownButton: FC<CountDownButtonProps> = ({ refresh, loading = false })
     return () => clearInterval(interval);
   }, [isActive, loading, refresh]);
   return (
-    <RippleButton variant="outline" size='sm' onClick={handleReset} disabled={loading}>
-      <RefreshCcw className={loading ? 'animate-spin' : ''} />
-      {formatTime(countdown)}后刷新
-    </RippleButton>
+    <Button variant="outline" size='sm' isPending={loading} onClick={handleReset} isDisabled={loading}>
+      {({ isPending }) => (
+        <>
+          {isPending ? <Spinner size="sm" /> : <RefreshCcw size={12} className="text-muted" />}
+          <Description>{formatTime(countdown)}后刷新</Description>
+        </>
+      )}
+    </Button>
   )
 }
 export default CountDownButton;
