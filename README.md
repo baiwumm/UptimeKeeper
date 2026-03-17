@@ -1,18 +1,31 @@
-# UptimeKeeper
+<div align="center">
+<img alt="logo" src="./public/logo.svg" width="80"/>
+</div>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js" alt="Next.js">
-  <img src="https://img.shields.io/badge/React-19-blue?style=flat&logo=react" alt="React">
-  <img src="https://img.shields.io/badge/Tailwind_CSS-4-blue?style=flat&logo=tailwindcss" alt="Tailwind CSS">
-  <img src="https://img.shields.io/badge/pnpm-10-yellow?style=flat&logo=pnpm" alt="pnpm">
-</p>
+<div align="center">
+  <a href="https://vercel.com" target="_blank">
+    <img alt="Vercel" src="https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat&logo=vercel">
+  </a>
+  <a href="https://nextjs.org/" target="_blank">
+    <img alt="Next" src="https://img.shields.io/badge/Next-16.0-black?style=flat&logo=Next.js">
+  </a>
+  <a href="https://www.heroui.com/" target="_blank">
+    <img alt="HeroUI" src="https://img.shields.io/badge/HeroUI-v3-black?style=flat&logo=HeroUI">
+  </a>
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img alt="TaildwindCSS" src="https://img.shields.io/badge/TailwindCSS-black?style=flat&logo=tailwindcss">
+  </a>
+  <a href="./LICENSE" target="_blank">
+    <img alt="LICENSE" src="https://img.shields.io/badge/license-MIT-blue">
+  </a>
+</div>
 
-一个优雅的站点状态监控面板，基于 [UptimeRobot](https://uptimerobot.com/) API 构建，使用 Next.js 16 和 React 19 开发。
+
 
 参考项目：[Uptime-Status](https://github.com/JLinMr/Uptime-Status)，主要做了以下改进：
 1. 使用 Next.js16.x 版本开发，解决 [UptimeRobot API](https://uptimerobot.com/) 跨域的问题
 2. 基于最新的 [UptimeRobot's v3 REST API](https://uptimerobot.com/api/v3/)
-2. 基于 [Shadcn UI](https://ui.shadcn.com) 和最新的 [TailwindCSS 4.x](https://tailwindcss.com/) 版本
+2. 基于 [Hero UI](https://www.heroui.com) 和最新的 [TailwindCSS 4.x](https://tailwindcss.com/) 版本
 3. 基于 [Motion](https://motion.dev/) 动画库
 
 ## 💻 演示预览
@@ -36,8 +49,8 @@
 
 ## 🛠 技术栈
 
-- [Next.js 16](https://nextjs.org/) - React 框架
-- [React 19](https://reactjs.org/) - UI 库
+- [Next.js 16](https://nextjs.org/) - React 框架(基于 React19.x)
+- [Hero UI](https://www.heroui.com) - UI 库
 - [TypeScript](https://www.typescriptlang.org/) - 类型安全
 - [Tailwind CSS](https://tailwindcss.com/) - 样式框架
 - [Motion](https://motion.dev/) - 动画库
