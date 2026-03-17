@@ -1,5 +1,32 @@
 # Changelog
 
+## [2.1.0](https://github.com/baiwumm/UptimeKeeper/compare/2.0.4...2.1.0) (2026-03-17)
+
+### ✨ Features | 新功能
+
+* update README.md ([f4ecf5c](https://github.com/baiwumm/UptimeKeeper/commit/f4ecf5c7e3425769d71389cb9dd8fde41882fe66))
+
+### 💄 Styles | 风格
+
+* **Footer:** 组件和样式改成 Hero UI ([aca2a12](https://github.com/baiwumm/UptimeKeeper/commit/aca2a12f693216b461136a53bdade39bcd69e340))
+* **Header:** 组件和样式改成 Hero UI ([7616dfc](https://github.com/baiwumm/UptimeKeeper/commit/7616dfc2cf27c0a267fe5bcd64b76b343e95e77b))
+
+### ♻ Code Refactoring | 代码重构
+
+* **App:** 基于 Hero UI 重构排版 ([d277bb0](https://github.com/baiwumm/UptimeKeeper/commit/d277bb062a19efd5dc1ffebbd27799bc6a09eb3d))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 更新图片 ([6ad41f5](https://github.com/baiwumm/UptimeKeeper/commit/6ad41f5c715c1105c3aa739a1edac65859e06d0a))
+* 禁止 Image 图片优化 ([dfb7c31](https://github.com/baiwumm/UptimeKeeper/commit/dfb7c31c575de72cb3734586cbc531e561d70f92))
+* 删除冗余的文件 ([ea34e62](https://github.com/baiwumm/UptimeKeeper/commit/ea34e622f2b5874af75cd701d20f35c2abb9e227))
+* **BackTop:** 使用 Hero UI 的 ProgressCircle 组件，优化卡顿 ([9d384a6](https://github.com/baiwumm/UptimeKeeper/commit/9d384a6ec6ddf0373c83aebd2bbf07170cf17eae))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 删除没用的依赖包 ([3bcef49](https://github.com/baiwumm/UptimeKeeper/commit/3bcef493a96696d4a9e0e245a99e9c7e175e324b))
+* 引入 Hero UI ([7d322b8](https://github.com/baiwumm/UptimeKeeper/commit/7d322b8cc4ded1c5bb5d64999e5dec1cc3ddc38a))
+
 ## [2.0.4](https://github.com/baiwumm/UptimeKeeper/compare/2.0.3...2.0.4) (2026-01-21)
 
 ### ✨ Features | 新功能
