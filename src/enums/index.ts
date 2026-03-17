@@ -25,7 +25,7 @@ export const STATISTICS = Enum({
     value: 'total',
     label: '全部网站',
     icon: 'monitor',
-    iconClass: 'text-green-500',
+    status: 'success',
     text: 'counts.total',
     suffix: '个',
     badge: '已纳入监控'
@@ -34,7 +34,7 @@ export const STATISTICS = Enum({
     value: 'up',
     label: '正常网站',
     icon: 'circle-check',
-    iconClass: 'text-green-500',
+    status: 'success',
     text: 'counts.up',
     suffix: '个',
     badge: '访问正常'
@@ -43,7 +43,7 @@ export const STATISTICS = Enum({
     value: 'down',
     label: '异常网站',
     icon: 'circle-x',
-    iconClass: 'text-red-500',
+    status: 'danger',
     text: 'counts.down',
     suffix: '个',
     badge: '存在异常'
@@ -52,7 +52,7 @@ export const STATISTICS = Enum({
     value: 'radio',
     label: '可用性',
     icon: 'activity',
-    iconClass: 'text-blue-500',
+    status: 'warning',
     text: 'uptime.l7.ratio',
     suffix: '%',
     badge: '近 7 天统计'
@@ -63,8 +63,8 @@ export const STATISTICS = Enum({
  * @description: 站点状态
  */
 export const STATUS = Enum({
-  UP: { value: 'UP', label: '在线', status: 'success', badge: 'success', bg: 'bg-green-500' },
-  DOWN: { value: 'DOWN', label: '已离线', status: 'error', badge: 'destructive', bg: 'bg-red-500' },
-  PAUSED: { value: 'PAUSED', label: '已暂停', status: 'warning', badge: 'warning', bg: 'bg-yellow-500' },
-  STARTED: { value: 'STARTED', label: '准备中', status: 'warning', badge: 'warning', bg: 'bg-yellow-500' },
+  UP: { value: 'UP', label: '在线', color: 'success' },
+  DOWN: { value: 'DOWN', label: '已离线', color: 'danger' },
+  PAUSED: { value: 'PAUSED', label: '已暂停', color: 'warning' },
+  STARTED: { value: 'STARTED', label: '准备中', color: 'warning' },
 });

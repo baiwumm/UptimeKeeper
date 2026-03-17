@@ -6,8 +6,9 @@
  * @Description: 全局 Loading
  */
 "use client"
-import { Description, Spinner } from "@heroui/react";
 import { type FC, type ReactNode, useEffect, useState } from 'react';
+
+import LoadingContent from "@/components/LoadingContent";
 
 type FullLoadingProps = {
   children: ReactNode;
@@ -25,10 +26,7 @@ const FullLoading: FC<FullLoadingProps> = ({ children }) => {
   if (!mounted) {
     return (
       <div className="fixed inset-0 flex w-screen h-screen justify-center items-center flex-col z-999 overflow-hidden bg-background">
-        <div className="flex flex-col items-center gap-2">
-          <Spinner />
-          <Description className="font-black">加载中,请稍后...</Description>
-        </div>
+        <LoadingContent text='加载中,请稍后...' />
       </div>
     );
   }

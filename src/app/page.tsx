@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-20 10:49:29
+ * @LastEditTime: 2026-03-16 18:11:24
  * @Description: 入口文件
  */
 "use client"
@@ -14,10 +14,11 @@ import EmptyPage from '@/components/EmptyPage';
 import ErrorPage from '@/components/ErrorPage';
 import Footer from '@/components/Footer';
 import Header from "@/components/Header";
+import LoadingContent from "@/components/LoadingContent";
 import MonitorCard from '@/components/MonitorCard';
 import MonitorHealthDialog from '@/components/MonitorHealthDialog';
 import StatisticCard from "@/components/StatisticCard";
-import { Spinner } from "@/components/ui/spinner";
+import { Empty } from "@/components/ui/empty";
 import { useAvailableHeight } from '@/hooks/use-available-height';
 import { fetcher } from '@/lib/utils';
 
@@ -46,23 +47,25 @@ export default function Home() {
   const monitors: App.Monitor[] = data?.data || [];
   const statistics = data?.statistics;
 
+  // 手动刷新函数
+  const refresh = () => {
+    mutate()
+  }
+
   // 渲染主体内容
   const renderContent = () => {
     // 加载中
     if (loading) {
       return (
-        <div className="flex items-center justify-center h-40">
-          <div className="flex flex-col items-center gap-2">
-            <Spinner className="size-6" variant="infinite" />
-            <span className="text-sm font-bold">加载中...</span>
-          </div>
-        </div>
+        <Empty>
+          <LoadingContent />
+        </Empty>
       )
     }
     // 加载错误
     if (error) {
       return (
-        <ErrorPage />
+        <ErrorPage refresh={refresh} />
       )
     }
     // 没数据
@@ -80,11 +83,6 @@ export default function Home() {
         ))}
       </div>
     )
-  }
-
-  // 手动刷新函数
-  const refresh = () => {
-    mutate()
   }
   return (
     <>

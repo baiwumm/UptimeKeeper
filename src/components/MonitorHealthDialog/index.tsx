@@ -2,28 +2,20 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 14:47:26
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 17:28:05
+ * @LastEditTime: 2026-03-17 11:24:39
  * @Description: 监控健康概览
  */
-import { TriangleAlert } from "lucide-react";
+import { Alert, Button, Chip, cn, Description, Modal } from "@heroui/react";
 import { type FC } from 'react';
 import useSWR from 'swr';
 
 import ResponseTimeChart from './ResponseTimeChart';
 
 import BlurFade from '@/components/BlurFade';
-import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
-import { Badge, BadgeDot } from '@/components/ui/badge';
+import LoadingContent from "@/components/LoadingContent";
 import { CountingNumber } from '@/components/ui/counting-number';
-import {
-  Dialog,
-  DialogBody,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { Spinner } from "@/components/ui/spinner";
-import { cn, fetcher, get, SECTION_CLASSNAME } from '@/lib/utils';
+import { Empty, EmptyContent } from "@/components/ui/empty";
+import { fetcher, get, SECTION_CLASSNAME } from '@/lib/utils';
 
 type MonitorHealthDialogProps = {
   monitorId: number | null;
@@ -58,7 +50,7 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
 }) => {
   // 请求站点接口
   const swrKey = open && monitorId ? `/api/uptimerobot/${monitorId}` : null;
-  const { data, error, isValidating, isLoading } = useSWR(swrKey, fetcher, {
+  const { data, error, isValidating, isLoading, mutate } = useSWR(swrKey, fetcher, {
     revalidateOnFocus: false
   });
   const loading = open && (isLoading || isValidating);
@@ -70,23 +62,37 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
     // 加载中
     if (loading) {
       return (
-        <div className="flex items-center justify-center h-40">
-          <div className="flex flex-col items-center gap-2">
-            <Spinner className="size-6" variant="circle" />
-            <span className="text-sm font-bold">加载中...</span>
-          </div>
-        </div>
+        <Empty>
+          <LoadingContent />
+        </Empty>
       )
     }
     // 加载错误
     if (shouldShowError) {
       return (
-        <Alert variant="destructive" appearance="outline">
-          <AlertIcon>
-            <TriangleAlert />
-          </AlertIcon>
-          <AlertTitle>获取监控详情失败，请稍后重试</AlertTitle>
-        </Alert>
+        <Empty className="border">
+          <EmptyContent className="max-w-lg">
+            <Alert status="danger">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>获取监控详情失败，请稍后重试</Alert.Title>
+                <Alert.Description>
+                  <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-left">
+                    <li>当前无法获取监控数据，</li>
+                    <li>可能由于网络异常或服务暂时不可用</li>
+                    <li>请稍后重试</li>
+                  </ul>
+                </Alert.Description>
+                <Button className="mt-2 sm:hidden" size="sm" variant="danger" onPress={mutate}>
+                  重试
+                </Button>
+              </Alert.Content>
+              <Button className="hidden sm:block" size="sm" variant="danger" onPress={mutate}>
+                重试
+              </Button>
+            </Alert>
+          </EmptyContent>
+        </Empty>
       )
     }
 
@@ -103,7 +109,7 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
                   className="text-xl font-bold text-gray-900 dark:text-gray-100"
                   format={(value) => `${Number((value ?? 0)).toFixed(2)}%`}
                 />
-                <div>{label}</div>
+                <Description>{label}</Description>
               </div>
             ))}
           </div>
@@ -112,7 +118,7 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
         <div className="flex flex-col gap-2">
           <BlurFade className="flex gap-2 items-center" delay={0.2}>
             <h1 className="text-muted-foreground text-sm font-medium">响应时间趋势</h1>
-            <Badge appearance="light" size="sm">近 2 天</Badge>
+            <Chip color='success' variant='soft'>近 2 天</Chip>
           </BlurFade>
           {/* 响应时间趋势图表 */}
           <ResponseTimeChart data={monitor?.responseTimes || []} />
@@ -124,7 +130,7 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
                   className="text-xl font-bold text-gray-900 dark:text-gray-100"
                   format={(value) => `${value.toFixed(0)}ms`}
                 />
-                <div>{label}</div>
+                <Description>{label}</Description>
               </div>
             ))}
           </BlurFade>
@@ -133,24 +139,26 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
     )
   }
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl p-0">
-        <DialogHeader className="pt-5 pb-3 m-0 border-b border-border">
-          <div className="px-6 flex items-center gap-2">
-            <DialogTitle>监控健康概览</DialogTitle>
-            {monitor?.name && (
-              <Badge variant="success" appearance="light">
-                <BadgeDot />
-                {monitor.name}
-              </Badge>
-            )}
-          </div>
-        </DialogHeader>
-        <DialogBody className="p-4">
-          {renderContent()}
-        </DialogBody>
-      </DialogContent>
-    </Dialog>
+    <Modal.Backdrop isOpen={open} onOpenChange={onOpenChange}>
+      <Modal.Container>
+        <Modal.Dialog className="max-w-2xl">
+          <Modal.CloseTrigger />
+          <Modal.Header>
+            <div className="flex items-center gap-2">
+              <Modal.Heading className="font-black">监控健康概览</Modal.Heading>
+              {monitor?.name && (
+                <Chip color='accent' variant='soft'>
+                  <Chip.Label>{monitor.name}</Chip.Label>
+                </Chip>
+              )}
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            {renderContent()}
+          </Modal.Body>
+        </Modal.Dialog>
+      </Modal.Container>
+    </Modal.Backdrop>
   )
 }
 export default MonitorHealthDialog;

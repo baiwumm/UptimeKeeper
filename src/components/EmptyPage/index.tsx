@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-06 17:55:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-06 17:59:30
+ * @LastEditTime: 2026-03-16 17:54:14
  * @Description: 暂无数据
  */
+import { Button } from "@heroui/react";
 import { Inbox, Plus } from 'lucide-react';
 import { type FC } from 'react';
 
-import { RippleButton } from "@/components/animate-ui/components/buttons/ripple";
 import {
   Empty,
   EmptyContent,
@@ -20,21 +20,19 @@ import {
 
 const EmptyPage: FC = () => {
   return (
-    <Empty>
+    <Empty className="border">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <Inbox />
         </EmptyMedia>
         <EmptyTitle>一切安静如常 🕊️</EmptyTitle>
-        <EmptyDescription>
-          目前没有站点被监控。您可以随时添加一个！
-        </EmptyDescription>
+        <EmptyDescription>目前没有站点被监控。您可以随时添加一个！</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <RippleButton size="sm" onClick={() => window.open('https://uptimerobot.com/', '_blank')}>
-          <Plus />
+        <Button>
+          <Plus data-icon="inline-start" />
           添加站点
-        </RippleButton>
+        </Button>
       </EmptyContent>
     </Empty>
   )

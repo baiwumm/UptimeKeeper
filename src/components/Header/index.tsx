@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 17:01:34
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-16 16:50:58
+ * @LastEditTime: 2026-03-16 17:29:38
  * @Description: 头部
  */
 "use client"
@@ -45,8 +45,8 @@ const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
         <div className="flex gap-2 items-center">
           <Image src='/logo.svg' width={36} height={36} alt="Logo" />
           <ShimmeringText
-            text={process.env.NEXT_PUBLIC_APP_NAME!}
-            className="text-2xl font-black hidden sm:block"
+            text={process.env.NEXT_PUBLIC_COPYRIGHT!}
+            className="text-xl font-black hidden sm:block"
             duration={1.5}
             repeatDelay={1}
             color="var(--foreground)"

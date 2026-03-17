@@ -1,10 +1,3 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
 /**
  * @description: swr 请求
  * @param {string} url
@@ -89,4 +82,4 @@ export const formatTime = (seconds: number) => {
 };
 
 // 统一样式
-export const SECTION_CLASSNAME = "bg-secondary text-gray-500 dark:text-gray-400 rounded-md text-xs p-4"
+export const SECTION_CLASSNAME = "bg-surface-secondary text-surface-secondary-foreground rounded-xl text-xs p-4"

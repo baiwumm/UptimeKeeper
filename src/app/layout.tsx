@@ -10,7 +10,6 @@ import type { Metadata } from "next";
 import { ThemeProvider } from 'next-themes'
 
 import "./globals.css";
-import { TooltipProvider } from '@/components/animate-ui/components/animate/tooltip';
 import BackTop from '@/components/BackTop';
 import FullLoading from '@/components/FullLoading';
 import pkg from '#/package.json'
@@ -69,10 +68,8 @@ export default function RootLayout({
         <Analytics />
         <ThemeProvider attribute="class" enableSystem={false}>
           <FullLoading>
-            <TooltipProvider>
-              {children}
-              <BackTop />
-            </TooltipProvider>
+            {children}
+            <BackTop />
           </FullLoading>
         </ThemeProvider>
       </body>

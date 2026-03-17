@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 15:42:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 16:36:08
+ * @LastEditTime: 2026-03-17 09:26:04
  * @Description: 响应时间趋势
  */
 import dayjs from 'dayjs';
@@ -15,7 +15,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '
 const chartConfig = {
   value: {
     label: '响应时间',
-    color: 'var(--chart-2)',
+    color: 'var(--accent)',
   },
 } satisfies ChartConfig;
 
@@ -38,7 +38,7 @@ const ResponseTimeChart: FC<ResponseTimeChartProps> = ({ data = [] }) => {
           <defs>
             {/* Grid pattern */}
             <pattern id="gridPattern" x="0" y="0" width="20" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--input)" strokeWidth="0.5" strokeOpacity="1" />
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--border)" strokeWidth="0.5" strokeOpacity="1" />
             </pattern>
             {/* Area gradient fill */}
             <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
@@ -66,7 +66,7 @@ const ResponseTimeChart: FC<ResponseTimeChartProps> = ({ data = [] }) => {
             dataKey="datetime"
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
+            tick={{ fontSize: 12, fill: 'var(--muted)' }}
             tickMargin={8}
             interval='preserveStartEnd'
             includeHidden={true}
@@ -76,7 +76,7 @@ const ResponseTimeChart: FC<ResponseTimeChartProps> = ({ data = [] }) => {
             hide={true}
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }}
+            tick={{ fontSize: 11, fill: 'var(--muted)' }}
             tickFormatter={(value) => `${value}ms`}
             tickMargin={8}
             domain={[0, 'dataMax']}

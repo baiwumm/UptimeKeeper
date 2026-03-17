@@ -2,17 +2,16 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-01-09 10:41:54
+ * @LastEditTime: 2026-03-17 10:37:42
  * @Description: 监控状态
  */
+import { cn, Description, Tooltip } from "@heroui/react";
 import { motion } from 'motion/react';
 import { FC, useCallback } from 'react';
 
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/animate-ui/components/animate/tooltip';
-import { Badge, BadgeDot } from '@/components/ui/badge';
 import { STATUS } from '@/enums';
 import { useHeatmapDays } from '@/hooks/use-heatmap-days'
-import { cn, get, SECTION_CLASSNAME } from '@/lib/utils';
+import { get, SECTION_CLASSNAME } from '@/lib/utils';
 
 type MonitorAvailabilityProps = Pick<App.Monitor, 'status' | 'type' | 'interval'> & {
   data: App.Ratio[];
@@ -27,18 +26,19 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
   data = []
 }) => {
   const raw = STATUS.raw(status);
+  const color = get(raw, 'color', 'accent');
 
   const days = useHeatmapDays({ days: 30, data });
 
   const getBoxColor = useCallback(
     (ratio: number) => {
-      if (status !== STATUS.UP) return get(raw, 'bg', 'bg-gray-300');
-      if (!ratio) return 'bg-gray-300';
-      if (ratio >= 99.99) return 'bg-green-500';
-      if (ratio >= 90) return 'bg-yellow-500';
-      return 'bg-red-500';
+      if (status !== STATUS.UP) return 'bg-border';
+      if (!ratio) return 'bg-border';
+      if (ratio >= 99.99) return 'bg-success';
+      if (ratio >= 90) return 'bg-warning';
+      return 'bg-danger';
     },
-    [status, raw]
+    [status]
   );
 
   const renderTip = useCallback(
@@ -52,39 +52,39 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
   return (
     <div className={cn(SECTION_CLASSNAME, 'space-y-3')}>
       {/* Header */}
-      <Badge variant={get(raw, 'badge', 'secondary')} appearance="ghost">
-        <BadgeDot />
-        <span className="text-gray-500 dark:text-gray-400">{type}/{Math.floor(interval / 60)}m</span>
-        <div className="size-1.5 rounded-full bg-gray-300 dark:bg-gray-600" />
-        <span>{get(raw, 'label', '未知')}</span>
-      </Badge>
+      <div className="flex items-center gap-1">
+        <div className={cn("size-1.5 rounded-full bg-border", `bg-${color}`)} />
+        <span className="text-muted">{type}/{Math.floor(interval / 60)}m</span>
+        <div className="size-1.5 rounded-full bg-border" />
+        <span className={`text-${color}`}>{get(raw, 'label', '未知')}</span>
+      </div>
 
       {/* Heatmap */}
       <div className="grid gap-[3px] grid-cols-[repeat(30,1fr)]">
         {days.map((d, i) => (
           <Tooltip key={d.date ?? i}>
-            <TooltipTrigger asChild>
+            <Tooltip.Trigger>
               <motion.div
                 className={cn('aspect-square rounded-[3px]', getBoxColor(Number(d.ratio)))}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               />
-            </TooltipTrigger>
-
-            <TooltipContent>
+            </Tooltip.Trigger>
+            <Tooltip.Content showArrow>
+              <Tooltip.Arrow />
               <div className="text-xs space-y-1">
                 <div className="font-semibold">{d.date}</div>
                 <div>{renderTip(Number(d.ratio))}</div>
               </div>
-            </TooltipContent>
+            </Tooltip.Content>
           </Tooltip>
         ))}
       </div>
 
       {/* Footer */}
       <div className="flex justify-between items-center">
-        <span>{DAYS} 天前</span>
-        <span>今日</span>
+        <Description>{DAYS} 天前</Description>
+        <Description>今日</Description>
       </div>
     </div>
   );
