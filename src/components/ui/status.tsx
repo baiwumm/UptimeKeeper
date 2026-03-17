@@ -1,9 +1,8 @@
 import { cn } from "@heroui/react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Slot } from "radix-ui";
 import type * as React from "react";
 
-interface DivProps extends React.ComponentProps<"div"> { }
+type DivProps = React.ComponentProps<"div">;
 
 const statusVariants = cva(
   "inline-flex w-fit shrink-0 items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border px-3 py-1.5 font-medium text-xs transition-colors",
@@ -31,12 +30,9 @@ interface StatusProps extends VariantProps<typeof statusVariants>, DivProps {
 }
 
 function Status(props: StatusProps) {
-  const { className, variant = "default", asChild, ...rootProps } = props;
-
-  const RootPrimitive = asChild ? Slot : "div";
-
+  const { className, variant = "default", ...rootProps } = props;
   return (
-    <RootPrimitive
+    <div
       data-slot="status"
       data-variant={variant}
       {...rootProps}
