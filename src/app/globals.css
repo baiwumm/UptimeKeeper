@@ -7,8 +7,8 @@
 /*
  * HeroUI Theme Customization
  * Add this to your global.css after importing @heroui/styles
- * Only includes base variables from variables.css
- * @see https://v3.heroui.com/docs/react/getting-started/theming
+ * Only includes variables users need to customize
+ * @see https://heroui.com/docs/react/getting-started/theming
  */
 
 :root,
@@ -17,40 +17,41 @@
 [data-theme="light"],
 [data-theme="default"] {
   /* Theme Colors (Light Mode) */
-  --accent: oklch(64.48% 0.1308 164.73);
-  --accent-foreground: oklch(99.11% 0 0);
-  --background: oklch(97.02% 0.0015 164.73);
-  --border: oklch(90.00% 0.0015 164.73);
-  --danger: oklch(65.32% 0.2335 15.05);
+  --accent: oklch(72.11% 0.1324 168.04);
+  --accent-foreground: oklch(15% 0.0265 168.04);
+  --background: oklch(97.02% 0.0015 168.04);
+  --border: oklch(90.00% 0.0015 168.04);
+  --danger: oklch(65.32% 0.2335 15.45);
   --danger-foreground: oklch(99.11% 0 0);
-  --default: oklch(94.00% 0.0015 164.73);
-  --default-foreground: oklch(21.03% 0.0059 164.73);
-  --field-background: oklch(100.00% 0.0008 164.73);
-  --field-foreground: oklch(21.03% 0.0015 164.73);
-  --field-placeholder: oklch(55.17% 0.0030 164.73);
-  --focus: oklch(64.48% 0.1308 164.73);
-  --foreground: oklch(21.03% 0.0015 164.73);
-  --muted: oklch(55.17% 0.0030 164.73);
-  --overlay: oklch(100.00% 0.0004 164.73);
-  --overlay-foreground: oklch(21.03% 0.0015 164.73);
-  --scrollbar: oklch(87.10% 0.0015 164.73);
-  --segment: oklch(100.00% 0.0015 164.73);
-  --segment-foreground: oklch(21.03% 0.0015 164.73);
-  --separator: oklch(92.00% 0.0015 164.73);
-  --success: oklch(73.29% 0.1941 140.12);
-  --success-foreground: oklch(21.03% 0.0059 140.12);
-  --surface: oklch(100.00% 0.0008 164.73);
-  --surface-foreground: oklch(21.03% 0.0015 164.73);
-  --surface-secondary: oklch(95.24% 0.0012 164.73);
-  --surface-secondary-foreground: oklch(21.03% 0.0015 164.73);
-  --surface-tertiary: oklch(93.73% 0.0012 164.73);
-  --surface-tertiary-foreground: oklch(21.03% 0.0015 164.73);
-  --warning: oklch(78.19% 0.1590 61.64);
-  --warning-foreground: oklch(21.03% 0.0059 61.64);
+  --default: oklch(94.00% 0.0015 168.04);
+  --default-foreground: oklch(21.03% 0.0059 168.04);
+  --field-background: oklch(100.00% 0.0008 168.04);
+  --field-border: transparent;
+  --field-foreground: oklch(21.03% 0.0015 168.04);
+  --field-placeholder: oklch(55.17% 0.0030 168.04);
+  --focus: oklch(72.11% 0.1324 168.04);
+  --foreground: oklch(21.03% 0.0015 168.04);
+  --muted: oklch(55.17% 0.0030 168.04);
+  --overlay: oklch(100.00% 0.0004 168.04);
+  --overlay-foreground: oklch(21.03% 0.0015 168.04);
+  --scrollbar: oklch(87.10% 0.0015 168.04);
+  --segment: oklch(100.00% 0.0015 168.04);
+  --segment-foreground: oklch(21.03% 0.0015 168.04);
+  --separator: oklch(92.00% 0.0015 168.04);
+  --success: oklch(73.29% 0.1941 140.52);
+  --success-foreground: oklch(21.03% 0.0059 140.52);
+  --surface: oklch(100.00% 0.0008 168.04);
+  --surface-foreground: oklch(21.03% 0.0015 168.04);
+  --surface-secondary: oklch(95.24% 0.0012 168.04);
+  --surface-secondary-foreground: oklch(21.03% 0.0015 168.04);
+  --surface-tertiary: oklch(93.73% 0.0012 168.04);
+  --surface-tertiary-foreground: oklch(21.03% 0.0015 168.04);
+  --warning: oklch(78.19% 0.1590 62.04);
+  --warning-foreground: oklch(21.03% 0.0059 62.04);
 
-   /* Border Radius */
-  --radius: 0.25rem;
-  --field-radius: 0.25rem;
+  /* Border Radius */
+  --radius: 0.5rem;
+  --field-radius: 0.75rem;
 
   /* Font Family */
   /* Make sure to load Inter font in your app */
@@ -61,36 +62,37 @@
 [data-theme="dark"] {
   color-scheme: dark;
   /* Theme Colors (Dark Mode) */
-  --accent: oklch(64.48% 0.1308 164.73);
-  --accent-foreground: oklch(99.11% 0 0);
-  --background: oklch(12.00% 0.0015 164.73);
-  --border: oklch(28.00% 0.0015 164.73);
-  --danger: oklch(59.40% 0.1973 13.94);
+  --accent: oklch(72.11% 0.1324 168.04);
+  --accent-foreground: oklch(15% 0.0265 168.04);
+  --background: oklch(12.00% 0.0015 168.04);
+  --border: oklch(28.00% 0.0015 168.04);
+  --danger: oklch(59.40% 0.1973 14.34);
   --danger-foreground: oklch(99.11% 0 0);
-  --default: oklch(27.40% 0.0015 164.73);
+  --default: oklch(27.40% 0.0015 168.04);
   --default-foreground: oklch(99.11% 0 0);
-  --field-background: oklch(21.03% 0.0030 164.73);
-  --field-foreground: oklch(99.11% 0.0015 164.73);
-  --field-placeholder: oklch(70.50% 0.0030 164.73);
-  --focus: oklch(64.48% 0.1308 164.73);
-  --foreground: oklch(99.11% 0.0015 164.73);
-  --muted: oklch(70.50% 0.0030 164.73);
-  --overlay: oklch(21.03% 0.0030 164.73);
-  --overlay-foreground: oklch(99.11% 0.0015 164.73);
-  --scrollbar: oklch(70.50% 0.0015 164.73);
-  --segment: oklch(39.64% 0.0015 164.73);
-  --segment-foreground: oklch(99.11% 0.0015 164.73);
-  --separator: oklch(25.00% 0.0015 164.73);
-  --success: oklch(73.29% 0.1941 140.12);
-  --success-foreground: oklch(21.03% 0.0059 140.12);
-  --surface: oklch(21.03% 0.0030 164.73);
-  --surface-foreground: oklch(99.11% 0.0015 164.73);
-  --surface-secondary: oklch(25.70% 0.0023 164.73);
-  --surface-secondary-foreground: oklch(99.11% 0.0015 164.73);
-  --surface-tertiary: oklch(27.21% 0.0023 164.73);
-  --surface-tertiary-foreground: oklch(99.11% 0.0015 164.73);
-  --warning: oklch(82.03% 0.1392 65.65);
-  --warning-foreground: oklch(21.03% 0.0059 65.65);
+  --field-background: oklch(21.03% 0.0030 168.04);
+  --field-border: transparent;
+  --field-foreground: oklch(99.11% 0.0015 168.04);
+  --field-placeholder: oklch(70.50% 0.0030 168.04);
+  --focus: oklch(72.11% 0.1324 168.04);
+  --foreground: oklch(99.11% 0.0015 168.04);
+  --muted: oklch(70.50% 0.0030 168.04);
+  --overlay: oklch(21.03% 0.0030 168.04);
+  --overlay-foreground: oklch(99.11% 0.0015 168.04);
+  --scrollbar: oklch(70.50% 0.0015 168.04);
+  --segment: oklch(39.64% 0.0015 168.04);
+  --segment-foreground: oklch(99.11% 0.0015 168.04);
+  --separator: oklch(25.00% 0.0015 168.04);
+  --success: oklch(73.29% 0.1941 140.52);
+  --success-foreground: oklch(21.03% 0.0059 140.52);
+  --surface: oklch(21.03% 0.0030 168.04);
+  --surface-foreground: oklch(99.11% 0.0015 168.04);
+  --surface-secondary: oklch(25.70% 0.0023 168.04);
+  --surface-secondary-foreground: oklch(99.11% 0.0015 168.04);
+  --surface-tertiary: oklch(27.21% 0.0023 168.04);
+  --surface-tertiary-foreground: oklch(99.11% 0.0015 168.04);
+  --warning: oklch(82.03% 0.1392 66.05);
+  --warning-foreground: oklch(21.03% 0.0059 66.05);
 }
 
 /** Custom Scrollbar **/
