@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-06 17:25:42
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-16 17:01:25
+ * @LastEditTime: 2026-07-03 11:18:53
  * @Description: 底部版权
  */
 import { Description, Separator } from "@heroui/react";
@@ -38,8 +38,7 @@ const IcpLinks: Social[] = [
 const Footer: FC = () => {
   return (
     <footer className="flex w-full flex-col" id="footer">
-      <Separator />
-      <div className="mx-auto w-full container! px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+      <div className="mx-auto w-full container max-w-7xl px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-center gap-3">
             <div className="flex items-center gap-2">

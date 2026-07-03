@@ -2,12 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-16 18:11:24
+ * @LastEditTime: 2026-07-03 10:28:37
  * @Description: 入口文件
  */
 "use client"
 import { useState } from 'react';
-import useSWR from 'swr';
 
 import BlurFade from '@/components/BlurFade';
 import EmptyPage from '@/components/EmptyPage';
@@ -20,11 +19,9 @@ import MonitorHealthDialog from '@/components/MonitorHealthDialog';
 import StatisticCard from "@/components/StatisticCard";
 import { Empty } from "@/components/ui/empty";
 import { useAvailableHeight } from '@/hooks/use-available-height';
-import { fetcher } from '@/lib/utils';
+import { useMonitorData } from '@/hooks/useMonitorData'
 
 export default function Home() {
-  // 统计卡片刷新标识
-  const [refreshKey, setRefreshKey] = useState(0);
   // 监控 id
   const [monitorId, setMonitorId] = useState<number | null>(null);
 
@@ -35,22 +32,8 @@ export default function Home() {
   });
 
   // 请求站点接口
-  const { data, error, isValidating, isLoading, mutate } = useSWR('/api/uptimerobot', fetcher, {
-    revalidateOnFocus: false,
-    onSuccess: (data) => {
-      if (data) {
-        setRefreshKey(prev => prev + 1);
-      }
-    }
-  });
-  const loading = isValidating || isLoading;
-  const monitors: App.Monitor[] = data?.data || [];
-  const statistics = data?.statistics;
-
-  // 手动刷新函数
-  const refresh = () => {
-    mutate()
-  }
+  const { monitors, uptimeStatistics, loading, refresh, error } = useMonitorData();
+  console.log('uptimeStatistics', uptimeStatistics)
 
   // 渲染主体内容
   const renderContent = () => {
@@ -89,9 +72,9 @@ export default function Home() {
       {/* 头部 */}
       <Header refresh={refresh} loading={loading} />
       {/* 主体内容 */}
-      <main className="container max-w-320 mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
+      <main className="container max-w-7xl mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
         {/* 统计卡片 */}
-        <StatisticCard statistics={statistics} refreshKey={refreshKey} />
+        <StatisticCard monitors={monitors} loading={loading} uptimeStatistics={uptimeStatistics} />
         {renderContent()}
       </main>
       {/* 底部版权 */}

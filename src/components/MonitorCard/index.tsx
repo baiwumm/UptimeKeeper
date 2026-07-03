@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-17 09:48:26
+ * @LastEditTime: 2026-07-03 11:10:06
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
@@ -48,12 +48,12 @@ const MonitorCard: FC<MonitorCardProps> = ({
     dayjs().diff(createdAt, 'day')
   );
   return (
-    <Card className="shadow-md border">
+    <Card>
       {/* 头部 */}
       <MonitorHeader index={index} friendlyName={friendlyName} url={url} tags={tags} raw={raw} />
       <Card.Content className="flex flex-col gap-4">
         {/* 监控缩略图 */}
-        <MonitorThumbnail url={url} friendlyName={friendlyName} />
+        {/* <MonitorThumbnail url={url} friendlyName={friendlyName} /> */}
         {/* 监控统计指标 */}
         <MonitorStats runningDays={runningDays} createdAt={createdAt} monitor={monitor} onShowResponse={onShowResponse} />
         {/* 监控状态 */}

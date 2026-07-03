@@ -20,8 +20,10 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@gravity-ui/icons": "^2.20.0",
     "@heroui/react": "3.2.1",
     "@heroui/styles": "3.2.1",
+    "@number-flow/react": "^0.6.1",
     "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "dayjs": "^1.11.21",

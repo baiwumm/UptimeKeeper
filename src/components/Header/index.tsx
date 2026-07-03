@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 17:01:34
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-16 17:29:38
+ * @LastEditTime: 2026-07-03 11:18:04
  * @Description: 头部
  */
 "use client"
@@ -39,8 +39,8 @@ const socials: Social[] = [
 
 const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
   return (
-    <header className="sticky top-0 border-b border-default h-15 z-20 backdrop-blur-sm" id="header">
-      <div className="flex justify-between items-center container mx-auto h-full px-4">
+    <header className="sticky top-0 h-15 z-20 backdrop-blur-sm" id="header">
+      <div className="flex justify-between items-center container max-w-7xl mx-auto h-full px-4">
         {/* 左侧 Logo */}
         <div className="flex gap-2 items-center">
           <Image src='/logo.svg' width={36} height={36} alt="Logo" />
