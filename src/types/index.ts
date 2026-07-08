@@ -30,6 +30,13 @@ export type Tag = {
   name: string;
 }
 
+export type Ratio = {
+  data?: string;
+  label?: string;
+  date: string;
+  ratio: string | number;
+}
+
 /**
  * @description: 站点
  */
@@ -37,6 +44,7 @@ export type Monitor = {
   id: number;
   status: Status; // 状态
   createDateTime: string; // 创建时间
+  currentStateDuration: number; // 当前状态持续时间
   tags: Tag[]; // 标签
   type: string;
   url: string;

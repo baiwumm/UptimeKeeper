@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 13:43:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 14:43:36
+ * @LastEditTime: 2026-07-08 16:15:02
  * @Description: 工具栏
  */
 import { ArrowsRotateRight, PauseFill, PlayFill } from '@gravity-ui/icons';
@@ -74,16 +74,10 @@ const CountDownProgress: FC<CountDownProgressProps> = ({ refresh, loading = fals
     handleRefresh();
     setRemainingSeconds(INTERVAL_SECONDS);
   };
-
-  /**
-   * 进度百分比
-   * 满的时候100，倒计时结束0
-   */
-  const progressValue = (remainingSeconds / INTERVAL_SECONDS) * 100;
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 shrink-0">
       <div className="flex items-center justify-between gap-2">
-        <ProgressBar aria-label="Accent" color="accent" value={progressValue} isIndeterminate={loading} maxValue={INTERVAL_SECONDS}>
+        <ProgressBar aria-label="Accent" color="accent" value={remainingSeconds} isIndeterminate={loading} maxValue={INTERVAL_SECONDS}>
           <ProgressBar.Track>
             <ProgressBar.Fill />
           </ProgressBar.Track>

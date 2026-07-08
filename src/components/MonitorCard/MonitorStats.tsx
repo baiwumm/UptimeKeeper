@@ -2,49 +2,42 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:44:18
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-17 09:57:09
+ * @LastEditTime: 2026-07-08 15:42:12
  * @Description: 监控统计指标
  */
-import { Button, cn, Description } from "@heroui/react";
+import { cn, Description } from "@heroui/react";
+import NumberFlow from '@number-flow/react'
 import { type Dayjs } from 'dayjs';
-import { ChartSpline } from "lucide-react";
 import { type FC } from 'react';
 
-import { CountingNumber } from '@/components/ui/counting-number';
-import { get, SECTION_CLASSNAME } from '@/lib/utils';
+import { SECTION_CLASSNAME } from '@/lib/utils';
 
 type MonitorStatsProps = {
   runningDays: number;
   createdAt: Dayjs;
-  onShowResponse: VoidFunction;
-} & Pick<App.Monitor, 'monitor'>;
+};
 
-const MonitorStats: FC<MonitorStatsProps> = ({ runningDays = 0, createdAt, monitor, onShowResponse }) => {
+const MonitorStats: FC<MonitorStatsProps> = ({ runningDays = 0, createdAt }) => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className={cn(SECTION_CLASSNAME, "flex flex-col gap-1")}>
-        <div className="flex justify-between items-center">
-          <Description>已运行</Description>
-          <Button variant="tertiary" size='sm' onPress={onShowResponse} className="w-auto h-auto">
-            <ChartSpline />
-          </Button>
-        </div>
-        <div className="flex items-center gap-1 font-bold text-gray-900 dark:text-gray-100">
-          <CountingNumber
-            to={runningDays}
-            className="text-xl"
-            format={(value) => `${Number((value || 0)).toFixed(0)}`}
-          />
+        <Description>已运行</Description>
+        <div className="flex items-center gap-1 font-bold text-foreground">
+          <NumberFlow value={runningDays} className="text-xl" />
           <span>天</span>
         </div>
         <Description>{createdAt.format('YYYY年MM月DD日')}</Description>
       </div>
       <div className={cn(SECTION_CLASSNAME, "flex flex-col gap-1")}>
         <Description>可用性</Description>
-        <CountingNumber
-          to={Number(get(monitor, '30dRatio.ratio', 0))}
-          className="text-xl font-bold text-gray-900 dark:text-gray-100"
-          format={(value) => `${Number((value ?? 0)).toFixed(2)}%`}
+        <NumberFlow
+          value={0.2}
+          className="text-xl font-bold"
+          format={{
+            style: 'percent',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }}
         />
         <Description>最近 30 天</Description>
       </div>

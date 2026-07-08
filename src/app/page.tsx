@@ -2,23 +2,18 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 14:48:45
+ * @LastEditTime: 2026-07-08 16:16:15
  * @Description: 入口文件
  */
 "use client"
 import { useMemo, useState } from 'react';
 
-import BlurFade from '@/components/BlurFade';
 import CountDownProgress from '@/components/CountDownProgress'
-import EmptyPage from '@/components/EmptyPage';
-import ErrorPage from '@/components/ErrorPage';
 import Footer from '@/components/Footer';
 import Header from "@/components/Header";
-import LoadingContent from "@/components/LoadingContent";
-import MonitorCard from '@/components/MonitorCard';
+import MonitorContent from '@/components/MonitorContent'
 import MonitorHealthDialog from '@/components/MonitorHealthDialog';
 import StatisticCard from "@/components/StatisticCard";
-import { Empty } from "@/components/ui/empty";
 import { TIME_FRAME } from '@/enums'
 import { useAvailableHeight } from '@/hooks/use-available-height';
 import { useMonitors } from '@/hooks/use-monitors'
@@ -42,39 +37,6 @@ export default function Home() {
 
   const loading = useMemo(() => monitorsLoading || statsLoading, [monitorsLoading, statsLoading])
 
-  // 渲染主体内容
-  const renderContent = () => {
-    // 加载中
-    if (monitorsLoading) {
-      return (
-        <Empty>
-          <LoadingContent />
-        </Empty>
-      )
-    }
-    // 加载错误
-    if (monitorsError) {
-      return (
-        <ErrorPage refresh={mutateMonitors} />
-      )
-    }
-    // 没数据
-    if (!monitors.length) {
-      return (
-        <EmptyPage />
-      )
-    }
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {monitors.map((monitor, index) => (
-          <BlurFade key={monitor.id} inView>
-            <MonitorCard index={index} {...monitor} onShowResponse={() => setMonitorId(monitor.id)} />
-          </BlurFade>
-        ))}
-      </div>
-    )
-  }
-
   // 刷新数据
   const handleRefresh = () => {
     mutateMonitors()
@@ -83,9 +45,9 @@ export default function Home() {
   return (
     <>
       {/* 头部 */}
-      <Header refresh={handleRefresh} loading={loading} />
+      <Header />
       {/* 主体内容 */}
-      <main className="container max-w-7xl mx-auto p-4 space-y-4" style={{ minHeight: mainHeight }}>
+      <main className="container max-w-7xl mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
         <CountDownProgress refresh={handleRefresh} loading={loading} />
         {/* 统计卡片 */}
         <StatisticCard
@@ -94,7 +56,13 @@ export default function Home() {
           statsLoading={statsLoading}
           uptimeStatistics={uptimeStatistics}
         />
-        {renderContent()}
+        <MonitorContent
+          monitors={monitors}
+          loading={monitorsLoading}
+          error={monitorsError}
+          refresh={mutateMonitors}
+          setMonitorId={setMonitorId}
+        />
       </main>
       {/* 底部版权 */}
       <Footer />

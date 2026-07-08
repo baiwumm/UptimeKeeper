@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-17 10:37:42
+ * @LastEditTime: 2026-07-08 15:35:39
  * @Description: 监控状态
  */
 import { cn, Description, Tooltip } from "@heroui/react";
@@ -12,9 +12,10 @@ import { FC, useCallback } from 'react';
 import { STATUS } from '@/enums';
 import { useHeatmapDays } from '@/hooks/use-heatmap-days'
 import { get, SECTION_CLASSNAME } from '@/lib/utils';
+import type { Monitor, Ratio } from '@/types'
 
-type MonitorAvailabilityProps = Pick<App.Monitor, 'status' | 'type' | 'interval'> & {
-  data: App.Ratio[];
+type MonitorAvailabilityProps = Pick<Monitor, 'status' | 'type' | 'interval'> & {
+  data: Ratio[];
 };
 
 const DAYS = 30;

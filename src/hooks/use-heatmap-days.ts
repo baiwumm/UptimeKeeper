@@ -1,15 +1,17 @@
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
+import type { Ratio } from '@/types'
+
 interface UseHeatmapDaysOptions {
   days?: number;
-  data?: App.Ratio[];
+  data?: Ratio[];
 }
 
 export function useHeatmapDays({
   days = 30,
   data = []
-}: UseHeatmapDaysOptions): App.Ratio[] {
+}: UseHeatmapDaysOptions): Ratio[] {
   return useMemo(() => {
     // 1️⃣ 最近 N 天日期
     const dateList = Array.from({ length: days }, (_, i) =>

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 14:47:26
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-17 11:24:39
+ * @LastEditTime: 2026-07-08 16:22:22
  * @Description: 监控健康概览
  */
 import { Alert, Button, Chip, cn, Description, Modal } from "@heroui/react";
@@ -14,7 +14,6 @@ import ResponseTimeChart from './ResponseTimeChart';
 import BlurFade from '@/components/BlurFade';
 import LoadingContent from "@/components/LoadingContent";
 import { CountingNumber } from '@/components/ui/counting-number';
-import { Empty, EmptyContent } from "@/components/ui/empty";
 import { fetcher, get, SECTION_CLASSNAME } from '@/lib/utils';
 
 type MonitorHealthDialogProps = {
@@ -62,37 +61,35 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
     // 加载中
     if (loading) {
       return (
-        <Empty>
+        <div className="flex-1 flex items-center justify-center">
           <LoadingContent />
-        </Empty>
+        </div>
       )
     }
     // 加载错误
     if (shouldShowError) {
       return (
-        <Empty className="border">
-          <EmptyContent className="max-w-lg">
-            <Alert status="danger">
-              <Alert.Indicator />
-              <Alert.Content>
-                <Alert.Title>获取监控详情失败，请稍后重试</Alert.Title>
-                <Alert.Description>
-                  <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-left">
-                    <li>当前无法获取监控数据，</li>
-                    <li>可能由于网络异常或服务暂时不可用</li>
-                    <li>请稍后重试</li>
-                  </ul>
-                </Alert.Description>
-                <Button className="mt-2 sm:hidden" size="sm" variant="danger" onPress={mutate}>
-                  重试
-                </Button>
-              </Alert.Content>
-              <Button className="hidden sm:block" size="sm" variant="danger" onPress={mutate}>
+        <div className="max-w-lg">
+          <Alert status="danger">
+            <Alert.Indicator />
+            <Alert.Content>
+              <Alert.Title>获取监控详情失败，请稍后重试</Alert.Title>
+              <Alert.Description>
+                <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-left">
+                  <li>当前无法获取监控数据，</li>
+                  <li>可能由于网络异常或服务暂时不可用</li>
+                  <li>请稍后重试</li>
+                </ul>
+              </Alert.Description>
+              <Button className="mt-2 sm:hidden" size="sm" variant="danger" onPress={mutate}>
                 重试
               </Button>
-            </Alert>
-          </EmptyContent>
-        </Empty>
+            </Alert.Content>
+            <Button className="hidden sm:block" size="sm" variant="danger" onPress={mutate}>
+              重试
+            </Button>
+          </Alert>
+        </div>
       )
     }
 

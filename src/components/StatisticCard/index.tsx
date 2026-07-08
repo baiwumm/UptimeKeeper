@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 18:01:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 11:40:05
+ * @LastEditTime: 2026-07-08 16:15:11
  * @Description: 统计卡片
  */
 import { ChartLineArrowUp, CircleFill } from "@gravity-ui/icons";
@@ -39,7 +39,7 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, m
     }
   }, [overallUptime])
   return (
-    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 shrink-0">
       {MONITOR_STATISTICS.items.map(({ value, label, desc, color, icon: Icon }) => (
         <Card key={value} className='gap-0'>
           <Card.Header>
@@ -84,7 +84,7 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, m
           <NumberFlow
             value={statsLoading ? 0 : overallUptime}
             format={{
-              style: 'percent' as const,
+              style: 'percent',
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             }}

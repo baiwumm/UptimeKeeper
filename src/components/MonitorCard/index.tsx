@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 10:17:18
+ * @LastEditTime: 2026-07-08 15:46:49
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
@@ -15,11 +15,12 @@ import MonitorIncident from './MonitorIncident';
 import MonitorStats from './MonitorStats';
 
 import { STATUS } from '@/enums';
+import type { Monitor } from '@/types'
 
 type MonitorCardProps = {
   index: number;
   onShowResponse: VoidFunction;
-} & App.Monitor;
+} & Monitor;
 
 const MonitorCard: FC<MonitorCardProps> = ({
   friendlyName,
@@ -32,6 +33,7 @@ const MonitorCard: FC<MonitorCardProps> = ({
   interval,
   createDateTime,
   lastIncident,
+  currentStateDuration,
   onShowResponse
 }) => {
   // 获取原配置
@@ -49,16 +51,16 @@ const MonitorCard: FC<MonitorCardProps> = ({
   return (
     <Card>
       {/* 头部 */}
-      <MonitorHeader friendlyName={friendlyName} url={url} tags={tags} raw={raw} />
+      <MonitorHeader friendlyName={friendlyName} url={url} tags={tags} raw={raw} currentStateDuration={currentStateDuration} />
       <Card.Content className="flex flex-col gap-4">
         {/* 监控统计指标 */}
-        {/* <MonitorStats runningDays={runningDays} createdAt={createdAt} monitor={monitor} onShowResponse={onShowResponse} /> */}
+        <MonitorStats runningDays={runningDays} createdAt={createdAt} />
         {/* 监控状态 */}
         {/* {monitor?.dailyRatios?.length ? (
           <MonitorAvailability status={status} type={type} interval={interval} data={monitor?.dailyRatios || []} />
         ) : null} */}
         {/* 监控故障 */}
-        {/* <MonitorIncident lastIncident={lastIncident} /> */}
+        <MonitorIncident lastIncident={lastIncident} />
       </Card.Content>
     </Card>
   )
