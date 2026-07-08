@@ -1,11 +1,13 @@
-import { NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
-export function withApiHandler(
-  handler: () => Promise<any>,
-) {
-  return async function () {
+type ApiHandler = (
+  req: NextRequest
+) => Promise<unknown>
+
+export function withApiHandler(handler: ApiHandler) {
+  return async function (req: NextRequest) {
     try {
-      const data = await handler()
+      const data = await handler(req)
       return NextResponse.json(data)
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {

@@ -2,13 +2,14 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-03 10:28:37
+ * @LastEditTime: 2026-07-08 14:48:45
  * @Description: 入口文件
  */
 "use client"
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import BlurFade from '@/components/BlurFade';
+import CountDownProgress from '@/components/CountDownProgress'
 import EmptyPage from '@/components/EmptyPage';
 import ErrorPage from '@/components/ErrorPage';
 import Footer from '@/components/Footer';
@@ -18,12 +19,15 @@ import MonitorCard from '@/components/MonitorCard';
 import MonitorHealthDialog from '@/components/MonitorHealthDialog';
 import StatisticCard from "@/components/StatisticCard";
 import { Empty } from "@/components/ui/empty";
+import { TIME_FRAME } from '@/enums'
 import { useAvailableHeight } from '@/hooks/use-available-height';
-import { useMonitorData } from '@/hooks/useMonitorData'
+import { useMonitors } from '@/hooks/use-monitors'
+import { useUptimeStats } from '@/hooks/use-uptime-stats'
 
 export default function Home() {
   // 监控 id
   const [monitorId, setMonitorId] = useState<number | null>(null);
+  const [timeFrame] = useState(TIME_FRAME.MONTH);
 
   // 计算主体内容高度
   const mainHeight = useAvailableHeight({
@@ -31,14 +35,17 @@ export default function Home() {
     debounceMs: 150,
   });
 
-  // 请求站点接口
-  const { monitors, uptimeStatistics, loading, refresh, error } = useMonitorData();
-  console.log('uptimeStatistics', uptimeStatistics)
+  // 获取站点列表
+  const { monitors, monitorsLoading, monitorsError, mutateMonitors, statistics } = useMonitors();
+  // 获取统计信息
+  const { uptimeStatistics, statsLoading, mutateStats } = useUptimeStats(timeFrame);
+
+  const loading = useMemo(() => monitorsLoading || statsLoading, [monitorsLoading, statsLoading])
 
   // 渲染主体内容
   const renderContent = () => {
     // 加载中
-    if (loading) {
+    if (monitorsLoading) {
       return (
         <Empty>
           <LoadingContent />
@@ -46,9 +53,9 @@ export default function Home() {
       )
     }
     // 加载错误
-    if (error) {
+    if (monitorsError) {
       return (
-        <ErrorPage refresh={refresh} />
+        <ErrorPage refresh={mutateMonitors} />
       )
     }
     // 没数据
@@ -67,14 +74,26 @@ export default function Home() {
       </div>
     )
   }
+
+  // 刷新数据
+  const handleRefresh = () => {
+    mutateMonitors()
+    mutateStats()
+  }
   return (
     <>
       {/* 头部 */}
-      <Header refresh={refresh} loading={loading} />
+      <Header refresh={handleRefresh} loading={loading} />
       {/* 主体内容 */}
-      <main className="container max-w-7xl mx-auto p-4 flex flex-col gap-4" style={{ minHeight: mainHeight }}>
+      <main className="container max-w-7xl mx-auto p-4 space-y-4" style={{ minHeight: mainHeight }}>
+        <CountDownProgress refresh={handleRefresh} loading={loading} />
         {/* 统计卡片 */}
-        <StatisticCard monitors={monitors} loading={loading} uptimeStatistics={uptimeStatistics} />
+        <StatisticCard
+          statistics={statistics}
+          monitorsLoading={monitorsLoading}
+          statsLoading={statsLoading}
+          uptimeStatistics={uptimeStatistics}
+        />
         {renderContent()}
       </main>
       {/* 底部版权 */}

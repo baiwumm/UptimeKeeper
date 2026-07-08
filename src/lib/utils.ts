@@ -83,3 +83,26 @@ export const formatTime = (seconds: number) => {
 
 // 统一样式
 export const SECTION_CLASSNAME = "bg-surface-secondary text-surface-secondary-foreground rounded-xl text-xs p-4"
+
+/**
+ * @description: 检测频率
+ */
+export const getIntervalMinutes = (): number => {
+  const raw = process.env.NEXT_PUBLIC_INTERVAL;
+
+  // 1. 尝试转换为数字
+  let value = Number(raw);
+
+  // 2. 检查是否为有效数字（NaN、Infinity 等情况）
+  if (!Number.isFinite(value)) {
+    value = 5; // 默认值
+  }
+
+  // 3. 限制范围：1-60
+  value = Math.min(Math.max(value, 1), 60);
+
+  // 4. 确保是整数（如果输入是小数）
+  value = Math.floor(value);
+
+  return value;
+};

@@ -2,9 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-16 16:15:46
+ * @LastEditTime: 2026-07-08 14:34:01
  * @Description: 布局文件
  */
+import { Toast } from '@heroui/react';
 import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next";
 import { ThemeProvider } from 'next-themes'
@@ -69,6 +70,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" enableSystem={false}>
           <FullLoading>
             {children}
+            <Toast.Provider placement="top" />
             <BackTop />
           </FullLoading>
         </ThemeProvider>

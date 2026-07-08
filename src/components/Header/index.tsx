@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 17:01:34
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 10:37:21
+ * @LastEditTime: 2026-07-08 14:46:07
  * @Description: 头部
  */
 "use client"
@@ -13,18 +13,12 @@ import Link from "next/link";
 import { type FC, type ReactNode } from 'react';
 import useSWR from 'swr';
 
-import CountDownButton from '@/components/CountDownButton';
 import { ShimmeringText } from '@/components/ShimmeringText';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import TimeAndLunar from '@/components/TimeAndLunar';
 import { fetcher } from '@/lib/utils';
 import type { User } from '@/types'
 import pkg from '#/package.json';
-
-type HeaderProps = {
-  refresh: VoidFunction;
-  loading: boolean;
-}
 
 type Social = {
   name: string;
@@ -40,7 +34,7 @@ const socials: Social[] = [
   }
 ]
 
-const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
+const Header: FC = () => {
   // 获取用户信息
   const { data: user, error, isLoading } = useSWR<User>(
     '/api/me',
@@ -50,7 +44,7 @@ const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
 
   // 渲染用户信息
   const renderUserInfo = () => {
-    if (error || !user) {
+    if (error) {
       return (
         <Chip color="danger" variant="soft">账户信息获取失败</Chip>
       )
@@ -62,6 +56,9 @@ const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
           <Skeleton className="h-3 w-40 rounded-lg" />
         </div>
       )
+    }
+    if (!user) {
+      return null
     }
     return (
       <div>
@@ -89,7 +86,6 @@ const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
       <TimeAndLunar />
       {/* 右侧区域 */}
       <div className="flex items-center gap-1 justify-self-end">
-        <CountDownButton refresh={refresh} loading={loading} />
         {/* 主题切换按钮 */}
         <ThemeSwitcher />
         {socials.map(({ name, url, icon }) => (
