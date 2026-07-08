@@ -33,7 +33,7 @@ export const STATUS = Enum({
  * @description: 站点统计
  */
 export const MONITOR_STATISTICS = Enum({
-  TOTAL: { value: 'total', label: '监控网站', desc: '全部网站', color: 'success', icon: DisplayPulse },
-  NORMAL: { value: 'normal', label: '正常网站', desc: '访问正常', color: 'success', icon: CircleCheckFill },
-  ABNORMAL: { value: 'abnormal', label: '异常网站', desc: '访问异常', color: 'danger', icon: CircleXmarkFill },
+  TOTAL: { value: 'total', label: '监控网站', desc: '全部网站', color: 'text-success bg-success-soft', icon: DisplayPulse },
+  NORMAL: { value: 'normal', label: '正常网站', desc: '访问正常', color: 'text-success bg-success-soft', icon: CircleCheckFill },
+  ABNORMAL: { value: 'abnormal', label: '异常网站', desc: '访问异常', color: 'text-danger bg-danger-soft', icon: CircleXmarkFill },
 });

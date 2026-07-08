@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 18:01:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 16:15:11
+ * @LastEditTime: 2026-07-08 18:20:28
  * @Description: 统计卡片
  */
 import { ChartLineArrowUp, CircleFill } from "@gravity-ui/icons";
@@ -44,8 +44,8 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, l
           <Card.Header>
             <div className="flex justify-between items-center">
               <Card.Description>{label}</Card.Description>
-              <div className={cn("rounded-lg p-2", `bg-${color}-soft`)}>
-                <Icon className={cn('size-6', `text-${color}`)} />
+              <div className={cn("rounded-lg p-2", color)}>
+                <Icon className='size-6' />
               </div>
             </div>
           </Card.Header>

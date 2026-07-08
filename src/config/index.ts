@@ -7,8 +7,7 @@ function requireEnv(name: string, value: string | undefined) {
 
 const API_KEY = requireEnv('UPTIMEROBOT_API_KEY', process.env.UPTIMEROBOT_API_KEY)
 
-const API_URL =
-  process.env.UPTIMEROBOT_API_URL || 'https://api.uptimerobot.com/v3'
+const API_URL = 'https://api.uptimerobot.com/v3'
 
 export const uptimerobotConfig = {
   apiKey: API_KEY,
