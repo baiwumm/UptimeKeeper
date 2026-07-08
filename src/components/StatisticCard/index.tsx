@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 18:01:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-03 11:08:52
+ * @LastEditTime: 2026-07-08 10:09:05
  * @Description: 统计卡片
  */
 import { ChartLineArrowUp, CircleCheckFill, CircleFill, CircleXmarkFill, DisplayPulse } from "@gravity-ui/icons";
@@ -63,7 +63,7 @@ const StatisticCard: FC<StatisticCardProps> = ({ monitors = [], uptimeStatistics
     return overallUptime >= 0.99 ? {
       label: '优秀',
       color: 'success' as const
-    } : overallUptime >= 0.1 ? {
+    } : overallUptime >= 0.9 ? {
       label: '良好',
       color: 'warning' as const
     } : {

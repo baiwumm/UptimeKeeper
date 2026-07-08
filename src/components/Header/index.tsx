@@ -2,20 +2,23 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 17:01:34
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-07 18:13:13
+ * @LastEditTime: 2026-07-08 10:37:21
  * @Description: 头部
  */
 "use client"
 import { HouseFill, LogoGithub } from "@gravity-ui/icons"
-import { Button, Tooltip } from "@heroui/react";
+import { Button, Chip, Description, Skeleton, Tooltip } from "@heroui/react";
 import Image from 'next/image';
 import Link from "next/link";
 import { type FC, type ReactNode } from 'react';
+import useSWR from 'swr';
 
 import CountDownButton from '@/components/CountDownButton';
 import { ShimmeringText } from '@/components/ShimmeringText';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import TimeAndLunar from '@/components/TimeAndLunar';
+import { fetcher } from '@/lib/utils';
+import type { User } from '@/types'
 import pkg from '#/package.json';
 
 type HeaderProps = {
@@ -38,6 +41,42 @@ const socials: Social[] = [
 ]
 
 const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
+  // 获取用户信息
+  const { data: user, error, isLoading } = useSWR<User>(
+    '/api/me',
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  // 渲染用户信息
+  const renderUserInfo = () => {
+    if (error || !user) {
+      return (
+        <Chip color="danger" variant="soft">账户信息获取失败</Chip>
+      )
+    }
+    if (isLoading) {
+      return (
+        <div className="space-y-2">
+          <Skeleton className="h-3 w-30 rounded-lg" />
+          <Skeleton className="h-3 w-40 rounded-lg" />
+        </div>
+      )
+    }
+    return (
+      <div>
+        <ShimmeringText
+          text={user.fullName}
+          className="text-lg font-black hidden sm:block"
+          duration={1.5}
+          repeatDelay={1}
+          color="var(--foreground)"
+          shimmerColor="var(--background)"
+        />
+        <Description className="hidden sm:block">{user.email}</Description>
+      </div>
+    )
+  };
   return (
     <header className="sticky top-0 z-20 backdrop-blur-sm p-4 container max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 items-center" id="header">
       {/* 左侧 Logo */}
@@ -45,14 +84,7 @@ const Header: FC<HeaderProps> = ({ refresh, loading = false }) => {
         <div className="size-9 relative">
           <Image src="/logo.svg" fill alt="Logo" />
         </div>
-        <ShimmeringText
-          text={process.env.NEXT_PUBLIC_COPYRIGHT!}
-          className="text-xl font-black hidden sm:block"
-          duration={1.5}
-          repeatDelay={1}
-          color="var(--foreground)"
-          shimmerColor="var(--background)"
-        />
+        {renderUserInfo()}
       </div>
       <TimeAndLunar />
       {/* 右侧区域 */}

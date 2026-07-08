@@ -1,6 +1,22 @@
 import type { STATUS } from '@/enums';
 
 /**
+ * @description: 用户信息
+ */
+export type User = {
+  email: string; // 账户邮箱
+  fullName: string; // 账户姓名
+  monitorsCount: number; // 当前已经创建的监控数
+  monitorLimit: number; // 站点创建限制
+  activeSubscription: {
+    plan: string,
+    monitorLimit: 0,
+    expirationDate: string,
+    status: string
+  }
+}
+
+/**
  * @description: 站点状态
  */
 export type Status = typeof STATUS.valueType

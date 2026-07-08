@@ -2,14 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-03 11:10:06
+ * @LastEditTime: 2026-07-08 10:17:18
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
 import dayjs from 'dayjs';
 import { type FC, useMemo } from 'react';
 
-import MonitorThumbnail from './/MonitorThumbnail';
 import MonitorAvailability from './MonitorAvailability';
 import MonitorHeader from './MonitorHeader';
 import MonitorIncident from './MonitorIncident';
@@ -50,18 +49,16 @@ const MonitorCard: FC<MonitorCardProps> = ({
   return (
     <Card>
       {/* 头部 */}
-      <MonitorHeader index={index} friendlyName={friendlyName} url={url} tags={tags} raw={raw} />
+      <MonitorHeader friendlyName={friendlyName} url={url} tags={tags} raw={raw} />
       <Card.Content className="flex flex-col gap-4">
-        {/* 监控缩略图 */}
-        {/* <MonitorThumbnail url={url} friendlyName={friendlyName} /> */}
         {/* 监控统计指标 */}
-        <MonitorStats runningDays={runningDays} createdAt={createdAt} monitor={monitor} onShowResponse={onShowResponse} />
+        {/* <MonitorStats runningDays={runningDays} createdAt={createdAt} monitor={monitor} onShowResponse={onShowResponse} /> */}
         {/* 监控状态 */}
-        {monitor?.dailyRatios?.length ? (
+        {/* {monitor?.dailyRatios?.length ? (
           <MonitorAvailability status={status} type={type} interval={interval} data={monitor?.dailyRatios || []} />
-        ) : null}
+        ) : null} */}
         {/* 监控故障 */}
-        <MonitorIncident lastIncident={lastIncident} />
+        {/* <MonitorIncident lastIncident={lastIncident} /> */}
       </Card.Content>
     </Card>
   )
