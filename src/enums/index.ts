@@ -30,15 +30,6 @@ export const STATUS = Enum({
 });
 
 /**
- * @description: 时间周期
- */
-export const TIME_FRAME = Enum({
-  DAY: { value: 'DAY', label: '最近 24 小时' },
-  WEEK: { value: 'WEEK', label: '最近 7 天' },
-  MONTH: { value: 'MONTH', label: '最近 30 天' },
-});
-
-/**
  * @description: 站点统计
  */
 export const MONITOR_STATISTICS = Enum({

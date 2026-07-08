@@ -19,11 +19,10 @@ import type { UptimeStatistics } from '@/types'
 type StatisticCardProps = {
   statistics: MonitorResult['statistics'];
   uptimeStatistics: UptimeStatistics;
-  monitorsLoading: boolean;
-  statsLoading: boolean;
+  loading: boolean;
 }
 
-const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, monitorsLoading = false, statsLoading = false }) => {
+const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, loading = false }) => {
   // 卡片统计
   const overallUptime = useMemo(() => get(uptimeStatistics, 'overallUptime', 0), [uptimeStatistics])
   const overallUptimeChip = useMemo(() => {
@@ -52,7 +51,7 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, m
           </Card.Header>
           <Card.Content>
             <NumberFlow
-              value={monitorsLoading ? 0 : get(statistics, value, 0)}
+              value={loading ? 0 : get(statistics, value, 0)}
               format={{
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0,
@@ -82,7 +81,7 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, m
         </Card.Header>
         <Card.Content>
           <NumberFlow
-            value={statsLoading ? 0 : overallUptime}
+            value={loading ? 0 : overallUptime}
             format={{
               style: 'percent',
               minimumFractionDigits: 2,

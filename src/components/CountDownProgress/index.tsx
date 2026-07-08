@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 13:43:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 16:15:02
+ * @LastEditTime: 2026-07-08 17:46:07
  * @Description: 工具栏
  */
 import { ArrowsRotateRight, PauseFill, PlayFill } from '@gravity-ui/icons';
@@ -84,7 +84,7 @@ const CountDownProgress: FC<CountDownProgressProps> = ({ refresh, loading = fals
         </ProgressBar>
         <Button variant="secondary" size='sm' isDisabled={loading} onPress={handlePause}>
           {isPaused ? <PlayFill /> : <PauseFill />}
-          {isPaused ? '已暂停' : '暂停'}
+          {isPaused ? '恢复' : '暂停'}
         </Button>
         <Button size='sm' onPress={handleImmediateRefresh} isDisabled={loading} isPending={loading}>
           {({ isPending }) => (

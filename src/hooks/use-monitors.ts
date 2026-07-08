@@ -2,19 +2,20 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 10:56:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 11:07:35
+ * @LastEditTime: 2026-07-08 17:34:40
  * @Description: 获取站点列表
  */
 import { useMemo } from 'react'
 import useSWR, { type KeyedMutator } from 'swr';
 
 import { STATUS } from '@/enums';
-import { fetcher } from '@/lib/utils';
-import type { Monitor, Status } from '@/types'
+import { fetcher, get } from '@/lib/utils';
+import type { Monitor, Status, UptimeStatistics } from '@/types'
 
 export interface MonitorResult {
   monitors: Monitor[];
-  monitorsLoading: boolean;
+  uptimeStatistics: UptimeStatistics,
+  loading: boolean;
   monitorsError: any;
   mutateMonitors: KeyedMutator<Monitor[]>;
   statistics: {
@@ -37,16 +38,18 @@ const abnormalStatus = new Set<Status>([
 
 export function useMonitors(): MonitorResult {
   const {
-    data: monitors = [],
+    data,
     error,
     isLoading,
     isValidating,
     mutate: mutateMonitors
-  } = useSWR<Monitor[]>(
+  } = useSWR(
     '/api/uptimerobot',
     fetcher,
-    { revalidateOnFocus: false, fallbackData: [] }
+    { revalidateOnFocus: false }
   );
+  const monitors: Monitor[] = get(data, 'monitors', [])
+  const uptimeStatistics: UptimeStatistics = get(data, 'uptimeStatistics', null)
 
   const statistics = useMemo(() => {
     let normal = 0
@@ -70,7 +73,8 @@ export function useMonitors(): MonitorResult {
   }, [monitors])
   return {
     monitors,
-    monitorsLoading: isLoading || isValidating,
+    uptimeStatistics,
+    loading: isLoading || isValidating,
     monitorsError: error,
     mutateMonitors,
     statistics

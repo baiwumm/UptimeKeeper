@@ -38,6 +38,22 @@ export type Ratio = {
 }
 
 /**
+ * @description: 故障列表
+ */
+export type Incident = {
+  id: string;
+  status: 'Resolved' | 'Ongoing';
+  startedAt: string;
+  duration?: number | null;
+  reason: string;
+  cause: number;
+  monitor: {
+    id: number;
+    friendlyName: string;
+  }
+}
+
+/**
  * @description: 站点
  */
 export type Monitor = {
@@ -49,32 +65,18 @@ export type Monitor = {
   type: string;
   url: string;
   friendlyName: string;
-  lastIncident: null | {
-    status: 'Resolved' | 'Ongoing';
-    startedAt: string;
-    duration?: number | null;
-    reason: string;
-    cause: number;
-  };
+  lastIncident: null | Incident;
+  incidents: Incident[];
   interval: number;
-  stats?: {
-    uptime: number
-  }
+  overallUptime: number; // 可用率
 }
 
 /**
  * @description: 汇总运行时间统计
  */
-export type UptimeLog = {
-  type: string;
-  datetime: string;
-  duration: number | null;
-}
 export type UptimeStatistics = {
   overallUptime: number; // 所有监控器的综合可用率
   totalIncidents: number; // 故障事件总数
-  totalTimeWithoutIncidents: number; // 所有监控器处于“正常运行”状态的累计总时长
+  totalUptimeDuration: number; // 所有监控器处于“正常运行”状态的累计总时长
   affectedMonitors: number; // 受影响的监控器数量
-  mtbf: number; // 平均故障间隔时间
-  logs: UptimeLog[];
-} | undefined
+} | null
