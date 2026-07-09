@@ -1,5 +1,33 @@
 # Changelog
 
+## [2.2.0](https://github.com/baiwumm/UptimeKeeper/compare/2.1.0...2.2.0) (2026-07-09)
+
+### ✨ Features | 新功能
+
+* 去掉 uptime-stats 接口 ([df0c1da](https://github.com/baiwumm/UptimeKeeper/commit/df0c1da00a73002342ef0dd61192e362f57d2e2a))
+* 文件结构优化 ([3129769](https://github.com/baiwumm/UptimeKeeper/commit/3129769e9f38dd0dc1833e8d40d8abaaf0273e2e))
+* 新增近 30 天可用率展示 ([139121f](https://github.com/baiwumm/UptimeKeeper/commit/139121f2bcd896b23699ef19ddd2ee2029d404ee))
+* 新增用户信息获取，优化统计卡片数据获取 ([36ce048](https://github.com/baiwumm/UptimeKeeper/commit/36ce048ec71850dc07bac1a47f4acb1c44a1abd0))
+* 重构顶部和头部布局 ([ead6f20](https://github.com/baiwumm/UptimeKeeper/commit/ead6f2068d2f6957a3d77c813894d6db6bf2a89c))
+* 重构页面排版布局，调整接口请求方式 ([2f1cca3](https://github.com/baiwumm/UptimeKeeper/commit/2f1cca37cafae60b95578461f8bc5e2b70dc3b0a))
+
+### 💄 Styles | 风格
+
+* 更新 Hero UI 主题样式 ([fffecd1](https://github.com/baiwumm/UptimeKeeper/commit/fffecd1cf1c41802a0be49aeebf8ceb79d92b264))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 优化统计卡片数据请求交互 ([178cee4](https://github.com/baiwumm/UptimeKeeper/commit/178cee4743af731561ec0b417aa10fd994de1209))
+
+### 👷‍ Build System | 构建
+
+* 修复线上样式丢失的问题 ([b972c79](https://github.com/baiwumm/UptimeKeeper/commit/b972c7944d06161b5ebddd4ca0e835272aa23c28))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 更新 Hero UI 版本 ([961d1ee](https://github.com/baiwumm/UptimeKeeper/commit/961d1eeacf2204564b06e04068a1389160185d75))
+* 更新包版本 ([83178ba](https://github.com/baiwumm/UptimeKeeper/commit/83178ba8ca54116831d3a06f710dd7a6e8c707e3))
+
 ## [2.1.0](https://github.com/baiwumm/UptimeKeeper/compare/2.0.4...2.1.0) (2026-03-17)
 
 ### ✨ Features | 新功能
