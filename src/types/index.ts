@@ -69,6 +69,12 @@ export type Monitor = {
   incidents: Incident[];
   interval: number;
   overallUptime: number; // 可用率
+  totalIncidents: number; // 故障事件总数
+  totalIncidentsDuration: number; // 故障总时长
+  dailyUptimes: {
+    time: string;
+    value: number
+  }[]; // 每日可用率
 }
 
 /**

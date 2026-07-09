@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 17:14:58
+ * @LastEditTime: 2026-07-09 17:45:43
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
@@ -18,25 +18,23 @@ import { STATUS } from '@/enums';
 import type { Monitor } from '@/types'
 
 type MonitorCardProps = {
-  index: number;
   onShowResponse: VoidFunction;
 } & Monitor;
 
 const MonitorCard: FC<MonitorCardProps> = ({
   friendlyName,
   url,
-  index,
   status,
   tags,
-  monitor,
   type,
   interval,
   createDateTime,
-  lastIncident,
   currentStateDuration,
-  onShowResponse,
   incidents = [],
   overallUptime = 0,
+  totalIncidents = 0,
+  totalIncidentsDuration = 0,
+  dailyUptimes = []
 }) => {
   // 获取原配置
   const raw = useMemo(() => STATUS.raw(status), [status]);
@@ -58,9 +56,14 @@ const MonitorCard: FC<MonitorCardProps> = ({
         {/* 监控统计指标 */}
         <MonitorStats runningDays={runningDays} createdAt={createdAt} overallUptime={overallUptime} />
         {/* 监控状态 */}
-        {/* {monitor?.dailyRatios?.length ? (
-          <MonitorAvailability status={status} type={type} interval={interval} data={monitor?.dailyRatios || []} />
-        ) : null} */}
+        <MonitorAvailability
+          status={status}
+          type={type}
+          interval={interval}
+          totalIncidents={totalIncidents}
+          totalIncidentsDuration={totalIncidentsDuration}
+          dailyUptimes={dailyUptimes}
+        />
         {/* 监控故障 */}
         <MonitorIncident incidents={incidents} />
       </Card.Content>

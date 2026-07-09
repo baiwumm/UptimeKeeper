@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 15:35:39
+ * @LastEditTime: 2026-07-09 14:03:57
  * @Description: 监控状态
  */
 import { cn, Description, Tooltip } from "@heroui/react";
@@ -10,13 +10,10 @@ import { motion } from 'motion/react';
 import { FC, useCallback } from 'react';
 
 import { STATUS } from '@/enums';
-import { useHeatmapDays } from '@/hooks/use-heatmap-days'
-import { get, SECTION_CLASSNAME } from '@/lib/utils';
-import type { Monitor, Ratio } from '@/types'
+import { formatTimeAgo, get, SECTION_CLASSNAME } from '@/lib/utils';
+import type { Monitor } from '@/types'
 
-type MonitorAvailabilityProps = Pick<Monitor, 'status' | 'type' | 'interval'> & {
-  data: Ratio[];
-};
+type MonitorAvailabilityProps = Pick<Monitor, 'status' | 'type' | 'interval' | 'dailyUptimes' | 'totalIncidents' | 'totalIncidentsDuration'>
 
 const DAYS = 30;
 
@@ -24,19 +21,19 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
   status,
   type,
   interval,
-  data = []
+  totalIncidents = 0,
+  totalIncidentsDuration = 0,
+  dailyUptimes = []
 }) => {
   const raw = STATUS.raw(status);
   const color = get(raw, 'color', 'accent');
 
-  const days = useHeatmapDays({ days: 30, data });
-
   const getBoxColor = useCallback(
     (ratio: number) => {
-      if (status !== STATUS.UP) return 'bg-border';
-      if (!ratio) return 'bg-border';
-      if (ratio >= 99.99) return 'bg-success';
-      if (ratio >= 90) return 'bg-warning';
+      if (status !== STATUS.UP) return 'bg-default';
+      if (!ratio) return 'bg-default';
+      if (ratio >= 1) return 'bg-success';
+      if (ratio >= 0.90) return 'bg-warning';
       return 'bg-danger';
     },
     [status]
@@ -46,7 +43,7 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
     (ratio: number) => {
       if (status !== STATUS.UP) return get(raw, 'label', '不可用');
       if (!ratio) return '无数据';
-      return `可用率 ${ratio}%`;
+      return `可用率 ${(ratio * 100).toFixed(2)}%`;
     },
     [status, raw]
   );
@@ -61,12 +58,12 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
       </div>
 
       {/* Heatmap */}
-      <div className="grid gap-[3px] grid-cols-[repeat(30,1fr)]">
-        {days.map((d, i) => (
-          <Tooltip key={d.date ?? i}>
+      <div className="grid gap-0.75 grid-cols-[repeat(30,1fr)]">
+        {dailyUptimes.map(d => (
+          <Tooltip key={d.time} delay={0}>
             <Tooltip.Trigger>
               <motion.div
-                className={cn('aspect-square rounded-[3px]', getBoxColor(Number(d.ratio)))}
+                className={cn('aspect-square rounded-sm', getBoxColor(Number(d.value)))}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               />
@@ -74,8 +71,8 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
             <Tooltip.Content showArrow>
               <Tooltip.Arrow />
               <div className="text-xs space-y-1">
-                <div className="font-semibold">{d.date}</div>
-                <div>{renderTip(Number(d.ratio))}</div>
+                <div className="font-semibold">{d.time}</div>
+                <div>{renderTip(d.value)}</div>
               </div>
             </Tooltip.Content>
           </Tooltip>
@@ -83,9 +80,12 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between items-center">
-        <Description>{DAYS} 天前</Description>
-        <Description>今日</Description>
+      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
+        <Description className="whitespace-nowrap">{DAYS}天前</Description>
+        <Description className="justify-self-center w-fit">
+          {totalIncidents > 0 ? `最近${DAYS}天 ${totalIncidents} 次故障，总计${formatTimeAgo(totalIncidentsDuration)}` : '运行正常'}
+        </Description>
+        <Description className="whitespace-nowrap">{'  '}今日</Description>
       </div>
     </div>
   );
