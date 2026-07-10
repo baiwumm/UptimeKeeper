@@ -3,14 +3,16 @@
  * @param {string} url
  */
 export const fetcher = async (url: string) => {
-  const res = await fetch(url);
+  const res = await fetch(url)
+
+  const data = await res.json()
+
   if (!res.ok) {
-    // 可选：把状态码或响应体作为错误信息
-    const errorText = await res.text();
-    throw new Error(`HTTP ${res.status}: ${errorText}`);
+    throw new Error(data.message || `HTTP ${res.status}`)
   }
-  return res.json();
-};
+
+  return data
+}
 
 /**
  * Dynamically get a nested value from an array or

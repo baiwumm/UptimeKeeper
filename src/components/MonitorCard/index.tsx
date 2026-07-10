@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-09 17:45:43
+ * @LastEditTime: 2026-07-10 16:42:15
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
@@ -13,6 +13,7 @@ import MonitorAvailability from './MonitorAvailability';
 import MonitorHeader from './MonitorHeader';
 import MonitorIncident from './MonitorIncident';
 import MonitorStats from './MonitorStats';
+import ResponseTimeContent from './ResponseTimeContent'
 
 import { STATUS } from '@/enums';
 import type { Monitor } from '@/types'
@@ -22,6 +23,7 @@ type MonitorCardProps = {
 } & Monitor;
 
 const MonitorCard: FC<MonitorCardProps> = ({
+  id,
   friendlyName,
   url,
   status,
@@ -64,6 +66,8 @@ const MonitorCard: FC<MonitorCardProps> = ({
           totalIncidentsDuration={totalIncidentsDuration}
           dailyUptimes={dailyUptimes}
         />
+        {/* 响应时间统计 */}
+        <ResponseTimeContent monitorId={id} />
         {/* 监控故障 */}
         <MonitorIncident incidents={incidents} />
       </Card.Content>

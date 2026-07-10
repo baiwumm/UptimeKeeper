@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 10:56:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 17:34:40
+ * @LastEditTime: 2026-07-10 16:23:08
  * @Description: 获取站点列表
  */
 import { useMemo } from 'react'
@@ -44,7 +44,7 @@ export function useMonitors(): MonitorResult {
     isValidating,
     mutate: mutateMonitors
   } = useSWR(
-    '/api/uptimerobot',
+    '/api/monitors',
     fetcher,
     { revalidateOnFocus: false }
   );

@@ -48,7 +48,7 @@ const MonitorHealthDialog: FC<MonitorHealthDialogProps> = ({
   onOpenChange,
 }) => {
   // 请求站点接口
-  const swrKey = open && monitorId ? `/api/uptimerobot/${monitorId}` : null;
+  const swrKey = open && monitorId ? `/api/monitors/${monitorId}` : null;
   const { data, error, isValidating, isLoading, mutate } = useSWR(swrKey, fetcher, {
     revalidateOnFocus: false
   });
