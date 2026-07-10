@@ -2,17 +2,20 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 17:00:49
+ * @LastEditTime: 2026-07-10 09:51:07
  * @Description: 监控故障
  */
 "use client"
 import { ChevronUp, ThumbsUpFill, TriangleExclamationFill } from '@gravity-ui/icons';
 import { Alert, cn, Description, Popover, ScrollShadow } from "@heroui/react";
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc'
 import { type FC, useState } from 'react';
 
 import { formatTimeAgo, SECTION_CLASSNAME } from '@/lib/utils';
 import type { Monitor } from '@/types'
+
+dayjs.extend(utc)
 
 type MonitorIncidentPops = {
   incidents: Monitor['incidents'];
@@ -43,7 +46,7 @@ const MonitorIncident: FC<MonitorIncidentPops> = ({ incidents = [] }) => {
                       <Alert.Title className="font-bold">{incident.reason}</Alert.Title>
                       <Alert.Description>
                         <ul className="mt-1 list-inside list-disc space-y-1 text-xs">
-                          <li>开始于 {dayjs(incident.startedAt).format('YYYY-MM-DD HH:mm')}</li>
+                          <li>开始于 {dayjs.utc(incident.startedAt).format('YYYY-MM-DD HH:mm')}</li>
                           <li>持续时间: {incident?.duration ? formatTimeAgo(incident?.duration) : '--'}</li>
                         </ul>
                       </Alert.Description>
