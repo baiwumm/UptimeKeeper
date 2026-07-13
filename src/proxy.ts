@@ -11,7 +11,7 @@ export default async function proxy(req: NextRequest) {
 
   if (!API_KEY) {
     return NextResponse.json(
-      { error: '缺少 UptimeRobot API Key' },
+      { message: '缺少 UptimeRobot API Key' },
       { status: 500 }
     );
   }

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 15:53:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 09:55:58
+ * @LastEditTime: 2026-07-13 16:38:47
  * @Description: 监控列表
  */
 import { Skeleton } from "@heroui/react";
@@ -10,7 +10,6 @@ import { type FC } from 'react';
 
 import BlurFade from '@/components/BlurFade';
 import EmptyContent from '@/components/EmptyContent';
-import ErrorContent from '@/components/ErrorContent';
 import LoadingContent from "@/components/LoadingContent";
 import MonitorCard from '@/components/MonitorCard';
 import type { Monitor } from '@/types'
@@ -18,11 +17,9 @@ import type { Monitor } from '@/types'
 type MonitorContentProps = {
   monitors: Monitor[];
   loading: boolean;
-  error: any;
-  refresh: VoidFunction;
 }
 
-const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = false, error, refresh }) => {
+const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = false }) => {
   // 加载中
   if (loading) {
     return (
@@ -31,12 +28,7 @@ const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = fals
       </div>
     )
   }
-  // 加载错误
-  if (error) {
-    return (
-      <ErrorContent refresh={refresh} />
-    )
-  }
+
   // 没数据
   if (!monitors.length) {
     return (

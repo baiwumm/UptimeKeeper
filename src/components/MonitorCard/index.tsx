@@ -49,7 +49,14 @@ const MonitorCard: FC<Monitor> = ({
   return (
     <Card>
       {/* 头部 */}
-      <MonitorHeader friendlyName={friendlyName} url={url} tags={tags} raw={raw} currentStateDuration={currentStateDuration} />
+      <MonitorHeader
+        friendlyName={friendlyName}
+        url={url}
+        tags={tags}
+        raw={raw}
+        currentStateDuration={currentStateDuration}
+        type={type}
+      />
       <Card.Content className="flex flex-col gap-4">
         {/* 监控统计指标 */}
         <MonitorStats runningDays={runningDays} createdAt={createdAt} overallUptime={overallUptime} />

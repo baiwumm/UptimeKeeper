@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-10 09:51:07
+ * @LastEditTime: 2026-07-13 11:24:38
  * @Description: 监控故障
  */
 "use client"
@@ -47,7 +47,7 @@ const MonitorIncident: FC<MonitorIncidentPops> = ({ incidents = [] }) => {
                       <Alert.Description>
                         <ul className="mt-1 list-inside list-disc space-y-1 text-xs">
                           <li>开始于 {dayjs.utc(incident.startedAt).format('YYYY-MM-DD HH:mm')}</li>
-                          <li>持续时间: {incident?.duration ? formatTimeAgo(incident?.duration) : '--'}</li>
+                          <li>持续时间: {incident?.duration ? formatTimeAgo(incident?.duration) : '-'}</li>
                         </ul>
                       </Alert.Description>
                     </Alert.Content>

@@ -2,12 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-10 13:41:54
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-10 18:11:36
+ * @LastEditTime: 2026-07-13 16:30:06
  * @Description: 响应时间趋势
  */
-import { Spinner, toast } from "@heroui/react";
+import { ArrowsRotateRight } from '@gravity-ui/icons';
+import { Button, Spinner, Typography } from "@heroui/react";
 import dayjs from 'dayjs'
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, useMemo } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import useSWR from 'swr';
 
@@ -27,20 +28,12 @@ type ResponseTimeChartProps = {
 }
 
 const ResponseTimeChart: FC<ResponseTimeChartProps> = ({ monitorId, days }) => {
-  const { data, error, isLoading, isValidating } = useSWR(
+  const { data, error, isLoading, isValidating, mutate } = useSWR(
     `/api/monitors/${monitorId}/stats/response-time?days=${days}`,
     fetcher,
     { revalidateOnFocus: false, shouldRetryOnError: false }
   );
   const loading = useMemo(() => isLoading || isValidating, [isLoading, isValidating]);
-
-  useEffect(() => {
-    if (!error) return
-
-    toast.danger(
-      error?.message || '获取响应时间统计失败'
-    )
-  }, [error])
   return (
     <div className="relative w-full h-30">
       <ChartContainer config={chartConfig} className="size-full overflow-visible">
@@ -97,11 +90,21 @@ const ResponseTimeChart: FC<ResponseTimeChartProps> = ({ monitorId, days }) => {
           />
         </AreaChart>
       </ChartContainer>
-      {loading && (
+      {loading ? (
         <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[1px] pointer-events-auto">
           <Spinner />
         </div>
-      )}
+      ) : error ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[1px]">
+          <div className="flex flex-col justify-center items-center gap-1">
+            <Button size="sm" variant="danger" onPress={mutate}>
+              <ArrowsRotateRight />
+              重新获取
+            </Button>
+            <Typography type='body-xs' className="text-danger">{error?.message ?? '获取响应时间统计失败'}</Typography>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

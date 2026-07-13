@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-06 17:59:51
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 16:18:34
+ * @LastEditTime: 2026-07-13 16:39:19
  * @Description: 错误页面
  */
 import { Alert, Button } from "@heroui/react";
@@ -20,8 +20,9 @@ const ErrorContent: FC<ErrorContentProps> = ({ refresh }) => {
         <Alert.Content>
           <Alert.Title>获取监控数据失败，请稍后重试</Alert.Title>
           <Alert.Description>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-left">
-              <li>当前无法获取监控数据，</li>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-[13px]">
+              <li>当前无法获取监控数据</li>
+              <li>请检查 UPTIMEROBOT_API_KEY 是否正确</li>
               <li>可能由于网络异常或服务暂时不可用</li>
               <li>请稍后重试</li>
             </ul>

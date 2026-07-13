@@ -2,9 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:30:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 15:32:15
+ * @LastEditTime: 2026-07-13 17:15:28
  * @Description: 监控卡片头部
  */
+import { CircleFill } from "@gravity-ui/icons";
 import { Card, Chip, cn, Link, Tooltip } from "@heroui/react";
 import { type FC } from 'react';
 
@@ -14,21 +15,31 @@ import type { Monitor } from '@/types'
 
 type MonitorHeaderProps = {
   raw: ReturnType<typeof STATUS.raw>;
-} & Pick<Monitor, 'friendlyName' | 'url' | 'tags' | 'currentStateDuration'>
+} & Pick<Monitor, 'friendlyName' | 'url' | 'tags' | 'currentStateDuration' | 'type'>
 
-const MonitorHeader: FC<MonitorHeaderProps> = ({ friendlyName, url, tags, raw, currentStateDuration }) => {
+const MonitorHeader: FC<MonitorHeaderProps> = ({ friendlyName, url, tags, raw, currentStateDuration, type }) => {
   return (
     <Card.Header className="items-start pb-0">
       <Card.Title className="w-full">
         <div className="flex justify-between items-center">
-          <Link
-            className="text-lg font-bold truncate text-default-foreground no-underline hover:underline underline-offset-5"
-            href={url}
-            target="_blank"
-          >
-            {friendlyName}
-            <Link.Icon />
-          </Link>
+          <div className="flex items-center gap-1">
+            <Link
+              className="text-lg font-bold truncate text-default-foreground no-underline hover:underline underline-offset-5"
+              href={url}
+              target="_blank"
+            >
+              {friendlyName}
+              <Link.Icon />
+            </Link>
+            {type && (
+              <>
+                <CircleFill width={6} className="text-accent" />
+                <Chip variant='soft' color='accent' size='sm'>
+                  <Chip.Label>{type}</Chip.Label>
+                </Chip>
+              </>
+            )}
+          </div>
           <Tooltip delay={0}>
             <Tooltip.Trigger aria-label="当前状态持续时间">
               <Chip variant='soft' color={raw?.color}>

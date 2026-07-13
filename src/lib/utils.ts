@@ -1,3 +1,5 @@
+import { toast } from "@heroui/react";
+
 /**
  * @description: swr 请求
  * @param {string} url
@@ -8,7 +10,9 @@ export const fetcher = async (url: string) => {
   const data = await res.json()
 
   if (!res.ok) {
-    throw new Error(data.message || `HTTP ${res.status}`)
+    const msg = data?.message || data?.error || `服务器出错了：HTTP ${res.status}`
+    toast.danger(msg)
+    throw new Error(msg)
   }
 
   return data
