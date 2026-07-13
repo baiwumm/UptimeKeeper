@@ -27,7 +27,6 @@
     "@vercel/analytics": "^2.0.1",
     "dayjs": "^1.11.21",
     "enum-plus": "^3.2.0",
-    "lucide-react": "^1.23.0",
     "lunar-typescript": "^1.8.6",
     "motion": "^12.42.2",
     "next": "16.2.10",
@@ -38,7 +37,6 @@
     "swr": "^2.4.2"
   },
   "devDependencies": {
-    "@iconify/react": "^6.0.2",
     "@release-it/conventional-changelog": "^11.0.1",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.0",

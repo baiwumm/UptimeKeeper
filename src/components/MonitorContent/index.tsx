@@ -2,11 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 15:53:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-09 17:37:11
+ * @LastEditTime: 2026-07-13 09:55:58
  * @Description: 监控列表
  */
 import { Skeleton } from "@heroui/react";
-import { type Dispatch, type FC, type SetStateAction } from 'react';
+import { type FC } from 'react';
 
 import BlurFade from '@/components/BlurFade';
 import EmptyContent from '@/components/EmptyContent';
@@ -20,10 +20,9 @@ type MonitorContentProps = {
   loading: boolean;
   error: any;
   refresh: VoidFunction;
-  setMonitorId: Dispatch<SetStateAction<number | null>>;
 }
 
-const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = false, error, refresh, setMonitorId }) => {
+const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = false, error, refresh }) => {
   // 加载中
   if (loading) {
     return (
@@ -49,7 +48,7 @@ const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = fals
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {monitors.map((monitor) => (
         <BlurFade key={monitor.id} inView lazy fallback={<Skeleton className="h-100 rounded-lg" />}>
-          <MonitorCard {...monitor} onShowResponse={() => setMonitorId(monitor.id)} />
+          <MonitorCard {...monitor} />
         </BlurFade>
       ))}
     </div>

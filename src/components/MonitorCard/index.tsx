@@ -18,11 +18,7 @@ import ResponseTimeContent from './ResponseTimeContent'
 import { STATUS } from '@/enums';
 import type { Monitor } from '@/types'
 
-type MonitorCardProps = {
-  onShowResponse: VoidFunction;
-} & Monitor;
-
-const MonitorCard: FC<MonitorCardProps> = ({
+const MonitorCard: FC<Monitor> = ({
   id,
   friendlyName,
   url,
