@@ -61,13 +61,13 @@
 1. 克隆项目
 
 ```bash
-git clone https://github.com/baiwumm/UptimeKeeper.git
+git clone https://github.com/baiwumm/better-status.git
 ```
 
 2. 安装依赖
 
 ```bash
-cd UptimeKeeper
+cd better-status
 pnpm install
 ```
 
@@ -87,11 +87,11 @@ UPTIMEROBOT_STATUS_API_KEY = "xxx"
 # 网站域名
 NEXT_PUBLIC_APP_URL = 'https://monitor.baiwumm.com'
 # 网站名称
-NEXT_PUBLIC_APP_NAME = 'UptimeKeeper'
+NEXT_PUBLIC_APP_NAME = 'better-status'
 # 网站描述
 NEXT_PUBLIC_APP_DESC = '一个优雅的站点状态监控面板'
 # 网站关键词
-NEXT_PUBLIC_APP_KEYWORDS = 'UptimeKeeper,UptimeRobot, 网站监控, API监控, 服务可用性, 站点状态, 网站宕机检测, 服务器健康监测, 实时监控, 可视化报表'
+NEXT_PUBLIC_APP_KEYWORDS = 'better-status,UptimeRobot, 网站监控, API监控, 服务可用性, 站点状态, 网站宕机检测, 服务器健康监测, 实时监控, 可视化报表'
 # 网站ICP
 NEXT_PUBLIC_SITE_ICP = '粤ICP备2023007649号'
 # 网站公网备案

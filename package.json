@@ -1,5 +1,5 @@
 {
-  "name": "uptime-keeper",
+  "name": "better-status",
   "version": "2.2.0",
   "private": true,
   "author": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/baiwumm/UptimeKeeper"
+    "url": "https://github.com/baiwumm/better-status"
   },
   "scripts": {
     "dev": "next dev",

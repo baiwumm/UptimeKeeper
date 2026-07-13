@@ -61,7 +61,7 @@ export default function RootLayout({
       {/* 引入字体文件 */}
       <head>
         <meta name="version" content={pkg.version} />
-        <meta name="apple-mobile-web-app-title" content="UptimeKeeper" />
+        <meta name="apple-mobile-web-app-title" content="better-status" />
         <link rel="stylesheet" href="https://cdn.baiwumm.com/fonts/MapleMono-CN-Regular/result.css" />
       </head>
       <body>

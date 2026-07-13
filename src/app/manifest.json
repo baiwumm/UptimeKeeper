@@ -1,6 +1,6 @@
 {
-  "name": "UptimeKeeper",
-  "short_name": "UptimeKeeper",
+  "name": "better-status",
+  "short_name": "better-status",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
