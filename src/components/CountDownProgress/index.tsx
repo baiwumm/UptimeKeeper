@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 13:43:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-10 09:54:46
+ * @LastEditTime: 2026-07-13 10:50:53
  * @Description: 工具栏
  */
 import { ArrowsRotateRight, PauseFill, PlayFill } from '@gravity-ui/icons';
 import { Button, ProgressBar, Spinner, toast, Typography } from "@heroui/react";
-import NumberFlow from '@number-flow/react'
-import { type FC, useCallback, useEffect, useState } from 'react';
+import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { getIntervalMinutes } from '@/lib/utils'
 
@@ -74,6 +74,9 @@ const CountDownProgress: FC<CountDownProgressProps> = ({ refresh, loading = fals
     handleRefresh();
     setRemainingSeconds(INTERVAL_SECONDS);
   };
+
+  const minutes = useMemo(() => Math.floor(remainingSeconds / 60), [remainingSeconds]);
+  const seconds = useMemo(() => Math.floor(remainingSeconds % 60), [remainingSeconds]);
   return (
     <div className="space-y-2 shrink-0">
       <div className="flex items-center justify-between gap-2">
@@ -101,16 +104,19 @@ const CountDownProgress: FC<CountDownProgressProps> = ({ refresh, loading = fals
           {' '}
           {lastRefreshTime.toLocaleString()}
         </Typography>
-        <NumberFlow
-          value={loading ? 0 : remainingSeconds}
-          format={{
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          }}
-          prefix='将在 '
-          suffix=' 秒后刷新'
-          className="text-xs text-muted"
-        />
+        <NumberFlowGroup>
+          <div className="flex items-center text-xs text-muted">
+            <NumberFlow value={loading ? 0 : minutes} format={{ minimumIntegerDigits: 2 }} prefix='将在 ' suffix="分" />
+            <NumberFlow
+              value={loading ? 0 : seconds}
+              format={{
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }}
+              suffix='秒 后刷新'
+            />
+          </div>
+        </NumberFlowGroup>
       </div>
     </div>
   )

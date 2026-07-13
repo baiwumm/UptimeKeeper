@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-10 13:41:54
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-10 17:42:05
+ * @LastEditTime: 2026-07-13 10:31:25
  * @Description: 响应时间统计
  */
 import { Tabs } from "@heroui/react";
@@ -11,7 +11,7 @@ import { type FC } from 'react';
 import ResponseTimeChart from './ResponseTimeChart'
 
 const TABS_LIST = [
-  { id: 'DAY', value: 1, label: '近 24 小时' },
+  { id: 'DAY', value: 1, label: '过去 24 小时' },
   { id: 'WEEK', value: 7, label: '近 7 天' },
   { id: 'MONTH', value: 30, label: '近 30 天' },
 ];

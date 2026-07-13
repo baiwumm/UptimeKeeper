@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-09 14:03:57
+ * @LastEditTime: 2026-07-13 10:28:36
  * @Description: 监控状态
  */
 import { cn, Description, Tooltip } from "@heroui/react";
@@ -13,11 +13,14 @@ import { STATUS } from '@/enums';
 import { formatTimeAgo, get, SECTION_CLASSNAME } from '@/lib/utils';
 import type { Monitor } from '@/types'
 
-type MonitorAvailabilityProps = Pick<Monitor, 'status' | 'type' | 'interval' | 'dailyUptimes' | 'totalIncidents' | 'totalIncidentsDuration'>
+type MonitorAvailabilityProps = {
+  raw: ReturnType<typeof STATUS.raw>;
+} & Pick<Monitor, 'status' | 'type' | 'interval' | 'dailyUptimes' | 'totalIncidents' | 'totalIncidentsDuration'>
 
 const DAYS = 30;
 
 const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
+  raw,
   status,
   type,
   interval,
@@ -25,18 +28,17 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
   totalIncidentsDuration = 0,
   dailyUptimes = []
 }) => {
-  const raw = STATUS.raw(status);
   const color = get(raw, 'color', 'accent');
 
   const getBoxColor = useCallback(
     (ratio: number) => {
-      if (status !== STATUS.UP) return 'bg-default';
+      if (status !== STATUS.UP) return raw?.color ? `bg-${raw.color}` : 'bg-default';
       if (!ratio) return 'bg-default';
       if (ratio >= 1) return 'bg-success';
       if (ratio >= 0.90) return 'bg-warning';
       return 'bg-danger';
     },
-    [status]
+    [status, raw]
   );
 
   const renderTip = useCallback(
