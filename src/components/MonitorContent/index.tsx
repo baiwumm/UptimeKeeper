@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 15:53:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-14 17:27:09
+ * @LastEditTime: 2026-07-14 17:45:49
  * @Description: 监控列表
  */
 import { Skeleton } from "@heroui/react";
@@ -10,8 +10,8 @@ import { type FC } from 'react';
 
 import BlurFade from '@/components/BlurFade';
 import EmptyContent from '@/components/EmptyContent';
-import LoadingContent from "@/components/LoadingContent";
 import MonitorCard from '@/components/MonitorCard';
+import SkeletonContent from '@/components/SkeletonContent'
 import type { Monitor } from '@/types'
 
 type MonitorContentProps = {
@@ -23,9 +23,7 @@ const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = fals
   // 加载中
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <LoadingContent />
-      </div>
+      <SkeletonContent />
     )
   }
 
