@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.3.0](https://github.com/baiwumm/better-status/compare/2.2.0...2.3.0) (2026-07-14)
+
+### ✨ Features | 新功能
+
+* 更改项目名称 ([246e649](https://github.com/baiwumm/better-status/commit/246e6493716c14c0abc4ab6efca8fc0fe8526b4e))
+* 功能交互优化 ([3a091a1](https://github.com/baiwumm/better-status/commit/3a091a1692f72ded141dc07892b4f3f2aaad8733))
+* 细节调整 ([ffcf7e7](https://github.com/baiwumm/better-status/commit/ffcf7e7a6005ac94d64a0a5ece2d31fca51a1f94))
+* 新增“响应时间趋势” ([1b06404](https://github.com/baiwumm/better-status/commit/1b06404abc4704d3a861dfe4bb73c6305d72bee3))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 删除 MonitorIncident 组件 ([03351fc](https://github.com/baiwumm/better-status/commit/03351fcd14d1ed287e2c17cd157c1db754476cf4))
+* 删除没用的代码和文件 ([38d6d62](https://github.com/baiwumm/better-status/commit/38d6d621ddb85021753e236729ccb500a3faf52e))
+* 细节调整 ([49f257a](https://github.com/baiwumm/better-status/commit/49f257ac28f790d482a15a5f82594f37b2a72155))
+* 细节调整 ([d824542](https://github.com/baiwumm/better-status/commit/d82454240c586c76a6277e6c97d1a3e4302b90f3))
+
 ## [2.2.0](https://github.com/baiwumm/better-status/compare/2.1.0...2.2.0) (2026-07-09)
 
 ### ✨ Features | 新功能
