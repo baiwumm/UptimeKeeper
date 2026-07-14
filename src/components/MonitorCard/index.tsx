@@ -2,11 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 10:53:36
+ * @LastEditTime: 2026-07-14 15:52:53
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
-import dayjs from 'dayjs';
 import { type FC, useMemo } from 'react';
 
 import MonitorAvailability from './MonitorAvailability';
@@ -25,7 +24,6 @@ const MonitorCard: FC<Monitor> = ({
   status,
   tags,
   type,
-  interval,
   createDateTime,
   currentStateDuration,
   incidents = [],
@@ -36,16 +34,6 @@ const MonitorCard: FC<Monitor> = ({
 }) => {
   // 获取原配置
   const raw = useMemo(() => STATUS.raw(status), [status]);
-  // 创建时间
-  const createdAt = useMemo(
-    () => dayjs(createDateTime),
-    [createDateTime]
-  );
-  // 已运行时间
-  const runningDays = Math.max(
-    0,
-    dayjs().diff(createdAt, 'day')
-  );
   return (
     <Card>
       {/* 头部 */}
@@ -59,17 +47,15 @@ const MonitorCard: FC<Monitor> = ({
       />
       <Card.Content className="flex flex-col gap-4">
         {/* 监控统计指标 */}
-        <MonitorStats runningDays={runningDays} createdAt={createdAt} overallUptime={overallUptime} />
-        {/* 监控状态 */}
-        <MonitorAvailability
-          raw={raw}
-          status={status}
-          type={type}
-          interval={interval}
+        <MonitorStats
+          createDateTime={createDateTime}
+          overallUptime={overallUptime}
           totalIncidents={totalIncidents}
           totalIncidentsDuration={totalIncidentsDuration}
-          dailyUptimes={dailyUptimes}
+          incidents={incidents}
         />
+        {/* 监控状态 */}
+        <MonitorAvailability raw={raw} status={status} dailyUptimes={dailyUptimes} />
         {/* 响应时间统计 */}
         <ResponseTimeContent monitorId={id} />
         {/* 监控故障 */}

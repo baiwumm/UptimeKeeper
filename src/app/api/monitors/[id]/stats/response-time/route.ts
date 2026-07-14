@@ -30,8 +30,7 @@ export async function GET(
       .utc()
       .subtract(days, 'day')
       .format('YYYY-MM-DDTHH:mm:ss[Z]')
-    console.log('id', id)
-    console.log(111, startTime)
+
     const endTime = dayjs()
       .utc()
       .format('YYYY-MM-DDTHH:mm:ss[Z]')

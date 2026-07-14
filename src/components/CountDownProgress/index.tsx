@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 13:43:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 17:03:13
+ * @LastEditTime: 2026-07-14 15:19:19
  * @Description: 工具栏
  */
 import { ArrowsRotateRight, HourglassStart, PauseFill, PlayFill } from '@gravity-ui/icons';
@@ -64,6 +64,7 @@ const CountDownProgress: FC<CountDownProgressProps> = ({ refresh, loading = fals
       setRemainingSeconds((prev) => {
         if (prev <= 1) {
           handleRefresh();
+          setCoolDownSeconds(COOLDOWN_SECONDS);
           return INTERVAL_SECONDS;
         }
 

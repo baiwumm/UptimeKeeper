@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-12 08:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 11:24:38
+ * @LastEditTime: 2026-07-14 15:14:52
  * @Description: 监控故障
  */
 "use client"
@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'
 import { type FC, useState } from 'react';
 
-import { formatTimeAgo, SECTION_CLASSNAME } from '@/lib/utils';
+import { formatTimeAgo } from '@/lib/utils';
 import type { Monitor } from '@/types'
 
 dayjs.extend(utc)
@@ -26,9 +26,9 @@ const MonitorIncident: FC<MonitorIncidentPops> = ({ incidents = [] }) => {
   return (
     <Popover isOpen={open} onOpenChange={setOpen}>
       <Popover.Trigger>
-        <div className={cn(SECTION_CLASSNAME, 'cursor-pointer flex justify-between items-center')} >
-          <span>故障记录</span>
-          <ChevronUp className={cn('transition-transform', open ? 'rotate-180' : '')} />
+        <div className='rounded-xl p-4 bg-surface-secondary cursor-pointer flex justify-between items-center transition-transform hover:bg-default' >
+          <Description>故障记录</Description>
+          <ChevronUp className={cn('transition-transform text-muted', open ? 'rotate-180' : '')} />
         </div>
       </Popover.Trigger>
       <Popover.Content className="w-(--trigger-width)">

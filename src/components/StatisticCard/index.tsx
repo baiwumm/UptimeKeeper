@@ -2,11 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-05 18:01:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 16:32:47
+ * @LastEditTime: 2026-07-14 15:18:09
  * @Description: 统计卡片
  */
 import { ChartLineArrowUp, CircleFill } from "@gravity-ui/icons";
-import { Card, Chip, cn, Description, Spinner } from "@heroui/react";
+import { Card, Chip, cn, Description, Meter, Spinner } from "@heroui/react";
 import NumberFlow from '@number-flow/react'
 import { type FC, useMemo } from 'react';
 
@@ -68,7 +68,7 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, l
         <Card.Header>
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1">
-              <Card.Description>系统可用率</Card.Description>
+              <Card.Description>总体可用率</Card.Description>
               {loading ? <Spinner size="sm" /> : overallUptime ? (
                 <Chip variant="soft" size='sm' color={overallUptimeChip.color}>
                   <CircleFill width={6} />
@@ -93,7 +93,11 @@ const StatisticCard: FC<StatisticCardProps> = ({ statistics, uptimeStatistics, l
           />
         </Card.Content>
         <Card.Footer>
-          <Description>最近 30 天</Description>
+          <Meter color={overallUptimeChip.color} size="sm" maxValue={1} value={loading ? 0 : overallUptime}>
+            <Meter.Track>
+              <Meter.Fill />
+            </Meter.Track>
+          </Meter>
         </Card.Footer>
       </Card>
     </div>
