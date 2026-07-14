@@ -2,17 +2,20 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:44:18
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-14 16:08:59
+ * @LastEditTime: 2026-07-14 16:49:52
  * @Description: 监控统计指标
  */
 import { CircleCheckFill, ClockFill, TriangleExclamationFill } from "@gravity-ui/icons";
 import { Alert, Button, cn, Description, Modal, Typography, useOverlayState } from "@heroui/react";
 import NumberFlow from '@number-flow/react'
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc'
 import { type FC, useEffect, useState } from 'react';
 
 import { formatTimeAgo, SECTION_CLASSNAME } from '@/lib/utils';
 import type { Monitor } from '@/types'
+
+dayjs.extend(utc)
 
 type MonitorStatsProps = Pick<Monitor, 'overallUptime' | 'totalIncidents' | 'totalIncidentsDuration' | 'createDateTime' | 'incidents'>;
 

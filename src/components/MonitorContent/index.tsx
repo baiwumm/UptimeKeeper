@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 15:53:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 16:38:47
+ * @LastEditTime: 2026-07-14 16:42:41
  * @Description: 监控列表
  */
 import { Skeleton } from "@heroui/react";
@@ -21,7 +21,7 @@ type MonitorContentProps = {
 
 const MonitorContent: FC<MonitorContentProps> = ({ monitors = [], loading = false }) => {
   // 加载中
-  if (loading) {
+  if (!loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <LoadingContent />
