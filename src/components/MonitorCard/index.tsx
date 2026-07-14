@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-14 15:52:53
+ * @LastEditTime: 2026-07-14 16:12:13
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
@@ -10,7 +10,6 @@ import { type FC, useMemo } from 'react';
 
 import MonitorAvailability from './MonitorAvailability';
 import MonitorHeader from './MonitorHeader';
-import MonitorIncident from './MonitorIncident';
 import MonitorStats from './MonitorStats';
 import ResponseTimeContent from './ResponseTimeContent'
 
@@ -58,8 +57,6 @@ const MonitorCard: FC<Monitor> = ({
         <MonitorAvailability raw={raw} status={status} dailyUptimes={dailyUptimes} />
         {/* 响应时间统计 */}
         <ResponseTimeContent monitorId={id} />
-        {/* 监控故障 */}
-        <MonitorIncident incidents={incidents} />
       </Card.Content>
     </Card>
   )
