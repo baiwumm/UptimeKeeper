@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.3.1](https://github.com/baiwumm/better-status/compare/2.3.0...2.3.1) (2026-07-15)
+
+### ✨ Features | 新功能
+
+* 细节优化 ([bce41ae](https://github.com/baiwumm/better-status/commit/bce41ae6601672a34bbb4e9b748f5a77e77c2ff5))
+* 新增 SkeletonContent 骨架屏加载样式 ([6427d7b](https://github.com/baiwumm/better-status/commit/6427d7b07c46cda29fcb0a3d9f42883ed4f144ed))
+* update README.md ([abb6b56](https://github.com/baiwumm/better-status/commit/abb6b56730e05b5bda67498ce9a157eda7ed49ea))
+
+### 💄 Styles | 风格
+
+* **EmptyContent:** 优化 UI 展示 ([6e9002d](https://github.com/baiwumm/better-status/commit/6e9002dc601a8a20596f642349031a4f7d115333))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 删除 LoadingContent 组件 ([9c9b04c](https://github.com/baiwumm/better-status/commit/9c9b04ce52907414e7526854d35154e07134bed1))
+
+### 👷‍ Build System | 构建
+
+* 去掉测试代码 ([819aefd](https://github.com/baiwumm/better-status/commit/819aefd5ca6b72733be80a284f3294c9563b2876))
+* 修复 dayjs utc 插件没引入导致的报错 ([9cd9867](https://github.com/baiwumm/better-status/commit/9cd9867e245c2c6bba96f43fdc7b9184c8e6bdeb))
+
 ## [2.3.0](https://github.com/baiwumm/better-status/compare/2.2.0...2.3.0) (2026-07-14)
 
 ### ✨ Features | 新功能
