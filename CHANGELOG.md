@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.2](https://github.com/baiwumm/better-status/compare/2.3.1...2.3.2) (2026-07-15)
+
+### ⚡ Performance Improvements | 性能优化
+
+* 细节调整 ([c9afea0](https://github.com/baiwumm/better-status/commit/c9afea0951cca8d88acb91657afa176f8f4c9fd5))
+
 ## [2.3.1](https://github.com/baiwumm/better-status/compare/2.3.0...2.3.1) (2026-07-15)
 
 ### ✨ Features | 新功能
