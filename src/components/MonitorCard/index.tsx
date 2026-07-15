@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 09:52:46
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-14 16:12:13
+ * @LastEditTime: 2026-07-15 09:32:50
  * @Description: 监控卡片
  */
 import { Card } from "@heroui/react";
@@ -54,7 +54,7 @@ const MonitorCard: FC<Monitor> = ({
           incidents={incidents}
         />
         {/* 监控状态 */}
-        <MonitorAvailability raw={raw} status={status} dailyUptimes={dailyUptimes} />
+        <MonitorAvailability raw={raw} status={status} dailyUptimes={dailyUptimes} createDateTime={createDateTime} />
         {/* 响应时间统计 */}
         <ResponseTimeContent monitorId={id} />
       </Card.Content>

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:30:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-13 17:15:28
+ * @LastEditTime: 2026-07-15 09:18:37
  * @Description: 监控卡片头部
  */
 import { CircleFill } from "@gravity-ui/icons";
@@ -48,7 +48,7 @@ const MonitorHeader: FC<MonitorHeaderProps> = ({ friendlyName, url, tags, raw, c
                     "relative flex size-2.5 shrink-0 rounded-full",
                     "before:absolute before:inset-0 before:animate-ping before:rounded-full before:bg-inherit",
                     "after:absolute after:inset-0.5 after:rounded-full after:bg-inherit",
-                    `bg-${raw?.color ?? 'default'}`
+                    raw?.bgColor ?? 'bg-default'
                   )}
                 />
                 <Chip.Label>{raw?.label}</Chip.Label>

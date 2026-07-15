@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-14 16:26:21
+ * @LastEditTime: 2026-07-15 09:49:45
  * @Description: 监控状态
  */
 import { Calendar, CircleFill } from '@gravity-ui/icons';
@@ -17,7 +17,7 @@ import type { Monitor } from '@/types'
 
 type MonitorAvailabilityProps = {
   raw: ReturnType<typeof STATUS.raw>;
-} & Pick<Monitor, 'status' | 'dailyUptimes'>
+} & Pick<Monitor, 'status' | 'dailyUptimes' | 'createDateTime'>
 
 const DAYS = 30;
 
@@ -42,26 +42,33 @@ const uptimeStatuses = [
 const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
   raw,
   status,
-  dailyUptimes = []
+  dailyUptimes = [],
+  createDateTime
 }) => {
   const getBoxColor = useCallback(
-    (ratio: number) => {
-      if (status !== STATUS.UP) return raw?.color ? raw.color : 'default';
-      if (!ratio) return 'default';
+    (ratio: number, time: string) => {
+      if (dayjs(time).isBefore(dayjs(createDateTime), 'day')) {
+        return 'scrollbar'
+      }
+      if (status !== STATUS.UP) return get(raw, 'color', 'scrollbar');
+      if (!ratio) return 'scrollbar';
       if (ratio >= 1) return 'success';
       if (ratio >= 0.90) return 'warning';
       return 'danger';
     },
-    [status, raw]
+    [status, raw, createDateTime]
   );
 
   const renderTip = useCallback(
-    (ratio: number) => {
+    (ratio: number, time: string) => {
+      if (dayjs(time).isBefore(dayjs(createDateTime), 'day')) {
+        return '暂无数据'
+      }
       if (status !== STATUS.UP) return get(raw, 'label', '不可用');
       if (!ratio) return '无数据';
       return `可用率: ${(ratio * 100).toFixed(2)}%`;
     },
-    [status, raw]
+    [status, raw, createDateTime]
   );
   return (
     <div className={cn(SECTION_CLASSNAME, 'space-y-3')}>
@@ -93,10 +100,10 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
           <Tooltip key={d.time} delay={0}>
             <Tooltip.Trigger>
               <motion.div
-                className={cn('aspect-square rounded-full', getBoxColor(Number(d.value)))}
+                className='aspect-square rounded-full'
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                style={{ backgroundColor: `var(--${getBoxColor(Number(d.value))})` }}
+                style={{ backgroundColor: `var(--${getBoxColor(d.value, d.time)})` }}
               />
             </Tooltip.Trigger>
             <Tooltip.Content showArrow>
@@ -104,8 +111,8 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
               <div className="text-xs space-y-1">
                 <div className="font-semibold">{d.time}</div>
                 <div className="flex items-center gap-1">
-                  <CircleFill width={8} style={{ color: `var(--${getBoxColor(Number(d.value))})` }} />
-                  <Description>{renderTip(d.value)}</Description>
+                  <CircleFill width={8} style={{ color: `var(--${getBoxColor(d.value, d.time)})` }} />
+                  <Description>{renderTip(d.value, d.time)}</Description>
                 </div>
               </div>
             </Tooltip.Content>
@@ -115,8 +122,8 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
 
       {/* Footer */}
       <div className="flex justify-between items-center gap-4">
-        <Description>{dayjs().subtract(30, 'day').format('MM-DD')}</Description>
-        <Description>{dayjs().subtract(1, 'day').format('MM-DD')}</Description>
+        <Description>{dayjs().subtract(29, 'day').format('MM-DD')}</Description>
+        <Description>{dayjs().format('MM-DD')}</Description>
       </div>
     </div>
   );

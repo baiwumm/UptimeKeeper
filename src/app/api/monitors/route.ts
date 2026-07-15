@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:37:41
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-09 10:13:18
+ * @LastEditTime: 2026-07-15 09:40:35
  * @Description: 请求站点列表
  */
 import dayjs from 'dayjs'
@@ -44,8 +44,8 @@ function calcDailyUptimes(incidents: Incident[]) {
   const dailyMap = new Map<string, number>()
   const daySeconds = DAY_SECONDS
 
-  // 初始化过去30天的日期（从昨天开始往前推30天）
-  for (let i = 1; i <= 30; i++) {
+  // 初始化过去30天的日期
+  for (let i = 0; i < 30; i++) {
     const date = dayjs().subtract(i, 'day')
     const dateStr = date.format('YYYY-MM-DD')
     dailyMap.set(dateStr, 0)

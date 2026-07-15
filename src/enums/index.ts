@@ -22,11 +22,11 @@ export const THEME_MODE = Enum({
  * @description: 站点状态
  */
 export const STATUS = Enum({
-  UP: { value: 'UP', label: '在线', color: 'success' },
-  DOWN: { value: 'DOWN', label: '已离线', color: 'danger' },
-  LOOKS_DOWN: { value: 'LOOKS_DOWN', label: '疑似宕机', color: 'danger' },
-  PAUSED: { value: 'PAUSED', label: '已暂停', color: 'warning' },
-  STARTED: { value: 'STARTED', label: '准备中', color: 'warning' },
+  UP: { value: 'UP', label: '在线', color: 'success', textColor: 'text-success', bgColor: 'bg-success' },
+  DOWN: { value: 'DOWN', label: '已离线', color: 'danger', textColor: 'text-danger', bgColor: 'bg-danger' },
+  LOOKS_DOWN: { value: 'LOOKS_DOWN', label: '疑似宕机', color: 'danger', textColor: 'text-danger', bgColor: 'bg-danger' },
+  PAUSED: { value: 'PAUSED', label: '已暂停', color: 'warning', textColor: 'text-warning', bgColor: 'bg-warning' },
+  STARTED: { value: 'STARTED', label: '准备中', color: 'warning', textColor: 'text-warning', bgColor: 'bg-warning' },
 });
 
 /**

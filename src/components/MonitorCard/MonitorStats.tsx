@@ -2,11 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:44:18
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-14 16:49:52
+ * @LastEditTime: 2026-07-15 10:00:20
  * @Description: 监控统计指标
  */
 import { CircleCheckFill, ClockFill, TriangleExclamationFill } from "@gravity-ui/icons";
-import { Alert, Button, cn, Description, Modal, Typography, useOverlayState } from "@heroui/react";
+import { Alert, Button, cn, Description, Modal, Surface, Typography, useOverlayState } from "@heroui/react";
 import NumberFlow from '@number-flow/react'
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'
@@ -102,7 +102,7 @@ const MonitorStats: FC<MonitorStatsProps> = ({
               duration: 2000,
               easing: 'ease-out',
             }}
-            className={cn("text-lg font-bold", totalIncidents && 'cursor-pointer text-danger')}
+            className={cn("text-lg font-bold w-fit", totalIncidents && 'cursor-pointer text-danger')}
             onClick={handleClickIncident}
           />
           <Description>{totalIncidents > 0 ? `总计${formatTimeAgo(totalIncidentsDuration)}` : '运行正常'}</Description>
@@ -119,9 +119,9 @@ const MonitorStats: FC<MonitorStatsProps> = ({
               <Modal.Heading>故障记录</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
-              <div className="space-y-2">
+              <Surface className="space-y-3 rounded-2xl p-4" variant="secondary">
                 {incidents.map(incident => (
-                  <Alert key={incident.id} status="danger" className="border border-danger">
+                  <Alert key={incident.id} status="danger">
                     <Alert.Indicator>
                       <TriangleExclamationFill />
                     </Alert.Indicator>
@@ -136,7 +136,7 @@ const MonitorStats: FC<MonitorStatsProps> = ({
                     </Alert.Content>
                   </Alert>
                 ))}
-              </div>
+              </Surface>
             </Modal.Body>
             <Modal.Footer>
               <Button className="w-full" slot="close">
