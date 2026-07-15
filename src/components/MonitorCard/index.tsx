@@ -29,7 +29,8 @@ const MonitorCard: FC<Monitor> = ({
   overallUptime = 0,
   totalIncidents = 0,
   totalIncidentsDuration = 0,
-  dailyUptimes = []
+  dailyUptimes = [],
+  interval = 0
 }) => {
   // 获取原配置
   const raw = useMemo(() => STATUS.raw(status), [status]);
@@ -43,6 +44,7 @@ const MonitorCard: FC<Monitor> = ({
         raw={raw}
         currentStateDuration={currentStateDuration}
         type={type}
+        interval={interval}
       />
       <Card.Content className="flex flex-col gap-4">
         {/* 监控统计指标 */}

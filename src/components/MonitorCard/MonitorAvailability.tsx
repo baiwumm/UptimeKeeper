@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-07 17:28:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-15 09:49:45
+ * @LastEditTime: 2026-07-15 14:26:28
  * @Description: 监控状态
  */
 import { Calendar, CircleFill } from '@gravity-ui/icons';
@@ -123,7 +123,7 @@ const MonitorAvailability: FC<MonitorAvailabilityProps> = ({
       {/* Footer */}
       <div className="flex justify-between items-center gap-4">
         <Description>{dayjs().subtract(29, 'day').format('MM-DD')}</Description>
-        <Description>{dayjs().format('MM-DD')}</Description>
+        <Description>今日</Description>
       </div>
     </div>
   );

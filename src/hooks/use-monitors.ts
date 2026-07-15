@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-07-08 10:56:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-10 16:23:08
+ * @LastEditTime: 2026-07-15 14:02:06
  * @Description: 获取站点列表
  */
 import { useMemo } from 'react'
@@ -30,11 +30,6 @@ const normalStatus = new Set<Status>([
   STATUS.UP,
   STATUS.STARTED,
 ])
-// 异常状态
-const abnormalStatus = new Set<Status>([
-  STATUS.DOWN,
-  STATUS.LOOKS_DOWN
-])
 
 export function useMonitors(): MonitorResult {
   const {
@@ -53,13 +48,10 @@ export function useMonitors(): MonitorResult {
 
   const statistics = useMemo(() => {
     let normal = 0
-    let abnormal = 0
 
     for (const m of monitors) {
       if (normalStatus.has(m.status)) {
         normal++
-      } else if (abnormalStatus.has(m.status)) {
-        abnormal++
       }
     }
 
@@ -68,7 +60,7 @@ export function useMonitors(): MonitorResult {
     return {
       total,
       normal,
-      abnormal,
+      abnormal: total - normal,
     }
   }, [monitors])
   return {

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-01-09 10:30:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-15 09:18:37
+ * @LastEditTime: 2026-07-15 14:24:41
  * @Description: 监控卡片头部
  */
 import { CircleFill } from "@gravity-ui/icons";
@@ -15,9 +15,9 @@ import type { Monitor } from '@/types'
 
 type MonitorHeaderProps = {
   raw: ReturnType<typeof STATUS.raw>;
-} & Pick<Monitor, 'friendlyName' | 'url' | 'tags' | 'currentStateDuration' | 'type'>
+} & Pick<Monitor, 'friendlyName' | 'url' | 'tags' | 'currentStateDuration' | 'type' | 'interval'>
 
-const MonitorHeader: FC<MonitorHeaderProps> = ({ friendlyName, url, tags, raw, currentStateDuration, type }) => {
+const MonitorHeader: FC<MonitorHeaderProps> = ({ friendlyName, url, tags, raw, currentStateDuration, type, interval = 0 }) => {
   return (
     <Card.Header className="items-start pb-0">
       <Card.Title className="w-full">
@@ -31,13 +31,32 @@ const MonitorHeader: FC<MonitorHeaderProps> = ({ friendlyName, url, tags, raw, c
               {friendlyName}
               <Link.Icon />
             </Link>
+            <CircleFill width={6} className="text-accent" />
             {type && (
-              <>
-                <CircleFill width={6} className="text-accent" />
-                <Chip variant='soft' color='accent' size='sm'>
-                  <Chip.Label>{type}</Chip.Label>
-                </Chip>
-              </>
+              <Tooltip delay={0}>
+                <Tooltip.Trigger aria-label="监控类型">
+                  <Chip variant='soft' color='accent' size='sm'>
+                    <Chip.Label>{type}</Chip.Label>
+                  </Chip>
+                </Tooltip.Trigger>
+                <Tooltip.Content showArrow>
+                  <Tooltip.Arrow />
+                  监控类型
+                </Tooltip.Content>
+              </Tooltip>
+            )}
+            {interval && (
+              <Tooltip delay={0}>
+                <Tooltip.Trigger aria-label="检测频率">
+                  <Chip variant='soft' color='accent' size='sm'>
+                    <Chip.Label>{formatTimeAgo(interval)}</Chip.Label>
+                  </Chip>
+                </Tooltip.Trigger>
+                <Tooltip.Content showArrow>
+                  <Tooltip.Arrow />
+                  检测频率
+                </Tooltip.Content>
+              </Tooltip>
             )}
           </div>
           <Tooltip delay={0}>
