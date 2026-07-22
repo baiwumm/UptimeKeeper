@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2025-09-10 15:24:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-07-08 14:34:01
+ * @LastEditTime: 2026-07-22 18:12:40
  * @Description: 布局文件
  */
 import { Toast } from '@heroui/react';
@@ -64,15 +64,15 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="better-status" />
         <link rel="stylesheet" href="https://cdn.baiwumm.com/fonts/MapleMono-CN-Regular/result.css" />
       </head>
-      <body>
+      <body className="bg-background text-foreground">
         {/* Vercel 统计 */}
         <Analytics />
         <ThemeProvider attribute="class" enableSystem={false}>
           <FullLoading>
             {children}
-            <Toast.Provider placement="top" />
-            <BackTop />
           </FullLoading>
+          <Toast.Provider placement="top" />
+          <BackTop />
         </ThemeProvider>
       </body>
     </html>
