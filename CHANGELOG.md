@@ -1,5 +1,7 @@
 # Changelog
 
+## [2.3.3](https://github.com/baiwumm/better-status/compare/2.3.2...2.3.3) (2026-07-22)
+
 ## [2.3.2](https://github.com/baiwumm/better-status/compare/2.3.1...2.3.2) (2026-07-15)
 
 ### ⚡ Performance Improvements | 性能优化
