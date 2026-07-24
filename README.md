@@ -124,6 +124,10 @@ pnpm dev
 
 ## ⭐ Star History
 
-<div align="center">
-  <img src="https://api.star-history.com/svg?repos=baiwumm/better-status&type=Date" alt="Star History Chart" width="600"/>
-</div>
+<a href="https://www.star-history.com/?repos=baiwumm%2Fbetter-status&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=baiwumm/better-status&type=date&theme=dark&legend=top-left&sealed_token=c0KyPLz5R9BJB5n0COhuHyiZMrPzRrG_eYVhwm8ShH_IJT_3pktc2U5VAmEl6mFNW3-NxjbX_PQZki3u7NEUD0rAhB_9lscsqm9slYvJuIuAFih1z_ePvA" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=baiwumm/better-status&type=date&legend=top-left&sealed_token=c0KyPLz5R9BJB5n0COhuHyiZMrPzRrG_eYVhwm8ShH_IJT_3pktc2U5VAmEl6mFNW3-NxjbX_PQZki3u7NEUD0rAhB_9lscsqm9slYvJuIuAFih1z_ePvA" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=baiwumm/better-status&type=date&legend=top-left&sealed_token=c0KyPLz5R9BJB5n0COhuHyiZMrPzRrG_eYVhwm8ShH_IJT_3pktc2U5VAmEl6mFNW3-NxjbX_PQZki3u7NEUD0rAhB_9lscsqm9slYvJuIuAFih1z_ePvA" />
+ </picture>
+</a>
